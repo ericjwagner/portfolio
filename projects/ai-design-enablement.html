@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI-Powered Design Enablement — Eric Wagner</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #fff;
+      color: #1a1a1a;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ── Header ── */
+    header {
+      padding: 64px 0 40px;
+    }
+
+    .back-link {
+      display: inline-block;
+      font-size: 13px;
+      color: #aaa;
+      text-decoration: none;
+      margin-bottom: 32px;
+      transition: color 0.15s;
+    }
+
+    .back-link:hover { color: #1a1a1a; }
+
+    .back-link::before { content: "← "; }
+
+    header h1 {
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      margin-bottom: 12px;
+    }
+
+    .meta {
+      font-size: 13px;
+      color: #6b6b6b;
+    }
+
+    /* ── Thumbnail ── */
+    .thumbnail {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #f4f4f4;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-size: 13px;
+      margin: 40px 0;
+    }
+
+    /* ── Case study body ── */
+    .case-study {
+      max-width: 640px;
+    }
+
+    .case-study section {
+      margin-bottom: 48px;
+    }
+
+    .case-study h2 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #aaa;
+      margin-bottom: 12px;
+    }
+
+    .case-study p {
+      font-size: 15px;
+      color: #3a3a3a;
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    .case-study p:last-child { margin-bottom: 0; }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 80px;
+      padding-bottom: 48px;
+      display: flex;
+      gap: 20px;
+      border-top: 1px solid #e8e8e8;
+      padding-top: 32px;
+    }
+
+    footer a {
+      font-size: 13px;
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    footer a:hover { color: #1a1a1a; }
+
+    @media (max-width: 600px) {
+      header { padding: 40px 0 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <a class="back-link" href="../index.html">Eric Wagner</a>
+    <h1>AI-Powered Design Enablement</h1>
+    <p class="meta">Senior UX Designer &mdash; led 2 designers</p>
+  </header>
+
+  <div class="thumbnail">Thumbnail</div>
+
+  <div class="case-study">
+
+    <section>
+      <h2>Overview</h2>
+      <p>
+        Our team faced a compounding challenge: a TypeScript migration and a full design system migration running simultaneously, with minimal designer bandwidth to support either. Engineering needed design guidance at scale, but there weren't enough hours in the day to consult on every component decision.
+      </p>
+    </section>
+
+    <section>
+      <h2>What I Did</h2>
+      <p>
+        I created a <code>designrules.md</code> — a structured document encoding the design rules for our product suite — and fed it into AI coding tools like Cursor. This gave developers the ability to generate design-compliant components without pulling a designer into every decision.
+      </p>
+      <p>
+        I also built a historical data roll-forward process that dramatically reduced the time and complexity of migrating existing components to the new design system, turning what had been a slow, error-prone handoff into a repeatable, fast workflow.
+      </p>
+    </section>
+
+    <section>
+      <h2>Impact</h2>
+      <p>
+        Recurring design consult requests — which ranged from 5 minutes to 2 hours each — were eliminated. Developers could make confident design decisions independently, and designers were freed to focus on harder, higher-value problems. One designer's expertise effectively scaled across the entire engineering team.
+      </p>
+    </section>
+
+    <section>
+      <h2>Role</h2>
+      <p>
+        Senior UX Designer. Led a team of 2 designers. Part of a multi-year design enablement effort aimed at tightening the loop between design and engineering.
+      </p>
+    </section>
+
+  </div>
+
+  <footer>
+    <a href="mailto:ericjwag@gmail.com">Email</a>
+    <a href="https://github.com/ericjwagner" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://linkedin.com/in/" target="_blank" rel="noopener">LinkedIn</a>
+  </footer>
+
+</div>
+
+</body>
+</html>
