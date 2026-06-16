@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eric Wagner</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #fff;
+      color: #1a1a1a;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ── Header ── */
+    header {
+      padding: 64px 0 40px;
+    }
+
+    header h1 {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+
+    header p {
+      margin-top: 6px;
+      color: #6b6b6b;
+      font-size: 14px;
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      gap: 2px;
+      border-bottom: 1px solid #e8e8e8;
+      margin-bottom: 40px;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-family: inherit;
+      color: #6b6b6b;
+      padding: 10px 14px;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.15s;
+    }
+
+    nav button:hover { color: #1a1a1a; }
+
+    nav button.active {
+      color: #1a1a1a;
+      border-bottom-color: #1a1a1a;
+      font-weight: 500;
+    }
+
+    /* ── Sections ── */
+    .section { display: none; }
+    .section.active { display: block; }
+
+    /* ── Projects grid ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .project-card {
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .project-card:hover {
+      border-color: #ccc;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .project-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #f4f4f4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-size: 13px;
+      overflow: hidden;
+    }
+
+    .project-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .project-info {
+      padding: 14px 16px 16px;
+    }
+
+    .project-info h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .project-info p {
+      font-size: 13px;
+      color: #6b6b6b;
+      line-height: 1.5;
+    }
+
+    /* ── Random ── */
+    .link-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .link-list li {
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .link-list li:first-child {
+      border-top: 1px solid #e8e8e8;
+    }
+
+    .link-list a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 4px;
+      text-decoration: none;
+      color: #1a1a1a;
+      font-size: 14px;
+      transition: color 0.15s;
+    }
+
+    .link-list a:hover { color: #555; }
+
+    .link-list .link-meta {
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    /* ── About ── */
+    .about-body {
+      max-width: 560px;
+    }
+
+    .about-body p {
+      font-size: 15px;
+      color: #3a3a3a;
+      margin-bottom: 20px;
+      line-height: 1.75;
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 80px;
+      padding-bottom: 48px;
+      display: flex;
+      gap: 20px;
+    }
+
+    footer a {
+      font-size: 13px;
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    footer a:hover { color: #1a1a1a; }
+
+    @media (max-width: 600px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      header { padding: 40px 0 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <h1>Eric Wagner</h1>
+    <p>I design products customers love, then build AI systems so the team can ship more of them.</p>
+  </header>
+
+  <nav>
+    <button class="active" data-section="projects">Projects</button>
+    <button data-section="random">Random</button>
+    <button data-section="about">About</button>
+  </nav>
+
+  <!-- Projects -->
+  <section id="projects" class="section active">
+    <div class="projects-grid">
+
+      <a class="project-card" href="#">
+        <div class="project-thumb">
+          <!-- <img src="images/project-1.png" alt="Project one" /> -->
+          Thumbnail
+        </div>
+        <div class="project-info">
+          <h3>Project Title</h3>
+          <p>Short description of the project and what problem it solved.</p>
+        </div>
+      </a>
+
+      <a class="project-card" href="#">
+        <div class="project-thumb">Thumbnail</div>
+        <div class="project-info">
+          <h3>Project Title</h3>
+          <p>Short description of the project and what problem it solved.</p>
+        </div>
+      </a>
+
+      <a class="project-card" href="#">
+        <div class="project-thumb">Thumbnail</div>
+        <div class="project-info">
+          <h3>Project Title</h3>
+          <p>Short description of the project and what problem it solved.</p>
+        </div>
+      </a>
+
+      <a class="project-card" href="#">
+        <div class="project-thumb">Thumbnail</div>
+        <div class="project-info">
+          <h3>Project Title</h3>
+          <p>Short description of the project and what problem it solved.</p>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Random -->
+  <section id="random" class="section">
+    <ul class="link-list">
+      <li>
+        <a href="#" target="_blank" rel="noopener">
+          Link title
+          <span class="link-meta">category</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" target="_blank" rel="noopener">
+          Link title
+          <span class="link-meta">category</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" target="_blank" rel="noopener">
+          Link title
+          <span class="link-meta">category</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section">
+    <div class="about-body">
+      <p>
+        I'm Eric Wagner, a UX designer focused on B2B SaaS. I spend my days untangling complicated workflows and turning them into experiences that feel obvious in hindsight.
+      </p>
+      <p>
+        I believe the best design is the kind people don't notice — it just works. That means talking to users early, questioning assumptions often, and sweating the details until they stop mattering.
+      </p>
+      <p>
+        Outside of work I [add something personal here].
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <a href="mailto:ericjwag@gmail.com">Email</a>
+    <a href="https://github.com/ericjwagner" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://linkedin.com/in/" target="_blank" rel="noopener">LinkedIn</a>
+  </footer>
+
+</div>
+
+<script>
+  const buttons = document.querySelectorAll('nav button');
+  const sections = document.querySelectorAll('.section');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.section).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
