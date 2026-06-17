@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Well-being Dashboard Redesign — Eric Wagner</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #fff;
+      color: #1a1a1a;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    header { padding: 64px 0 40px; }
+
+    .back-link {
+      display: inline-block;
+      font-size: 13px;
+      color: #aaa;
+      text-decoration: none;
+      margin-bottom: 32px;
+      transition: color 0.15s;
+    }
+
+    .back-link:hover { color: #1a1a1a; }
+    .back-link::before { content: "← "; }
+
+    header h1 {
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      margin-bottom: 12px;
+    }
+
+    .meta { font-size: 13px; color: #6b6b6b; }
+
+    .thumbnail {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 6px;
+      background: #f4f4f4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-size: 13px;
+      margin: 40px 0;
+    }
+
+    .case-study { max-width: 640px; }
+    .case-study section { margin-bottom: 48px; }
+
+    .case-study h2 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #aaa;
+      margin-bottom: 12px;
+    }
+
+    .case-study h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      margin-top: 28px;
+    }
+
+    .case-study h3:first-child { margin-top: 0; }
+
+    .case-study p {
+      font-size: 15px;
+      color: #3a3a3a;
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    .case-study p:last-child { margin-bottom: 0; }
+
+    .case-study ul {
+      margin: 0 0 14px 20px;
+      color: #3a3a3a;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .case-study ul li { margin-bottom: 6px; }
+
+    .stat-callout {
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+
+    .stat-callout .stat-number {
+      font-size: 22px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    .stat-callout p {
+      font-size: 13px;
+      color: #6b6b6b;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .design-decisions {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 8px;
+    }
+
+    .decision-item {
+      border-bottom: 1px solid #e8e8e8;
+      padding: 16px 0;
+    }
+
+    .decision-item:first-child { border-top: 1px solid #e8e8e8; }
+
+    .decision-item h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 6px;
+    }
+
+    .decision-item p {
+      font-size: 13px;
+      color: #6b6b6b;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding: 32px 0 48px;
+      display: flex;
+      gap: 20px;
+      border-top: 1px solid #e8e8e8;
+    }
+
+    footer a {
+      font-size: 13px;
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    footer a:hover { color: #1a1a1a; }
+
+    @media (max-width: 600px) { header { padding: 40px 0 28px; } }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <a class="back-link" href="../index.html">Eric Wagner</a>
+    <h1>Well-being Dashboard Redesign</h1>
+    <p class="meta">Thrive Global &mdash; Lead Product Designer &mdash; April–December 2023</p>
+  </header>
+
+  <div class="thumbnail">Thumbnail</div>
+
+  <div class="case-study">
+
+    <section>
+      <h2>Summary</h2>
+      <p>
+        HR executives found our legacy dashboard confusing and struggled to justify Thrive's cost to their leadership teams. By understanding our customers' goals deeply, we redesigned the dashboard to surface the metrics they needed to demonstrate the ROI of investing in employee well-being.
+      </p>
+      <p>
+        Team: 1 designer (me), 1 product manager, 1 tech lead, 2 engineers.
+      </p>
+    </section>
+
+    <section>
+      <h2>Impact</h2>
+      <div class="stat-callout">
+        <div class="stat-number">600 hours/year</div>
+        <p>Anticipated time savings for Customer Success Managers — through reduced data requests, fewer ad hoc explanations, and self-service insights for HR leaders.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Problem</h2>
+      <h3>Heavy strain on Customer Success</h3>
+      <p>
+        The business lacked quantifiable long-term impact and relied heavily on sales tactics. CHROs hesitated to renew contracts because the dashboard didn't give them what they needed to make the case internally.
+      </p>
+      <h3>Dashboards out of sync</h3>
+      <p>
+        The admin dashboard didn't show aggregated data from the employee-level dashboard, making it difficult to accurately assess engagement.
+      </p>
+      <h3>Confusing UI</h3>
+      <p>
+        The original dashboard was hastily assembled by a team that departed soon after launch. CSMs spent roughly half of every quarterly review call explaining how to interpret it.
+      </p>
+    </section>
+
+    <section>
+      <h2>Research</h2>
+      <p>
+        I partnered with the Customer Success team as proxies for our users, running interviews to surface their top pain points. The biggest themes: unclear content engagement data, charts that were hard to read, and ambiguous terms like "burnout" and "engagement levels" that had no consistent internal definition.
+      </p>
+      <p>
+        I also reviewed past customer calls, identifying moments where customers needed clarification or showed confusion. Then I collaborated with my PM to map each customer's goals and internal KPIs to the datapoints we'd surface in the dashboard.
+      </p>
+      <p>
+        A crucial insight emerged: companies renewed not just when they saw improved well-being, but when they saw increases in usage and engagement. If we could show HR leaders how employees engaged with Thrive, we could ease the burden on CSMs <em>and</em> make it easier for HR leaders to justify renewal to their CEO.
+      </p>
+    </section>
+
+    <section>
+      <h2>Key design decisions</h2>
+      <div class="design-decisions">
+        <div class="decision-item">
+          <h3>Clarifying ambiguous terminology</h3>
+          <p>Replaced terms like "highly engaged" and "at risk of burnout" with more objective labels — positive and negative responses. The old terms were too loaded; a negative check-in could be a bad day, not a burnout signal.</p>
+        </div>
+        <div class="decision-item">
+          <h3>Engagement vs. well-being — combining both</h3>
+          <p>We debated leading with well-being or engagement. I designed both versions plus a combined view. After gathering feedback from CSMs, 82% preferred the combined version — so that became the default.</p>
+        </div>
+        <div class="decision-item">
+          <h3>Building a data viz library</h3>
+          <p>Our design system had no chart components yet. I built a data viz system from scratch, enabling faster iteration throughout the project and giving other teams reusable components for their own product areas.</p>
+        </div>
+        <div class="decision-item">
+          <h3>Designing with real data</h3>
+          <p>Prototyping with real customer data revealed that well-being levels often cluster near the benchmark, making differences hard to see. I designed a new chart view that made comparisons clearer and benchmarks more readable.</p>
+        </div>
+        <div class="decision-item">
+          <h3>Working within technical constraints</h3>
+          <p>Aligned all chart designs with Nivo Charts and Material UI, ensuring the engineering team could build quickly without custom work outside our stack.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Results</h2>
+      <p>
+        The redesigned dashboard became a self-service tool for HR leaders — removing the need to rely on CSMs for data requests, helping users justify cost and prove ROI, and directly supporting contract renewals. The anticipated 600 hours/year in CSM savings came from reduced data requests and the elimination of quarterly-call explanations.
+      </p>
+      <p>
+        Beyond the business metrics, the dashboard helped HR leaders identify when employees reported lower well-being so they could intervene early — translating data into real human impact.
+      </p>
+    </section>
+
+  </div>
+
+  <footer>
+    <a href="mailto:ericjwag@gmail.com">Email</a>
+    <a href="https://github.com/ericjwagner" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://linkedin.com/in/" target="_blank" rel="noopener">LinkedIn</a>
+  </footer>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>J.P. Morgan Automated Investing — Eric Wagner</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #fff;
+      color: #1a1a1a;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    header {
+      padding: 64px 0 40px;
+    }
+
+    .back-link {
+      display: inline-block;
+      font-size: 13px;
+      color: #aaa;
+      text-decoration: none;
+      margin-bottom: 32px;
+      transition: color 0.15s;
+    }
+
+    .back-link:hover { color: #1a1a1a; }
+    .back-link::before { content: "← "; }
+
+    header h1 {
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      margin-bottom: 12px;
+    }
+
+    .meta {
+      font-size: 13px;
+      color: #6b6b6b;
+    }
+
+    .thumbnail {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 6px;
+      background: #f4f4f4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-size: 13px;
+      margin: 40px 0;
+    }
+
+    .case-study {
+      max-width: 640px;
+    }
+
+    .case-study section {
+      margin-bottom: 48px;
+    }
+
+    .case-study h2 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #aaa;
+      margin-bottom: 12px;
+    }
+
+    .case-study h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      margin-top: 28px;
+    }
+
+    .case-study h3:first-child { margin-top: 0; }
+
+    .case-study p {
+      font-size: 15px;
+      color: #3a3a3a;
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    .case-study p:last-child { margin-bottom: 0; }
+
+    .case-study ul {
+      margin: 0 0 14px 20px;
+      color: #3a3a3a;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .case-study ul li {
+      margin-bottom: 6px;
+    }
+
+    .stat-callout {
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+    }
+
+    .stat-callout .stat-number {
+      font-size: 22px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    .stat-callout p {
+      font-size: 13px;
+      color: #6b6b6b;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    blockquote {
+      border-left: 3px solid #e8e8e8;
+      padding-left: 16px;
+      margin: 16px 0;
+    }
+
+    blockquote p {
+      font-size: 14px;
+      color: #3a3a3a;
+      line-height: 1.65;
+      margin-bottom: 6px;
+    }
+
+    blockquote cite {
+      font-size: 12px;
+      color: #aaa;
+      font-style: normal;
+    }
+
+    .placeholder-image {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 6px;
+      background: #f4f4f4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-size: 13px;
+      margin: 16px 0 28px;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding: 32px 0 48px;
+      display: flex;
+      gap: 20px;
+      border-top: 1px solid #e8e8e8;
+    }
+
+    footer a {
+      font-size: 13px;
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    footer a:hover { color: #1a1a1a; }
+
+    @media (max-width: 600px) {
+      header { padding: 40px 0 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <a class="back-link" href="../index.html">Eric Wagner</a>
+    <h1>J.P. Morgan Automated Investing</h1>
+    <p class="meta">Chase &mdash; Lead Product Designer &mdash; October 2019–January 2021</p>
+  </header>
+
+  <div class="thumbnail">Thumbnail</div>
+
+  <div class="case-study">
+
+    <section>
+      <h2>Background</h2>
+      <p>
+        J.P. Morgan Automated Investing is a robo-advisor available on Chase.com and the Chase mobile app, giving millions of new and existing customers access to portfolios designed and managed by J.P. Morgan. Users answer a few questions about their risk profile and goals, get matched to a portfolio, and let the platform handle rebalancing automatically.
+      </p>
+      <p>
+        Team: 1 designer (me), 2 product managers, 1 tech team, portfolio management team, marketing team.
+      </p>
+    </section>
+
+    <section>
+      <h2>Impact</h2>
+      <div class="stat-callout">
+        <div class="stat-number">$472M AUM</div>
+        <p>Generated after the redesign, as of January 2021.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Problem</h2>
+      <p>
+        After a year and a half in the market, we redesigned the platform to improve overall satisfaction ratings. The redesign also addressed the most important insights from user research, fixed usability issues and ADA violations, resolved slow load times, and reduced drop-off from the marketing page through account opening.
+      </p>
+    </section>
+
+    <section>
+      <h2>Understanding users</h2>
+      <p>
+        We identified a pattern that caused confusion: the chart that projects the growth of your money over time. This chart was critical — it needed to show the exponential effects of compounding interest when contributing monthly.
+      </p>
+      <p>The same chart was failing two different audiences simultaneously:</p>
+      <ul>
+        <li><strong>Novice investors</strong> — "It looks very technical and intimidating. I thought this was supposed to be easy."</li>
+        <li><strong>Expert investors</strong> — "The market doesn't always go up so smoothly. Where are the peaks and valleys?"</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Redesigning the projection chart</h2>
+      <p>
+        We redesigned the chart to be easier to parse and moved it to the product landing page to eliminate a step of friction and reduce drop-off. The business was sold on the new chart design despite it not existing in our design system — so I designed, specced, and built it with an engineering team, then contributed it to the design system.
+      </p>
+
+      <h3>Designing with graphical integrity</h3>
+      <p>
+        Some edge cases made the chart hard to read, and there was pressure to artificially distort it. I pushed back using Edward Tufte's Principles of Graphical Integrity: in this chart, the amount of money is equal to the area of each bar, not its height. Increasing only the width to accommodate edge cases would misrepresent the data.
+      </p>
+      <div class="placeholder-image">Placeholder — projection chart before/after</div>
+    </section>
+
+    <section>
+      <h2>Reducing drop-off</h2>
+      <p>
+        Before the redesign, the page showed two charts simultaneously — a donut chart of portfolio asset allocation in the main content area and a projection chart in the sticky right rail. In user testing, people tried to devise a relationship between the two charts that didn't exist.
+      </p>
+
+      <h3>Solution</h3>
+      <ul>
+        <li>Streamlined to a single column layout, focusing the experience on one pane of information at a time</li>
+        <li>Replaced the second chart with three potential market outcomes based on years invested</li>
+        <li>Designed responsively for all form factors</li>
+        <li>Built exclusively from fully baked design system components</li>
+      </ul>
+      <div class="placeholder-image">Placeholder — before/after layout comparison</div>
+    </section>
+
+    <section>
+      <h2>A memorable research moment</h2>
+      <blockquote>
+        <p>"No, I don't take asset classes."</p>
+        <cite>— Melissa, 32, usability study participant</cite>
+      </blockquote>
+      <p>
+        In a user research session, when a participant reached the final screen of the flow, the moderator asked about the asset classes in her portfolio. She calmly replied that she didn't take asset classes. It was hilarious — and eye-opening. How can we expect users to open accounts and add money if they don't understand what they're signing up for? This moment reinforced our decision to simplify the language throughout the experience.
+      </p>
+    </section>
+
+  </div>
+
+  <footer>
+    <a href="mailto:ericjwag@gmail.com">Email</a>
+    <a href="https://github.com/ericjwagner" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://linkedin.com/in/" target="_blank" rel="noopener">LinkedIn</a>
+  </footer>
+
+</div>
+
+</body>
+</html>

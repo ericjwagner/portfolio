@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chase Advisor Video Platform — Eric Wagner</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #fff;
+      color: #1a1a1a;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    header { padding: 64px 0 40px; }
+
+    .back-link {
+      display: inline-block;
+      font-size: 13px;
+      color: #aaa;
+      text-decoration: none;
+      margin-bottom: 32px;
+      transition: color 0.15s;
+    }
+
+    .back-link:hover { color: #1a1a1a; }
+    .back-link::before { content: "← "; }
+
+    header h1 {
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      margin-bottom: 12px;
+    }
+
+    .meta { font-size: 13px; color: #6b6b6b; }
+
+    .thumbnail {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 6px;
+      background: #f4f4f4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-size: 13px;
+      margin: 40px 0;
+    }
+
+    .case-study { max-width: 640px; }
+    .case-study section { margin-bottom: 48px; }
+
+    .case-study h2 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #aaa;
+      margin-bottom: 12px;
+    }
+
+    .case-study h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      margin-top: 28px;
+    }
+
+    .case-study h3:first-child { margin-top: 0; }
+
+    .case-study p {
+      font-size: 15px;
+      color: #3a3a3a;
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    .case-study p:last-child { margin-bottom: 0; }
+
+    .case-study ul {
+      margin: 0 0 14px 20px;
+      color: #3a3a3a;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .case-study ul li { margin-bottom: 6px; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .stat-card {
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      padding: 20px;
+    }
+
+    .stat-card .stat-number {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    .stat-card p {
+      font-size: 13px;
+      color: #6b6b6b;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 16px 0 28px;
+    }
+
+    .before-after-item {
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .before-after-item .label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #aaa;
+      padding: 8px 12px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .before-after-item ul {
+      margin: 12px 12px 12px 28px;
+      color: #3a3a3a;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding: 32px 0 48px;
+      display: flex;
+      gap: 20px;
+      border-top: 1px solid #e8e8e8;
+    }
+
+    footer a {
+      font-size: 13px;
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    footer a:hover { color: #1a1a1a; }
+
+    @media (max-width: 600px) {
+      header { padding: 40px 0 28px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .before-after { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <a class="back-link" href="../index.html">Eric Wagner</a>
+    <h1>Chase Advisor Video Platform</h1>
+    <p class="meta">Chase &mdash; Lead Product Designer &mdash; November 2020–November 2021</p>
+  </header>
+
+  <div class="thumbnail">Thumbnail</div>
+
+  <div class="case-study">
+
+    <section>
+      <h2>Background</h2>
+      <p>
+        When Covid hit and Zoom's stock price skyrocketed 700%, virtual meetings stopped being a trend. Chase reacted swiftly, building its own secure virtual communications platform so clients could meet with advisors remotely — without leaving the Chase website or mobile app.
+      </p>
+      <p>
+        At the same time, Chase was launching J.P. Morgan Personal Advisors, a new investment offering where clients work with a team of advisors via video or phone, receive a personalized financial plan, and access expert-built portfolios. The video platform was foundational to making that product possible.
+      </p>
+      <p>
+        Team: 1 head of product, 1 lead PM, 1 head of technology, 1 UX researcher, 1 content strategist, and 2 development teams each with 1 PM and 3–4 engineers.
+      </p>
+    </section>
+
+    <section>
+      <h2>Goal</h2>
+      <p>
+        Build Chase's first-ever suite of collaboration tools — video, screen sharing, and co-browsing — all within the Chase website and mobile app. First built for Wealth Management, with a long-term roadmap to expand to Auto Financing, Home Lending, and Business Banking.
+      </p>
+    </section>
+
+    <section>
+      <h2>Impact</h2>
+    </section>
+
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-number">5,000+ advisors</div>
+      <p>J.P. Morgan Wealth Management advisors enabled, overseeing $615B in assets under supervision.</p>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">400+ meetings</div>
+      <p>Successful virtual meetings within 2.5 months of launch.</p>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">9.5 / 10</div>
+      <p>Average advisor rating from clients in the J.P. Morgan Personal Advisors pre-launch.</p>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">200+ advisors</div>
+      <p>Licensed financial professionals serving clients through J.P. Morgan Personal Advisors at launch.</p>
+    </div>
+  </div>
+
+  <div class="case-study">
+
+    <section>
+      <h2>Technology</h2>
+      <p>
+        We used Zoom's Meeting SDK to host the meeting and Oracle's Cobrowse SDK for connected, secure screen sharing and co-browsing. The challenge was making two separate SDKs coexist seamlessly — starting as a proof-of-concept, then evolving into a full product with familiar video controls, dynamic resizing, multiple participants, and screen sharing.
+      </p>
+    </section>
+
+    <section>
+      <h2>Design challenges</h2>
+
+      <h3>Resizing, resilience, and responsiveness</h3>
+      <p>
+        The meeting window needed to handle collapsed, expanded, minimized, and maximized views — plus browser resizing — without breaking the experience. I designed resize controls alongside familiar meeting controls to accommodate docking, repositioning, and various screen sizes.
+      </p>
+
+      <h3>Accessibility</h3>
+      <p>
+        For a sighted user, it's obvious when you're sharing your screen. For a keyboard-only user, it isn't. I created a11y specs documenting how keyboard-only users could have the full experience — including dragging and repositioning the meeting window.
+      </p>
+
+      <h3>Screen sharing — before and after user testing</h3>
+      <div class="before-after">
+        <div class="before-after-item">
+          <div class="label">Before</div>
+          <ul>
+            <li>Screen share border hard to see in the sea of blue</li>
+            <li>Confusing screen sharing messaging</li>
+            <li>Unclear whether camera is on during screen share</li>
+          </ul>
+        </div>
+        <div class="before-after-item">
+          <div class="label">After</div>
+          <ul>
+            <li>Changed border to green, overriding semantic color guidance from the design system</li>
+            <li>Rewrote screen sharing message to account for new tabs</li>
+            <li>Added clear system status — whether participants can still see you</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Results</h2>
+      <ul>
+        <li>Enabled secure video meetings for 5K+ advisors, eliminating the privacy and security risks of off-the-shelf Zoom</li>
+        <li>Clients can now meet with any wealth advisor in the US — no longer limited by their locale</li>
+        <li>Enabled the launch of J.P. Morgan Personal Advisors, a new $25K-minimum investment product</li>
+        <li>Platform positioned to expand to Home Lending and Auto Financing</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <footer>
+    <a href="mailto:ericjwag@gmail.com">Email</a>
+    <a href="https://github.com/ericjwagner" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://linkedin.com/in/" target="_blank" rel="noopener">LinkedIn</a>
+  </footer>
+
+</div>
+
+</body>
+</html>
