@@ -282,6 +282,51 @@
       line-height: 1.75;
     }
 
+    .exp-section {
+      margin-top: 48px;
+      max-width: 560px;
+    }
+
+    .exp-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 12px;
+    }
+
+    .exp-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid #e8e8e8;
+      align-items: baseline;
+    }
+
+    .exp-row:first-of-type {
+      border-top: 1px solid #e8e8e8;
+    }
+
+    .exp-company {
+      font-size: 14px;
+      font-weight: 500;
+      color: #1a1a1a;
+    }
+
+    .exp-title {
+      font-size: 14px;
+      color: #6b6b6b;
+      justify-self: start;
+    }
+
+    .exp-dates {
+      font-size: 13px;
+      color: #aaa;
+      white-space: nowrap;
+    }
+
     /* ── Footer ── */
     footer {
       margin-top: 80px;
@@ -500,6 +545,35 @@
       <p>Every pixel needs a rationale. Design is a tool, not a statement. When things get murky I ask the dumb questions: Who are we designing for? What are the jobs to be done? Why would someone use this?</p>
       <p>Outside work I'm a dad to an 18-month-old, a drummer, and a perpetual student. Lately that's meant AI coding tools, chess strategy, and why none of my shelves want to be level.</p>
       <p>There's always something to figure out. That part hasn't changed.</p>
+
+      <div class="exp-section">
+        <p class="exp-label">Experience</p>
+        <div class="exp-row">
+          <span class="exp-company">Workiva</span>
+          <span class="exp-title">Senior Product Designer</span>
+          <span class="exp-dates">2024 – Present</span>
+        </div>
+        <div class="exp-row">
+          <span class="exp-company">Thrive Global</span>
+          <span class="exp-title">Senior Product Designer</span>
+          <span class="exp-dates">2022 – 2024</span>
+        </div>
+        <div class="exp-row">
+          <span class="exp-company">JPMorgan Chase</span>
+          <span class="exp-title">Lead Product Designer, VP</span>
+          <span class="exp-dates">2018 – 2022</span>
+        </div>
+        <div class="exp-row">
+          <span class="exp-company">DOOR3</span>
+          <span class="exp-title">UX Designer</span>
+          <span class="exp-dates">2017 – 2018</span>
+        </div>
+        <div class="exp-row">
+          <span class="exp-company">Sermo</span>
+          <span class="exp-title">Product Designer</span>
+          <span class="exp-dates">2016 – 2017</span>
+        </div>
+      </div>
     </div>
   </section>
 
