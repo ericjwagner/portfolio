@@ -129,38 +129,145 @@
       line-height: 1.5;
     }
 
-    /* ── Random ── */
-    .link-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
+    /* ── Favorites ── */
+    .fav-group {
+      margin-bottom: 48px;
     }
 
-    .link-list li {
+    .fav-group-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 12px;
+    }
+
+    .fav-subgroup-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #6b6b6b;
+      margin-top: 24px;
+      margin-bottom: 0;
+    }
+
+    .fav-link-list {
+      list-style: none;
+    }
+
+    .fav-link-list li {
       border-bottom: 1px solid #e8e8e8;
     }
 
-    .link-list li:first-child {
+    .fav-link-list li:first-child {
       border-top: 1px solid #e8e8e8;
     }
 
-    .link-list a {
+    .fav-link-list a {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 14px;
       padding: 14px 4px;
       text-decoration: none;
       color: #1a1a1a;
-      font-size: 14px;
       transition: color 0.15s;
     }
 
-    .link-list a:hover { color: #555; }
+    .fav-link-list a:hover { color: #555; }
 
-    .link-list .link-meta {
+    .fav-link-list .link-thumb {
+      width: 52px;
+      height: 52px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: #f0f0f0;
+    }
+
+    .fav-link-list .link-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .fav-link-list .link-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .fav-link-list .link-name {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .fav-link-list .link-chip {
+      font-size: 11px;
+      color: #888;
+      background: #f0f0f0;
+      border-radius: 4px;
+      padding: 2px 6px;
+      white-space: nowrap;
+    }
+
+    .fav-link-list .link-desc {
+      font-size: 13px;
+      color: #6b6b6b;
+    }
+
+    .fav-link-list .link-domain {
       font-size: 12px;
       color: #aaa;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+
+    .band-list {
+      list-style: none;
+    }
+
+    .band-list li {
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+
+    .band-list a {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 4px;
+      text-decoration: none;
+      color: #1a1a1a;
+      transition: color 0.15s;
+    }
+
+    .band-list a:hover { color: #555; }
+
+    .band-thumb {
+      width: 160px;
+      height: 160px;
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .band-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .band-name {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .band-desc {
+      font-size: 13px;
+      color: #6b6b6b;
     }
 
     /* ── About ── */
@@ -209,7 +316,7 @@
 
   <nav>
     <button class="active" data-section="projects">Projects</button>
-    <button data-section="random">Random</button>
+    <button data-section="random">Favorites</button>
     <button data-section="about">About</button>
   </nav>
 
@@ -287,49 +394,119 @@
     </div>
   </section>
 
-  <!-- Random -->
+  <!-- Favorites -->
   <section id="random" class="section">
-    <ul class="link-list">
-      <li>
-        <a href="#" target="_blank" rel="noopener">
-          Link title
-          <span class="link-meta">category</span>
-        </a>
-      </li>
-      <li>
-        <a href="#" target="_blank" rel="noopener">
-          Link title
-          <span class="link-meta">category</span>
-        </a>
-      </li>
-      <li>
-        <a href="#" target="_blank" rel="noopener">
-          Link title
-          <span class="link-meta">category</span>
-        </a>
-      </li>
-    </ul>
+
+    <div class="fav-group">
+      <h2 class="fav-group-label">Inspo</h2>
+      <ul class="fav-link-list">
+        <li>
+          <a href="https://x.com/i/lists/1764931648397988203?s=20" target="_blank" rel="noopener">
+            <img class="link-thumb" src="images/logo-x.png" alt="X" style="background:transparent; padding:8px;" />
+            <div class="link-content">
+              <div class="link-title-row">
+                <span class="link-name">Designers to follow</span>
+                <span class="link-chip">list</span>
+              </div>
+              <span class="link-desc">My curated list of designers for news and inspiration</span>
+            </div>
+            <span class="link-domain">x.com</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.producthunt.com/" target="_blank" rel="noopener">
+            <img class="link-thumb" src="images/logo-producthunt.png" alt="Product Hunt" style="background:transparent;" />
+            <div class="link-content">
+              <div class="link-title-row">
+                <span class="link-name">Product Hunt</span>
+                <span class="link-chip">tool</span>
+              </div>
+              <span class="link-desc">Where I find new tools and stay on top of what's shipping</span>
+            </div>
+            <span class="link-domain">producthunt.com</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://open.spotify.com/show/4aRP2XSavdtrLG5FZoonOK?si=c27b0db1e3834107" target="_blank" rel="noopener">
+            <img class="link-thumb" src="images/podcast-how-i-ai.jpg" alt="How I AI" />
+            <div class="link-content">
+              <div class="link-title-row">
+                <span class="link-name">How I AI with Claire Vo</span>
+                <span class="link-chip">podcast</span>
+              </div>
+              <span class="link-desc">How product leaders are actually using AI day to day</span>
+            </div>
+            <span class="link-domain">spotify.com</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://open.spotify.com/show/6BuKkGfVR7FDaB3VPrN5fo?si=10bd23b49c3d4f68" target="_blank" rel="noopener">
+            <img class="link-thumb" src="images/podcast-dive-club.jpg" alt="Dive Club" />
+            <div class="link-content">
+              <div class="link-title-row">
+                <span class="link-name">Dive Club</span>
+                <span class="link-chip">podcast</span>
+              </div>
+              <span class="link-desc">Deep dives on design, product, and creative work</span>
+            </div>
+            <span class="link-domain">spotify.com</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://open.spotify.com/show/5qSUyCrk9KR69lEiXbjwXM?si=19fe7e433bd14316" target="_blank" rel="noopener">
+            <img class="link-thumb" src="images/podcast-tim-ferriss.jpg" alt="The Tim Ferriss Show" />
+            <div class="link-content">
+              <div class="link-title-row">
+                <span class="link-name">The Tim Ferriss Show</span>
+                <span class="link-chip">podcast</span>
+              </div>
+              <span class="link-desc">Long-form interviews with world-class performers</span>
+            </div>
+            <span class="link-domain">spotify.com</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="fav-group">
+      <h2 class="fav-group-label">Music</h2>
+
+      <h3 class="fav-subgroup-label">Bands I've played in</h3>
+      <ul class="band-list">
+        <li>
+          <a href="https://www.instagram.com/gnarly.rae.jepsen/?hl=en" target="_blank" rel="noopener">
+            <img class="band-thumb" src="images/GRJ.png" alt="Gnarly Rae Jepsen" />
+            <div class="band-info">
+              <span class="band-name">Gnarly Rae Jepsen</span>
+              <span class="band-desc">The best '90s & '00s band in NYC</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+
+      <h3 class="fav-subgroup-label">Playing on repeat</h3>
+      <div style="margin-top: 12px;">
+        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1CKPJY0UjNTCYl?utm_source=generator&theme=0&si=40ee177c51dd442a" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
+    </div>
+
   </section>
 
   <!-- About -->
   <section id="about" class="section">
     <div class="about-body">
-      <p>
-        I'm Eric Wagner, a UX designer focused on B2B SaaS. I spend my days untangling complicated workflows and turning them into experiences that feel obvious in hindsight.
-      </p>
-      <p>
-        I believe the best design is the kind people don't notice — it just works. That means talking to users early, questioning assumptions often, and sweating the details until they stop mattering.
-      </p>
-      <p>
-        Outside of work I [add something personal here].
-      </p>
+      <p>I didn't start as a designer. I pushed my way in. Showed up to the design team's standups uninvited, asked for work, enrolled in General Assembly. I've been pulling up chairs ever since.</p>
+      <p>Today I'm a senior product designer working at the intersection of complex B2B workflows and AI tooling, focused on outcomes as much as craft.</p>
+      <p>Every pixel needs a rationale. Design is a tool, not a statement. When things get murky I ask the dumb questions: Who are we designing for? What are the jobs to be done? Why would someone use this?</p>
+      <p>Outside work I'm a dad to an 18-month-old, a drummer, and a perpetual student. Lately that's meant AI coding tools, chess strategy, and why none of my shelves want to be level.</p>
+      <p>There's always something to figure out. That part hasn't changed.</p>
     </div>
   </section>
 
   <footer>
     <a href="mailto:ericjwag@gmail.com">Email</a>
     <a href="https://github.com/ericjwagner" target="_blank" rel="noopener">GitHub</a>
-    <a href="https://linkedin.com/in/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/ericjwagner/" target="_blank" rel="noopener">LinkedIn</a>
   </footer>
 
 </div>
