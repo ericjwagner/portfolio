@@ -6,7 +6,7 @@
   <title>Eric Wagner, Staff Product Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Familjen+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Familjen+Grotesk:wght@600;700&family=Geist:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="tokens.css">
   <style>
     /* genre: editorial index · theme: Ink & Rule (monochrome, dual-mode) · nav: top bar, single line · footer: dense typographic */
@@ -18,11 +18,10 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: var(--font-body);
+      font-family: "Geist", var(--font-body);
       background: var(--color-paper);
       color: var(--color-ink);
       font-size: var(--text-base);
-      font-weight: 500;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
@@ -103,7 +102,7 @@
       background: none;
       border: none;
       border-bottom: 2px solid transparent;
-      font-family: var(--font-body);
+      font-family: "Geist", var(--font-body);
       font-weight: 500;
       font-size: var(--text-xs);
       letter-spacing: 0.08em;
@@ -137,14 +136,15 @@
 
     .who {
       display: flex;
-      align-items: center;
-      gap: var(--space-md);
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-sm);
       margin-bottom: var(--space-lg);
     }
 
     .avatar {
-      width: 46px;
-      height: 46px;
+      width: 64px;
+      height: 64px;
       border-radius: 50%;
       background: var(--color-paper-2);
       border: 1px solid var(--color-rule);

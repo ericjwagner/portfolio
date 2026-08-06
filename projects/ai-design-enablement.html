@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI-Powered Design Enablement — Eric Wagner</title>
+  <title>66% Automated: Enterprise Migration — Eric Wagner</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -21,10 +21,7 @@
       padding: 0 32px;
     }
 
-    /* ── Header ── */
-    header {
-      padding: 64px 0 40px;
-    }
+    header { padding: 64px 0 40px; }
 
     .back-link {
       display: inline-block;
@@ -36,7 +33,6 @@
     }
 
     .back-link:hover { color: #1a1a1a; }
-
     .back-link::before { content: "← "; }
 
     header h1 {
@@ -46,17 +42,13 @@
       margin-bottom: 12px;
     }
 
-    .meta {
-      font-size: 13px;
-      color: #6b6b6b;
-    }
+    .meta { font-size: 13px; color: #6b6b6b; }
 
-    /* ── Thumbnail ── */
     .thumbnail {
       width: 100%;
       aspect-ratio: 16 / 9;
-      background: #f4f4f4;
       border-radius: 6px;
+      background: #f4f4f4;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -65,22 +57,85 @@
       margin: 40px 0;
     }
 
-    /* ── Case study body ── */
-    .case-study {
-      max-width: 640px;
+    .img-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 6px;
+      background: #f9f9f9;
+      border: 1px dashed #ddd;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 28px 0;
+      padding: 24px;
+      text-align: center;
     }
 
-    .case-study section {
-      margin-bottom: 48px;
+    .img-placeholder .img-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #ccc;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
+
+    .img-placeholder .img-desc {
+      font-size: 12px;
+      color: #ccc;
+      max-width: 360px;
+      line-height: 1.5;
+    }
+
+    .case-study { max-width: 640px; }
+    .case-study section { margin-bottom: 48px; }
 
     .case-study h2 {
+      font-size: 19px;
+      font-weight: 600;
+      color: #1a1a1a;
+      letter-spacing: -0.2px;
+      margin-bottom: 16px;
+    }
+
+    .case-study h3 {
       font-size: 13px;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
+      letter-spacing: 0.5px;
       color: #aaa;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
+      margin-top: 32px;
+    }
+
+    .case-study h3:first-child { margin-top: 0; }
+
+    .split-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 16px 0 20px;
+    }
+
+    .split-card {
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      padding: 16px 18px;
+    }
+
+    .split-card-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 6px;
+    }
+
+    .split-card p {
+      font-size: 13px;
+      color: #6b6b6b;
+      line-height: 1.5;
+      margin: 0;
     }
 
     .case-study p {
@@ -92,14 +147,108 @@
 
     .case-study p:last-child { margin-bottom: 0; }
 
-    /* ── Footer ── */
+    .case-study ul {
+      margin: 0 0 14px 20px;
+      color: #3a3a3a;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .case-study ul li { margin-bottom: 6px; }
+
+    code {
+      font-family: "SF Mono", "Fira Code", monospace;
+      font-size: 13px;
+      background: #f4f4f4;
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .stat-callout {
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      padding: 20px 24px;
+    }
+
+    .stat-callout .stat-number {
+      font-size: 22px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    .stat-callout .stat-desc {
+      font-size: 13px;
+      color: #6b6b6b;
+      line-height: 1.5;
+    }
+
+    .track-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 14px;
+      font-size: 14px;
+    }
+
+    .track-table th {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #aaa;
+      text-align: left;
+      padding: 0 16px 10px 0;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .track-table td {
+      padding: 16px 16px 16px 0;
+      border-bottom: 1px solid #e8e8e8;
+      vertical-align: top;
+      color: #3a3a3a;
+      line-height: 1.6;
+    }
+
+    .track-table tr:last-child td { border-bottom: none; }
+
+    .track-label {
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 2px;
+    }
+
+    .track-pct {
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    .callout-note {
+      background: #f9f9f9;
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin-top: 12px;
+    }
+
+    .callout-note p {
+      font-size: 13px;
+      color: #6b6b6b;
+      line-height: 1.5;
+      margin: 0;
+    }
+
     footer {
       margin-top: 80px;
-      padding-bottom: 48px;
+      padding: 32px 0 48px;
       display: flex;
       gap: 20px;
       border-top: 1px solid #e8e8e8;
-      padding-top: 32px;
     }
 
     footer a {
@@ -113,6 +262,7 @@
 
     @media (max-width: 600px) {
       header { padding: 40px 0 28px; }
+      .stat-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -122,43 +272,134 @@
 
   <header>
     <a class="back-link" href="../index.html">Eric Wagner</a>
-    <h1>AI-Powered Design Enablement</h1>
-    <p class="meta">Senior UX Designer &mdash; led 2 designers</p>
+    <h1>How I Cut Design Overhead by 66% on an Enterprise Migration</h1>
+    <p class="meta">Lead Product Designer &middot; Workiva &middot; Tech Enablement Team</p>
   </header>
 
-  <div class="thumbnail">Thumbnail</div>
+  <div class="thumbnail">Thumbnail &mdash; hero image</div>
 
   <div class="case-study">
 
     <section>
       <h2>Overview</h2>
-      <p>
-        Our team faced a compounding challenge: a TypeScript migration and a full design system migration running simultaneously, with minimal designer bandwidth to support either. Engineering needed design guidance at scale, but there weren't enough hours in the day to consult on every component decision.
-      </p>
+      <p><strong>Role:</strong> Lead Product Designer</p>
+      <p><strong>Team:</strong> Sole designer with tech Enablement Team, onboarded 2 supporting designers for final execution</p>
+      <p>Single-handedly architected the product strategy and design framework for an enterprise-scale migration. By decoupling technical debt from UX redesigns and designing an AI-aligned workflow, I enabled engineering to migrate 31 out of 47 features autonomously.</p>
     </section>
 
     <section>
-      <h2>What I Did</h2>
-      <p>
-        I created a <code>designrules.md</code> — a structured document encoding the design rules for our product suite — and fed it into AI coding tools like Cursor. This gave developers the ability to generate design-compliant components without pulling a designer into every decision.
-      </p>
-      <p>
-        I also built a historical data roll-forward process that dramatically reduced the time and complexity of migrating existing components to the new design system, turning what had been a slow, error-prone handoff into a repeatable, fast workflow.
-      </p>
+      <h2>The Situation: A High-Stakes Tech Migration with Zero Designer Bandwidth</h2>
+      <p>Our core Financial Reporting system was built on a massive complex legacy codebase. It managed intricate XBRL compliance data where a single broken link could invalidate a client's official SEC filing. Because the stakes were so high, engineering spun up a dedicated Enablement Team of Staff and Principal Engineers. Their mission was to establish the foundational architectural patterns and build the migration blueprint for the rest of the Financial Reporting organization.</p>
+      <p>The migration required a massive, simultaneous architectural shift:</p>
+      <ul>
+        <li>Changing the programming language (Dart to TypeScript)</li>
+        <li>Rewriting the API layer (Frugal to OpenAPI)</li>
+        <li>Migrating legacy UI components to our new design system</li>
+      </ul>
+      <p>However, the project lacked a dedicated Product Manager, and design resources were redirected due to an aggressive leadership pivot toward new generative AI features. The two supporting designers and I were already 100% allocated to our existing core roadmaps. Because our design bandwidth was severely strapped, I had to build a system that automated standard tasks, protected data integrity, and allowed engineering to scale without design becoming a bottleneck.</p>
+
+      <h3>The Breakdown of Core Challenges</h3>
+      <p><strong>The Org-Wide Mission:</strong> The Enablement Team had to build a scalable, repeatable framework so the rest of the Financial Reporting organization could migrate their respective features without breaking the broader system.</p>
+      <p><strong>The "Triple Threat" Setup:</strong> Three simultaneous migrations (Dart to TypeScript, Frugal to OpenAPI, Legacy to New Design System) running in parallel, each capable of causing layout regressions independently.</p>
+      <p><strong>Strapped Design Allocation:</strong> Myself and the two execution designers were completely locked into other high-priority roadmaps. With design bandwidth near zero, we couldn't rely on traditional, time-heavy design pipelines to support the engineers.</p>
+      <p><strong>The Tribal Knowledge Bottleneck:</strong> Deeply complex XBRL compliance logic lived entirely in the heads of a few veterans (one of whom just went on leave), threatening to stall design and engineering audits.</p>
+
+      <div class="img-placeholder">
+        <div class="img-label">Image 1 &mdash; The Triple Threat</div>
+        <div class="img-desc">Three migration pillars (language, API, UI) converging on a breaking layout, with a before/after wireframe showing the collapse</div>
+      </div>
     </section>
 
     <section>
-      <h2>Impact</h2>
-      <p>
-        Recurring design consult requests — which ranged from 5 minutes to 2 hours each — were eliminated. Developers could make confident design decisions independently, and designers were freed to focus on harder, higher-value problems. One designer's expertise effectively scaled across the entire engineering team.
-      </p>
+      <h2>The Strategy: Separating UX Redesigns from Tech Debt to Accelerate Migration Velocity</h2>
+      <p>To protect engineering momentum with zero design bandwidth, I decided to decouple the technical migration from strategic UX redesigns.</p>
+      <div class="split-cards">
+        <div class="split-card">
+          <div class="split-card-label">Our Enablement Team</div>
+          <p>Focused strictly on tech infrastructure and design system alignment.</p>
+        </div>
+        <div class="split-card">
+          <div class="split-card-label">Core Product Squads</div>
+          <p>Took ownership of future workflow enhancements down the road.</p>
+        </div>
+      </div>
+      <p>I audited our 47 feature surfaces and built a binary framework based on layout risk. Because swapping in new components causes elements to shift and reflow, I mapped out exactly which layouts could handle an automated swap safely and which ones required manual design guardrails.</p>
+
+      <h3>Dual-Track Migration Framework</h3>
+      <table class="track-table">
+        <thead>
+          <tr>
+            <th>Track</th>
+            <th>Backlog impact</th>
+            <th>Design &amp; dev workflow</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="track-label">No mockup needed</div></td>
+            <td><div class="track-pct">66% of backlog (31 out of 47 surfaces)</div></td>
+            <td><strong>Autonomous AI execution:</strong> Low-risk, clean component swaps. Engineers fed my structured <code>design.md</code> file directly into AI agents like Cursor and Claude to execute autonomously. We bypassed wireframing and mockups, limiting design consult to final QA, and accessibility checks.</td>
+          </tr>
+          <tr>
+            <td><div class="track-label">Mockup required</div></td>
+            <td><div class="track-pct">34% of backlog (16 out of 47 surfaces)</div></td>
+            <td><strong>Upfront design specs:</strong> High-complexity compliance layouts vulnerable to cascading layout and reflow errors. We created mockups upfront for engineers to build manually.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout-note">
+        <p>Note on scale: While surfaces varied in size and cross-dependencies, this binary approach ensured that 66% of the backlog could bypass traditional design workflow without sacrificing quality.</p>
+      </div>
+
+      <div class="img-placeholder">
+        <div class="img-label">Image 2 &mdash; Dual-Track Framework</div>
+        <div class="img-desc">47 surfaces splitting into Path A (66%, autonomous AI loop) and Path B (34%, manual design specs)</div>
+      </div>
     </section>
 
     <section>
-      <h2>Role</h2>
-      <p>
-        Senior UX Designer. Led a team of 2 designers. Part of a multi-year design enablement effort aimed at tightening the loop between design and engineering.
-      </p>
+      <h2>Path A (66% of Project): Scaling the Design System via GitHub for Autonomous AI Coding</h2>
+      <p>To make the automated track fully self-serve, I wrote our design guidelines in plain Markdown text using Google's <code>design.md</code> specs and put it right into their GitHub repository. Engineers dropped this file straight into Claude and Cursor. It effectively worked as a system prompt for their AI tools, giving AI agents the layout rules needed to swap components autonomously without breaking the interface.</p>
+
+      <div class="img-placeholder">
+        <div class="img-label">Image 3 &mdash; The design.md System Prompt</div>
+        <div class="img-desc">Split screen: design.md documentation on the left, Cursor or Claude Code generating compliant component code on the right</div>
+      </div>
+
+      <h3>Establishing the 5th Principle: Universal Resilience</h3>
+      <p>While our company had previously established four core UX modernization principles, they were built for traditional, design-led workflows. Because engineers and AI agents were now making layout decisions on the fly, I authored and introduced a fifth core principle: Universal Resilience.</p>
+      <p>This rule mandated that any component upgrade&mdash;whether automated via AI or crafted manually by a designer&mdash;had to dynamically handle extreme data states and edge-case scaling without fracturing the UI. This gave engineers a clear, shared standard to correct layout issues before code hit production.</p>
+
+      <div class="img-placeholder">
+        <div class="img-label">Image 4 &mdash; Universal Resilience</div>
+        <div class="img-desc">Financial data table in two states: normal data load vs. extreme load, with redline annotations showing padding constraints, minimum widths, and overflow behavior</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Path B (34% of Project): Designing High-Risk Surfaces Upfront to Prevent UI Regressions</h2>
+      <p>For the remaining 16 high-risk surfaces, the threat of breaking the UI was simply too high. Changing the underlying code caused layouts to collapse, so design mapped out cross-dependencies and provided full mockups upfront. This visual guardrail kept the front-end stable and fully compliant.</p>
+    </section>
+
+    <section>
+      <h2>Scaling Knowledge: Using NotebookLM to Prevent Tribal Knowledge Bottlenecks</h2>
+      <p>I launched XBRL Knowledge Sessions to preserve a decade of tribal knowledge before key veterans went on leave. This kept the project on track and allowed the supporting designers to onboard with zero downtime.</p>
+      <p>I interviewed veteran PMs, engineers, and services teams, recording the complex technical nuances of our XBRL products. I fed these transcripts into Google NotebookLM to create a searchable Knowledge Bot. When I brought in two supporting designers later, they used this bot to self-serve answers instantly and start executing immediately.</p>
+
+      <div class="img-placeholder">
+        <div class="img-label">Image 5 &mdash; NotebookLM Knowledge Bot</div>
+        <div class="img-desc">Interface mockup showing XBRL session transcripts as sources, a designer asking a compliance question, and the bot generating a precise answer with citations</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Results</h2>
+      <ul>
+        <li><strong>66% of Backlog Safely Automated:</strong> Eradicated the traditional design bottleneck by enabling engineers to migrate 31 out of 47 surfaces autonomously using AI tools like Cursor and Claude Code</li>
+        <li><strong>Maximized Design Efficiency:</strong> Concentrated our limited design bandwidth exclusively on the 16 high-risk, complex surfaces rather than stretching the team thin across dozens of straightforward layouts.</li>
+        <li><strong>Company-Wide Recognition:</strong> Selected to present this methodology at our annual tech offsite (LINK 2026). I delivered a virtual Lightning Talk focused on new AI-powered workflows, titled &#8220;Scaling Design Expertise Without a Designer in the Room.&#8221;</li>
+        <li><strong>The Ultimate Validation:</strong> Following the operational success of scaling this project with AI, I was formally transitioned to drive central AI workstreams inside the company's core, high priority AI Team.</li>
+      </ul>
     </section>
 
   </div>

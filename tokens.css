@@ -1,0 +1,72 @@
+/* Design tokens · theme: Ink & Rule · monochrome editorial, dual-mode */
+
+:root {
+  /* ── Color — achromatic. "accent" maps to ink; no color hue in this system ── */
+  --color-paper:       #fbfaf8;
+  --color-paper-2:     #f2efe8;
+  --color-rule:         #dedad0;
+  --color-neutral:     #8a8578;
+  --color-muted:       #6b6558;
+  --color-ink:         #17150f;
+  --color-accent:      #17150f;
+  --color-accent-soft: #f2efe8;
+  --color-focus:       #17150f;
+
+  /* ── Type ── */
+  --font-display: "Cardo", "Iowan Old Style", Georgia, serif;
+  --font-body:    "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+  --text-xs:   0.7rem;
+  --text-sm:   0.8125rem;
+  --text-base: 1rem;
+  --text-md:   1.125rem;
+  --text-lg:   1.4rem;
+  --text-xl:   1.9531rem;
+  --text-2xl:  2.4414rem;
+  --text-display: clamp(2rem, 2.6vw + 1.2rem, 3.05rem);
+
+  /* ── Space (4pt scale) ── */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+
+  /* ── Radius ── */
+  --radius-sm: 3px;
+  --radius-md: 6px;
+
+  /* ── Motion ── */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:  cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 100ms;
+  --dur-short: 190ms;
+  --dur-long:  340ms;
+
+  /* ── Z ── */
+  --z-base: 1;
+  --z-raised: 10;
+  --z-sticky: 200;
+  --z-modal: 400;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper:       #15140f;
+    --color-paper-2:     #1e1c16;
+    --color-rule:         #3a3730;
+    --color-neutral:     #8f8a7c;
+    --color-muted:       #b5b0a0;
+    --color-ink:         #f5f3ec;
+    --color-accent:      #f5f3ec;
+    --color-accent-soft: #2a2820;
+    --color-focus:       #f5f3ec;
+  }
+}
