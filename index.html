@@ -3,604 +3,823 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Eric Wagner</title>
+  <title>Eric Wagner, Staff Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Familjen+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tokens.css">
   <style>
+    /* genre: editorial index · theme: Ink & Rule (monochrome, dual-mode) · nav: top bar, single line · footer: dense typographic */
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { overflow-x: clip; }
+    body { overflow-x: clip; }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      background: #fff;
-      color: #1a1a1a;
-      font-size: 15px;
-      line-height: 1.6;
-    }
-
-    /* ── Layout ── */
-    .container {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 32px;
-    }
-
-    /* ── Header ── */
-    header {
-      padding: 64px 0 40px;
-    }
-
-    header h1 {
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: -0.3px;
-    }
-
-    header p {
-      margin-top: 6px;
-      color: #6b6b6b;
-      font-size: 14px;
-    }
-
-    /* ── Nav ── */
-    nav {
-      display: flex;
-      gap: 2px;
-      border-bottom: 1px solid #e8e8e8;
-      margin-bottom: 40px;
-    }
-
-    nav button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-      font-family: inherit;
-      color: #6b6b6b;
-      padding: 10px 14px;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      transition: color 0.15s;
-    }
-
-    nav button:hover { color: #1a1a1a; }
-
-    nav button.active {
-      color: #1a1a1a;
-      border-bottom-color: #1a1a1a;
+      font-family: var(--font-body);
+      background: var(--color-paper);
+      color: var(--color-ink);
+      font-size: var(--text-base);
       font-weight: 500;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Sections ── */
-    .section { display: none; }
-    .section.active { display: block; }
+    a { color: inherit; }
 
-    /* ── Projects grid ── */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+    :root {
+      --accent2: #5f6b3f;
+      --accent2-soft: #e7e4d3;
+      --brand-workiva: #2f6fed; --brand-workiva-soft: #e4ecfd;
+      --brand-thrive: #1f9c8a; --brand-thrive-soft: #dcf2ee;
+      --brand-jpm: #0a2f5c; --brand-jpm-soft: #e2e7ed;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent2: #a3ad7c; --accent2-soft: #2c2f1f;
+        --brand-workiva: #7ea4f7; --brand-workiva-soft: #1c2740;
+        --brand-thrive: #5cc9b8; --brand-thrive-soft: #163330;
+        --brand-jpm: #7591b3; --brand-jpm-soft: #1c2530;
+      }
     }
 
-    .project-card {
-      border: 1px solid #e8e8e8;
-      border-radius: 6px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: border-color 0.15s, box-shadow 0.15s;
-      text-decoration: none;
-      color: inherit;
-      display: block;
+    ::selection { background: var(--color-accent-soft); color: var(--color-ink); }
+
+    :focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: 3px;
     }
 
-    .project-card:hover {
-      border-color: #ccc;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    /* ── Reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(6px);
+      animation: reveal var(--dur-long) var(--ease-out) forwards;
+      animation-delay: calc(var(--i, 0) * 55ms);
+    }
+    @keyframes reveal { to { opacity: 1; transform: none; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 1ms !important;
+        transition-duration: 1ms !important;
+      }
     }
 
-    .project-thumb {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #f4f4f4;
+    /* ══════════════════ Top nav ══════════════════ */
+
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: var(--z-sticky);
+      background: var(--color-paper);
+      border-bottom: 1px solid var(--color-rule);
       display: flex;
       align-items: center;
-      justify-content: center;
-      color: #bbb;
-      font-size: 13px;
+      justify-content: space-between;
+      padding: var(--space-md) var(--space-lg);
+      min-height: 60px;
+    }
+
+    .topnav__mark {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: var(--text-sm);
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      color: var(--color-ink);
+      flex-shrink: 0;
+    }
+
+    .topnav__tabs {
+      display: flex;
+      gap: var(--space-lg);
+    }
+
+    .tab {
+      appearance: none;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: var(--text-xs);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-neutral);
+      cursor: pointer;
+      padding: var(--space-xs) var(--space-3xs) 6px;
+      transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+      white-space: nowrap;
+    }
+
+    .tab:hover { color: var(--color-ink); }
+    .tab:active { transform: scale(0.96); }
+
+    .tab.active {
+      color: var(--color-ink);
+      font-weight: 600;
+      border-bottom-color: var(--color-ink);
+    }
+
+    /* ══════════════════ Main ══════════════════ */
+
+    .wrap {
+      max-width: 46rem;
+      margin: 0 auto;
+      padding: var(--space-3xl) var(--space-lg) var(--space-3xl);
+    }
+
+    /* ── Intro ── */
+    .intro { margin-bottom: var(--space-2xl); }
+
+    .who {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--color-paper-2);
+      border: 1px solid var(--color-rule);
+      flex-shrink: 0;
       overflow: hidden;
     }
 
-    .project-thumb img {
+    .avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .project-info {
-      padding: 14px 16px 16px;
+    .who-text .name {
+      font-family: "Familjen Grotesk", var(--font-body), sans-serif;
+      font-weight: 700;
+      font-size: var(--text-lg);
+      letter-spacing: -0.01em;
     }
 
-    .project-info h3 {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 4px;
+    .who-text .role {
+      font-size: var(--text-md);
+      color: var(--color-muted);
+      margin-top: 3px;
     }
 
-    .project-info p {
-      font-size: 13px;
-      color: #6b6b6b;
-      line-height: 1.5;
+    .intro .bio p {
+      font-size: var(--text-md);
+      color: var(--color-muted);
+      line-height: 1.7;
+      margin-bottom: var(--space-md);
+      max-width: 56ch;
     }
 
-    /* ── Favorites ── */
-    .fav-group {
-      margin-bottom: 48px;
-    }
+    .intro .bio p:last-child { margin-bottom: 0; }
+    .intro .bio strong { color: var(--color-ink); font-weight: 600; }
 
-    .fav-group-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #aaa;
-      margin-bottom: 12px;
-    }
-
-    .fav-subgroup-label {
-      font-size: 13px;
-      font-weight: 500;
-      color: #6b6b6b;
-      margin-top: 24px;
-      margin-bottom: 0;
-    }
-
-    .fav-link-list {
-      list-style: none;
-    }
-
-    .fav-link-list li {
-      border-bottom: 1px solid #e8e8e8;
-    }
-
-    .fav-link-list li:first-child {
-      border-top: 1px solid #e8e8e8;
-    }
-
-    .fav-link-list a {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 4px;
-      text-decoration: none;
-      color: #1a1a1a;
-      transition: color 0.15s;
-    }
-
-    .fav-link-list a:hover { color: #555; }
-
-    .fav-link-list .link-thumb {
-      width: 52px;
-      height: 52px;
-      border-radius: 8px;
-      object-fit: cover;
-      flex-shrink: 0;
-      background: #f0f0f0;
-    }
-
-    .fav-link-list .link-content {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      flex: 1;
-      min-width: 0;
-    }
-
-    .fav-link-list .link-title-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .fav-link-list .link-name {
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .fav-link-list .link-chip {
-      font-size: 11px;
-      color: #888;
-      background: #f0f0f0;
+    .ico {
+      width: 15px;
+      height: 15px;
       border-radius: 4px;
-      padding: 2px 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      flex-shrink: 0;
+      background: var(--color-paper-2);
+      color: var(--color-muted);
+      transition: background var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+    }
+
+    .ilink {
+      color: var(--color-ink);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1.5px solid var(--color-rule);
+      padding-bottom: 1px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+
+    .ilink[data-brand="workiva"]:hover { color: var(--brand-workiva); border-color: var(--brand-workiva); }
+    .ilink[data-brand="workiva"]:hover .ico { background: var(--brand-workiva-soft); color: var(--brand-workiva); }
+    .ilink[data-brand="thrive"]:hover { color: var(--brand-thrive); border-color: var(--brand-thrive); }
+    .ilink[data-brand="thrive"]:hover .ico { background: var(--brand-thrive-soft); color: var(--brand-thrive); }
+    .ilink[data-brand="jpm"]:hover { color: var(--brand-jpm); border-color: var(--brand-jpm); }
+    .ilink[data-brand="jpm"]:hover .ico { background: var(--brand-jpm-soft); color: var(--brand-jpm); }
+
+    /* ── Flagship card ── */
+    .feat-card {
+      position: relative;
+      display: block;
+      margin-top: var(--space-xl);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      text-decoration: none;
+      color: #fff;
+      aspect-ratio: 16/9;
+      background: #111;
+      transition: box-shadow var(--dur-short) var(--ease-out);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+    .feat-card:hover { box-shadow: 0 24px 48px -12px rgba(0,0,0,0.35); }
+    .feat-card img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      transition: transform var(--dur-long) var(--ease-out), filter var(--dur-long) var(--ease-out);
+      filter: grayscale(0.35) contrast(1.05);
+    }
+    .feat-card:hover img { transform: scale(1.045); filter: grayscale(0) contrast(1.08); }
+    .feat-card::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0) 70%);
+    }
+    .feat-body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: var(--space-lg); }
+    .feat-eyebrow {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 6px;
+    }
+    .feat-title {
+      display: block;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: var(--text-xl);
+      line-height: 1.15;
+    }
+    .feat-desc { display: block; margin-top: 8px; font-size: var(--text-sm); opacity: 0.85; max-width: 46ch; }
+
+    /* ── Page-corner frame (ambient, static, site-wide) ── */
+    .page-corner { position: fixed; width: 14px; height: 14px; z-index: 500; pointer-events: none; }
+    .page-corner::before, .page-corner::after { content: ""; position: absolute; background: color-mix(in srgb, var(--accent2) 45%, var(--color-rule)); }
+    .page-corner::before { width: 100%; height: 1.5px; }
+    .page-corner::after { width: 1.5px; height: 100%; }
+    .page-corner-tl { top: 16px; left: 16px; }
+    .page-corner-tl::before, .page-corner-tl::after { top: 0; left: 0; }
+    .page-corner-tr { top: 16px; right: 16px; }
+    .page-corner-tr::before, .page-corner-tr::after { top: 0; right: 0; }
+    .page-corner-bl { bottom: 16px; left: 16px; }
+    .page-corner-bl::before { bottom: 0; left: 0; }
+    .page-corner-bl::after { top: 0; left: 0; }
+    .page-corner-br { bottom: 16px; right: 16px; }
+    .page-corner-br::before { bottom: 0; right: 0; }
+    .page-corner-br::after { top: 0; right: 0; }
+    @media (max-width: 40rem) { .page-corner { display: none; } }
+
+    /* ── Section head ── */
+    .sec-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .sec-head h2 {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 400;
+      font-size: var(--text-md);
+      color: var(--color-muted);
+    }
+
+    .sec-head span {
+      font-size: var(--text-xs);
+      color: var(--color-neutral);
       white-space: nowrap;
     }
 
-    .fav-link-list .link-desc {
-      font-size: 13px;
-      color: #6b6b6b;
+    .section { display: none; }
+    .section.active { display: block; }
+
+    /* ── Index list (Projects) ── */
+    .index-list { border-top: 1px solid var(--color-ink); }
+
+    .index-row {
+      display: flex;
+      gap: var(--space-md);
+      align-items: center;
+      padding: var(--space-md) var(--space-sm);
+      margin: 0 calc(var(--space-sm) * -1);
+      border-bottom: 1px solid var(--color-rule);
+      text-decoration: none;
+      color: inherit;
+      transition: border-color var(--dur-short) var(--ease-out), background var(--dur-short) var(--ease-out);
     }
 
+    .index-row:hover { border-bottom-color: var(--color-ink); background: color-mix(in srgb, var(--accent2-soft) 55%, transparent); }
+    .index-row:hover .index-row__title { text-decoration: underline; text-decoration-color: var(--color-rule); }
+    .index-row:active { opacity: 0.7; }
+
+    .index-row__num {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-neutral);
+      width: 2.5ch;
+      flex-shrink: 0;
+    }
+
+    .index-row__thumb {
+      width: 84px;
+      height: 62px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      filter: grayscale(1) contrast(1.05);
+      flex-shrink: 0;
+      background: var(--color-paper-2);
+    }
+
+    .index-row__body { flex: 1; min-width: 0; }
+
+    .index-row__title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: var(--text-md);
+      line-height: 1.25;
+    }
+
+    .index-row__desc {
+      margin-top: var(--space-3xs);
+      font-size: var(--text-sm);
+      color: var(--color-muted);
+      line-height: 1.5;
+    }
+
+    .index-row__cat {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--color-neutral);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── Favorites ── */
+    .fav-group { margin-bottom: var(--space-2xl); }
+
+    .fav-group-label {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: var(--text-md);
+      color: var(--color-muted);
+      margin-bottom: var(--space-md);
+    }
+
+    .fav-subgroup-label {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-neutral);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: var(--space-lg);
+      margin-bottom: var(--space-2xs);
+    }
+
+    .fav-link-list, .band-list { list-style: none; }
+
+    .fav-link-list li, .band-list li { border-bottom: 1px solid var(--color-rule); }
+    .fav-link-list li:first-child, .band-list li:first-child { border-top: 1px solid var(--color-rule); }
+
+    .fav-link-list a, .band-list a {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md) var(--space-2xs);
+      text-decoration: none;
+      color: var(--color-ink);
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+
+    .fav-link-list a:hover, .band-list a:hover { opacity: 0.6; }
+
+    .fav-link-list .link-thumb {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      flex-shrink: 0;
+      background: var(--color-paper-2);
+      filter: grayscale(1);
+    }
+
+    .fav-link-list .link-content { display: flex; flex-direction: column; gap: var(--space-3xs); flex: 1; min-width: 0; }
+    .fav-link-list .link-title-row { display: flex; align-items: center; gap: var(--space-xs); }
+    .fav-link-list .link-name { font-size: var(--text-base); font-weight: 500; }
+
+    .fav-link-list .link-chip {
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      border: 1px solid var(--color-rule);
+      border-radius: var(--radius-sm);
+      padding: 1px var(--space-xs);
+      white-space: nowrap;
+    }
+
+    .fav-link-list .link-desc { font-size: var(--text-sm); color: var(--color-muted); }
+
     .fav-link-list .link-domain {
-      font-size: 12px;
-      color: #aaa;
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: var(--text-xs);
+      color: var(--color-neutral);
       white-space: nowrap;
       flex-shrink: 0;
       margin-left: auto;
     }
 
-    .band-list {
-      list-style: none;
-    }
-
-    .band-list li {
-      border-bottom: 1px solid #e8e8e8;
-    }
-
-
-    .band-list a {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 12px 4px;
-      text-decoration: none;
-      color: #1a1a1a;
-      transition: color 0.15s;
-    }
-
-    .band-list a:hover { color: #555; }
-
     .band-thumb {
-      width: 160px;
-      height: 160px;
-      border-radius: 4px;
+      width: 120px;
+      height: 120px;
+      border-radius: var(--radius-sm);
       object-fit: cover;
       flex-shrink: 0;
+      filter: grayscale(1);
     }
 
-    .band-info {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .band-name {
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .band-desc {
-      font-size: 13px;
-      color: #6b6b6b;
-    }
+    .band-info { display: flex; flex-direction: column; gap: var(--space-3xs); }
+    .band-name { font-size: var(--text-base); font-weight: 500; }
+    .band-desc { font-size: var(--text-sm); color: var(--color-muted); }
 
     /* ── About ── */
-    .about-body {
-      max-width: 560px;
-    }
-
     .about-body p {
-      font-size: 15px;
-      color: #3a3a3a;
-      margin-bottom: 20px;
-      line-height: 1.75;
+      font-family: var(--font-display);
+      font-size: var(--text-md);
+      color: var(--color-ink);
+      margin-bottom: var(--space-md);
+      line-height: 1.7;
     }
 
-    .exp-section {
-      margin-top: 48px;
-    }
+    .exp-section { margin-top: var(--space-2xl); }
 
     .exp-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #aaa;
-      margin-bottom: 12px;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: var(--text-md);
+      color: var(--color-muted);
+      margin-bottom: var(--space-md);
     }
 
-    .exp-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr auto;
-      gap: 16px;
-      padding: 12px 0;
-      border-bottom: 1px solid #e8e8e8;
-      align-items: baseline;
-      justify-items: start;
+    table.exp-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+    table.exp-table tr { border-bottom: 1px solid var(--color-rule); }
+    table.exp-table tr:first-child { border-top: 1px solid var(--color-ink); }
+
+    table.exp-table td {
+      padding: var(--space-sm) var(--space-xs) var(--space-sm) 0;
+      font-size: var(--text-sm);
+      vertical-align: baseline;
     }
 
-    .exp-dates {
-      justify-self: end;
+    table.exp-table td.exp-company { font-weight: 600; color: var(--color-ink); width: 32%; }
+    table.exp-table td.exp-title { color: var(--color-muted); }
+    table.exp-table td.exp-dates { color: var(--color-neutral); text-align: right; white-space: nowrap; width: 14ch; }
+
+    /* ══════════════════ Footer ══════════════════ */
+
+    footer.foot-dense {
+      margin-top: var(--space-3xl);
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--color-rule);
     }
 
-    .exp-row:first-of-type {
-      border-top: 1px solid #e8e8e8;
+    footer.foot-dense p {
+      font-size: var(--text-sm);
+      color: var(--color-muted);
+      line-height: 1.7;
+      max-width: 60ch;
     }
 
-    .exp-company {
-      font-size: 14px;
-      font-weight: 500;
-      color: #1a1a1a;
+    footer.foot-dense a {
+      color: var(--color-ink);
+      text-decoration: underline;
+      text-decoration-color: var(--color-rule);
+      text-underline-offset: 2px;
+      transition: text-decoration-color var(--dur-short) var(--ease-out);
     }
 
-    .exp-title {
-      font-size: 14px;
-      color: #6b6b6b;
-      justify-self: start;
-    }
+    footer.foot-dense a:hover { text-decoration-color: var(--color-ink); }
 
-    .exp-dates {
-      font-size: 13px;
-      color: #aaa;
-      white-space: nowrap;
-    }
+    /* ══════════════════ Responsive ══════════════════ */
 
-    /* ── Footer ── */
-    footer {
-      margin-top: 80px;
-      padding-bottom: 48px;
-      display: flex;
-      gap: 20px;
-    }
-
-    footer a {
-      font-size: 13px;
-      color: #aaa;
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-
-    footer a:hover { color: #1a1a1a; }
-
-    @media (max-width: 600px) {
-      .projects-grid { grid-template-columns: 1fr; }
-      header { padding: 40px 0 28px; }
+    @media (max-width: 40rem) {
+      .wrap { padding: var(--space-2xl) var(--space-md) var(--space-2xl); }
+      .index-row__thumb { width: 56px; height: 42px; }
+      .index-row__cat { display: none; }
+      .band-thumb { width: 84px; height: 84px; }
     }
   </style>
 </head>
 <body>
 
-<div class="container">
+  <span class="page-corner page-corner-tl"></span>
+  <span class="page-corner page-corner-tr"></span>
+  <span class="page-corner page-corner-bl"></span>
+  <span class="page-corner page-corner-br"></span>
 
-  <header>
-    <h1>Eric Wagner</h1>
-    <p>I design products customers love, then build AI systems so the team can ship more of them.</p>
+  <header class="topnav">
+    <a class="topnav__mark" href="#" aria-hidden="true">EW &middot; 2026</a>
+    <nav class="topnav__tabs" aria-label="Section navigation" role="tablist">
+      <button class="tab active" data-section="projects" role="tab" aria-selected="true">Projects</button>
+      <button class="tab" data-section="random" role="tab" aria-selected="false">Favorites</button>
+      <button class="tab" data-section="about" role="tab" aria-selected="false">About</button>
+    </nav>
   </header>
 
-  <nav>
-    <button class="active" data-section="projects">Projects</button>
-    <button data-section="random">Favorites</button>
-    <button data-section="about">About</button>
-  </nav>
+  <div class="wrap">
 
-  <!-- Projects -->
-  <section id="projects" class="section active">
-    <div class="projects-grid">
-
-      <a class="project-card" href="projects/ai-design-enablement.html">
-        <div class="project-thumb">
-          <!-- <img src="images/project-1.png" alt="Project one" /> -->
-          Thumbnail
+    <div class="intro reveal" style="--i: 0">
+      <div class="who">
+        <div class="avatar"><img src="assets/eric-headshot.jpg" alt="Eric Wagner"></div>
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer, Workiva</div>
         </div>
-        <div class="project-info">
-          <h3>AI-Powered Design Enablement</h3>
-          <p>How I scaled my expertise across an engineering team using AI tooling through a TypeScript and design system migration.</p>
-        </div>
-      </a>
+      </div>
 
-      <a class="project-card" href="projects/historical-data-roll-forward.html">
-        <div class="project-thumb">Thumbnail</div>
-        <div class="project-info">
-          <h3>Historical Data Roll Forward</h3>
-          <p>Automated a quarterly financial reporting task that took 75% of users a full day — cutting it to minutes and driving a 35% increase in SEC bookings.</p>
-        </div>
-      </a>
-
-      <a class="project-card" href="projects/chase-video-platform.html">
-        <div class="project-thumb">Thumbnail</div>
-        <div class="project-info">
-          <h3>Chase Advisor Video Platform</h3>
-          <p>Built Chase's first video collaboration suite from scratch — enabling 5,000+ wealth advisors to meet clients remotely and launching a new investment product line.</p>
-        </div>
-      </a>
-
-      <a class="project-card" href="projects/jpmorgan-automated-investing.html">
-        <div class="project-thumb">Thumbnail</div>
-        <div class="project-info">
-          <h3>J.P. Morgan Automated Investing</h3>
-          <p>Redesigned a robo-advisor used by millions — reducing drop-off and generating $472M in assets under management.</p>
-        </div>
-      </a>
-
-      <a class="project-card" href="projects/wellbeing-dashboard-redesign.html">
-        <div class="project-thumb">Thumbnail</div>
-        <div class="project-info">
-          <h3>Well-being Dashboard Redesign</h3>
-          <p>How I helped HR executives prove the ROI of employee well-being — and saved Customer Success 600 hours a year in the process.</p>
-        </div>
-      </a>
-
-      <a class="project-card" href="projects/wellbeing-insights-dashboard.html">
-        <div class="project-thumb">Thumbnail</div>
-        <div class="project-info">
-          <h3>Employee Well-being Insights Dashboard</h3>
-          <p>Designed the first user-level well-being dashboard at Thrive — driving a 31K increase in weekly check-in responses and a 90% interaction rate.</p>
-        </div>
-      </a>
-
-      <a class="project-card" href="projects/structured-data-north-star.html">
-        <div class="project-thumb">Thumbnail</div>
-        <div class="project-info">
-          <h3>Structured Data North Star</h3>
-          <p>A north star vision for Workiva's structured data tools — unifying a disconnected product suite with AI-driven tagging and guided workflows for compliance reporting.</p>
-        </div>
-      </a>
-
-      <a class="project-card" href="projects/internal-admin-tool.html">
-        <div class="project-thumb">Thumbnail</div>
-        <div class="project-info">
-          <h3>Internal Admin Tool Redesign</h3>
-          <p>Replaced a deprecated customer admin tool in 6 weeks — improving onboarding speed and reducing support tickets caused by confusing group codes.</p>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- Favorites -->
-  <section id="random" class="section">
-
-    <div class="fav-group">
-      <h2 class="fav-group-label">Inspo</h2>
-      <ul class="fav-link-list">
-        <li>
-          <a href="https://x.com/i/lists/1764931648397988203?s=20" target="_blank" rel="noopener">
-            <img class="link-thumb" src="images/logo-x.png" alt="X" style="background:transparent; padding:8px;" />
-            <div class="link-content">
-              <div class="link-title-row">
-                <span class="link-name">Designers to follow</span>
-                <span class="link-chip">list</span>
-              </div>
-              <span class="link-desc">My curated list of designers for news and inspiration</span>
-            </div>
-            <span class="link-domain">x.com</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://www.producthunt.com/" target="_blank" rel="noopener">
-            <img class="link-thumb" src="images/logo-producthunt.png" alt="Product Hunt" style="background:transparent;" />
-            <div class="link-content">
-              <div class="link-title-row">
-                <span class="link-name">Product Hunt</span>
-                <span class="link-chip">tool</span>
-              </div>
-              <span class="link-desc">Where I find new tools and stay on top of what's shipping</span>
-            </div>
-            <span class="link-domain">producthunt.com</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://open.spotify.com/show/4aRP2XSavdtrLG5FZoonOK?si=c27b0db1e3834107" target="_blank" rel="noopener">
-            <img class="link-thumb" src="images/podcast-how-i-ai.jpg" alt="How I AI" />
-            <div class="link-content">
-              <div class="link-title-row">
-                <span class="link-name">How I AI with Claire Vo</span>
-                <span class="link-chip">podcast</span>
-              </div>
-              <span class="link-desc">How product leaders are actually using AI day to day</span>
-            </div>
-            <span class="link-domain">spotify.com</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://open.spotify.com/show/6BuKkGfVR7FDaB3VPrN5fo?si=10bd23b49c3d4f68" target="_blank" rel="noopener">
-            <img class="link-thumb" src="images/podcast-dive-club.jpg" alt="Dive Club" />
-            <div class="link-content">
-              <div class="link-title-row">
-                <span class="link-name">Dive Club</span>
-                <span class="link-chip">podcast</span>
-              </div>
-              <span class="link-desc">Deep dives on design, product, and creative work</span>
-            </div>
-            <span class="link-domain">spotify.com</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://open.spotify.com/show/5qSUyCrk9KR69lEiXbjwXM?si=19fe7e433bd14316" target="_blank" rel="noopener">
-            <img class="link-thumb" src="images/podcast-tim-ferriss.jpg" alt="The Tim Ferriss Show" />
-            <div class="link-content">
-              <div class="link-title-row">
-                <span class="link-name">The Tim Ferriss Show</span>
-                <span class="link-chip">podcast</span>
-              </div>
-              <span class="link-desc">Long-form interviews with world-class performers</span>
-            </div>
-            <span class="link-domain">spotify.com</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="fav-group">
-      <h2 class="fav-group-label">Music</h2>
-
-      <h3 class="fav-subgroup-label">Bands I've played in</h3>
-      <ul class="band-list">
-        <li>
-          <a href="https://www.instagram.com/gnarly.rae.jepsen/?hl=en" target="_blank" rel="noopener">
-            <img class="band-thumb" src="images/GRJ.png" alt="Gnarly Rae Jepsen" />
-            <div class="band-info">
-              <span class="band-name">Gnarly Rae Jepsen</span>
-              <span class="band-desc">The best '90s & '00s band in NYC</span>
-            </div>
-          </a>
-        </li>
-      </ul>
-
-      <h3 class="fav-subgroup-label">Playing on repeat</h3>
-      <div style="margin-top: 12px;">
-        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1CKPJY0UjNTCYl?utm_source=generator&theme=0&si=40ee177c51dd442a" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <div class="bio">
+        <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading enterprise migration work at
+          <a class="ilink" href="#about" data-brand="workiva"><span class="ico">W</span>Workiva</a>, where a structured AI workflow got engineers migrating 66% of surfaces on their own, with zero production regressions.
+        </p>
+        <p>Before that I led design at <a class="ilink" href="#about" data-brand="thrive"><span class="ico">T</span>Thrive Global</a>, where a well-being dashboard hit a 90% interaction rate, and at <a class="ilink" href="#about" data-brand="jpm"><span class="ico">J</span>J.P. Morgan Chase</a>, where I redesigned a robo-advisor that helped generate $472M in AUM.</p>
       </div>
     </div>
 
-  </section>
+    <!-- Projects -->
+    <section id="projects" class="section active reveal" style="--i: 2">
+      <div class="sec-head">
+        <h2>Work, 2016 to 2026.</h2>
+        <span>8 case studies</span>
+      </div>
 
-  <!-- About -->
-  <section id="about" class="section">
-    <div class="about-body">
-      <p>I didn't start as a designer. I pushed my way in. Showed up to the design team's standups uninvited, asked for work, enrolled in General Assembly. I've been pulling up chairs ever since.</p>
-      <p>Today I'm a senior product designer working at the intersection of complex B2B workflows and AI tooling, focused on outcomes as much as craft.</p>
-      <p>Every pixel needs a rationale. Design is a tool, not a statement. When things get murky I ask the dumb questions: Who are we designing for? What are the jobs to be done? Why would someone use this?</p>
-      <p>Outside work I'm a dad to an 18-month-old, a drummer, and a perpetual student. Lately that's meant AI coding tools, chess strategy, and why none of my shelves want to be level.</p>
-      <p>There's always something to figure out. That part hasn't changed.</p>
+      <a class="feat-card" href="projects/ai-design-enablement.html">
+        <img src="https://picsum.photos/seed/network-grid/900/506" alt="" />
+        <span class="feat-body">
+          <span class="feat-eyebrow">Case study &middot; 01 &middot; Start here</span>
+          <span class="feat-title">66% Automated: Enterprise Migration</span>
+          <span class="feat-desc">How I enabled engineers to migrate 31 of 47 product surfaces autonomously using a structured AI workflow, with zero production regressions.</span>
+        </span>
+      </a>
 
-      <div class="exp-section">
-      <p class="exp-label">Experience</p>
-      <div class="exp-row">
-        <span class="exp-company">Workiva</span>
-        <span class="exp-title">Senior Product Designer</span>
-        <span class="exp-dates">2024 – Present</span>
-      </div>
-      <div class="exp-row">
-        <span class="exp-company">Thrive Global</span>
-        <span class="exp-title">Senior Product Designer</span>
-        <span class="exp-dates">2022 – 2024</span>
-      </div>
-      <div class="exp-row">
-        <span class="exp-company">JPMorgan Chase</span>
-        <span class="exp-title">Lead Product Designer, VP</span>
-        <span class="exp-dates">2018 – 2022</span>
-      </div>
-      <div class="exp-row">
-        <span class="exp-company">DOOR3</span>
-        <span class="exp-title">UX Designer</span>
-        <span class="exp-dates">2017 – 2018</span>
-      </div>
-      <div class="exp-row">
-        <span class="exp-company">Sermo</span>
-        <span class="exp-title">Product Designer</span>
-        <span class="exp-dates">2016 – 2017</span>
-      </div>
-      </div>
-    </div>
-  </section>
+      <div class="index-list">
 
-  <footer>
-    <a href="mailto:ericjwag@gmail.com">Email</a>
-    <a href="https://github.com/ericjwagner" target="_blank" rel="noopener">GitHub</a>
-    <a href="https://www.linkedin.com/in/ericjwagner/" target="_blank" rel="noopener">LinkedIn</a>
-  </footer>
+        <a class="index-row" href="projects/historical-data-roll-forward.html">
+          <span class="index-row__num">02</span>
+          <img class="index-row__thumb" src="https://picsum.photos/seed/archive-shelves/320/220" alt="" />
+          <div class="index-row__body">
+            <div class="index-row__title">Historical Data Roll Forward</div>
+            <p class="index-row__desc">Automated a quarterly financial reporting task that took 75% of users a full day, cutting it to minutes and driving a 35% increase in SEC bookings.</p>
+          </div>
+          <span class="index-row__cat">Fintech</span>
+        </a>
 
-</div>
+        <a class="index-row" href="projects/chase-video-platform.html">
+          <span class="index-row__num">03</span>
+          <img class="index-row__thumb" src="https://picsum.photos/seed/glass-office/320/220" alt="" />
+          <div class="index-row__body">
+            <div class="index-row__title">Chase Advisor Video Platform</div>
+            <p class="index-row__desc">Built Chase's first video collaboration suite from scratch, enabling 5,000+ wealth advisors to meet clients remotely and launching a new investment product line.</p>
+          </div>
+          <span class="index-row__cat">Fintech</span>
+        </a>
+
+        <a class="index-row" href="projects/jpmorgan-automated-investing.html">
+          <span class="index-row__num">04</span>
+          <img class="index-row__thumb" src="https://picsum.photos/seed/ticker-tape/320/220" alt="" />
+          <div class="index-row__body">
+            <div class="index-row__title">J.P. Morgan Automated Investing</div>
+            <p class="index-row__desc">Redesigned a robo-advisor used by millions, reducing drop-off and generating $472M in assets under management.</p>
+          </div>
+          <span class="index-row__cat">Fintech</span>
+        </a>
+
+        <a class="index-row" href="projects/wellbeing-dashboard-redesign.html">
+          <span class="index-row__num">05</span>
+          <img class="index-row__thumb" src="https://picsum.photos/seed/quiet-morning/320/220" alt="" />
+          <div class="index-row__body">
+            <div class="index-row__title">Well-being Dashboard Redesign</div>
+            <p class="index-row__desc">How I helped HR executives prove the ROI of employee well-being, saving Customer Success 600 hours a year in the process.</p>
+          </div>
+          <span class="index-row__cat">HR Analytics</span>
+        </a>
+
+        <a class="index-row" href="projects/wellbeing-insights-dashboard.html">
+          <span class="index-row__num">06</span>
+          <img class="index-row__thumb" src="https://picsum.photos/seed/soft-window/320/220" alt="" />
+          <div class="index-row__body">
+            <div class="index-row__title">Employee Well-being Insights Dashboard</div>
+            <p class="index-row__desc">Designed the first user-level well-being dashboard at Thrive, driving a 31K increase in weekly check-in responses and a 90% interaction rate.</p>
+          </div>
+          <span class="index-row__cat">HR Analytics</span>
+        </a>
+
+        <a class="index-row" href="projects/structured-data-north-star.html">
+          <span class="index-row__num">07</span>
+          <img class="index-row__thumb" src="https://picsum.photos/seed/paper-grid/320/220" alt="" />
+          <div class="index-row__body">
+            <div class="index-row__title">Structured Data North Star</div>
+            <p class="index-row__desc">A north star vision for Workiva's structured data tools, unifying a disconnected product suite with AI-driven tagging and guided workflows for compliance reporting.</p>
+          </div>
+          <span class="index-row__cat">Compliance</span>
+        </a>
+
+        <a class="index-row" href="projects/internal-admin-tool.html">
+          <span class="index-row__num">08</span>
+          <img class="index-row__thumb" src="https://picsum.photos/seed/control-panel/320/220" alt="" />
+          <div class="index-row__body">
+            <div class="index-row__title">Internal Admin Tool Redesign</div>
+            <p class="index-row__desc">Replaced a deprecated customer admin tool in 6 weeks, improving onboarding speed and reducing support tickets caused by confusing group codes.</p>
+          </div>
+          <span class="index-row__cat">Internal Tools</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Favorites -->
+    <section id="random" class="section">
+      <div class="sec-head">
+        <h2>Elsewhere.</h2>
+        <span>currently</span>
+      </div>
+
+      <div class="fav-group">
+        <h3 class="fav-group-label">Inspo</h3>
+        <ul class="fav-link-list">
+          <li>
+            <a href="https://x.com/i/lists/1764931648397988203?s=20" target="_blank" rel="noopener">
+              <img class="link-thumb" src="images/logo-x.png" alt="X" style="background:transparent; padding:8px;" />
+              <div class="link-content">
+                <div class="link-title-row">
+                  <span class="link-name">Designers to follow</span>
+                  <span class="link-chip">list</span>
+                </div>
+                <span class="link-desc">My curated list of designers for news and inspiration</span>
+              </div>
+              <span class="link-domain">x.com</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.producthunt.com/" target="_blank" rel="noopener">
+              <img class="link-thumb" src="images/logo-producthunt.png" alt="Product Hunt" style="background:transparent;" />
+              <div class="link-content">
+                <div class="link-title-row">
+                  <span class="link-name">Product Hunt</span>
+                  <span class="link-chip">tool</span>
+                </div>
+                <span class="link-desc">Where I find new tools and stay on top of what's shipping</span>
+              </div>
+              <span class="link-domain">producthunt.com</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://open.spotify.com/show/4aRP2XSavdtrLG5FZoonOK?si=c27b0db1e3834107" target="_blank" rel="noopener">
+              <img class="link-thumb" src="images/podcast-how-i-ai.jpg" alt="How I AI" />
+              <div class="link-content">
+                <div class="link-title-row">
+                  <span class="link-name">How I AI with Claire Vo</span>
+                  <span class="link-chip">podcast</span>
+                </div>
+                <span class="link-desc">How product leaders are actually using AI day to day</span>
+              </div>
+              <span class="link-domain">spotify.com</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://open.spotify.com/show/6BuKkGfVR7FDaB3VPrN5fo?si=10bd23b49c3d4f68" target="_blank" rel="noopener">
+              <img class="link-thumb" src="images/podcast-dive-club.jpg" alt="Dive Club" />
+              <div class="link-content">
+                <div class="link-title-row">
+                  <span class="link-name">Dive Club</span>
+                  <span class="link-chip">podcast</span>
+                </div>
+                <span class="link-desc">Deep dives on design, product, and creative work</span>
+              </div>
+              <span class="link-domain">spotify.com</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://open.spotify.com/show/5qSUyCrk9KR69lEiXbjwXM?si=19fe7e433bd14316" target="_blank" rel="noopener">
+              <img class="link-thumb" src="images/podcast-tim-ferriss.jpg" alt="The Tim Ferriss Show" />
+              <div class="link-content">
+                <div class="link-title-row">
+                  <span class="link-name">The Tim Ferriss Show</span>
+                  <span class="link-chip">podcast</span>
+                </div>
+                <span class="link-desc">Long-form interviews with world-class performers</span>
+              </div>
+              <span class="link-domain">spotify.com</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="fav-group">
+        <h3 class="fav-group-label">Music</h3>
+
+        <h4 class="fav-subgroup-label">Bands I've played in</h4>
+        <ul class="band-list">
+          <li>
+            <a href="https://www.instagram.com/gnarly.rae.jepsen/?hl=en" target="_blank" rel="noopener">
+              <img class="band-thumb" src="images/GRJ.png" alt="Gnarly Rae Jepsen" />
+              <div class="band-info">
+                <span class="band-name">Gnarly Rae Jepsen</span>
+                <span class="band-desc">The best '90s &amp; '00s band in NYC</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+
+        <h4 class="fav-subgroup-label">Playing on repeat</h4>
+        <div style="margin-top: var(--space-md);">
+          <iframe data-testid="embed-iframe" style="border-radius:var(--radius-md); border: 1px solid var(--color-rule); filter: grayscale(1);" src="https://open.spotify.com/embed/playlist/37i9dQZF1CKPJY0UjNTCYl?utm_source=generator&theme=0&si=40ee177c51dd442a" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section">
+      <div class="sec-head">
+        <h2>A studied hand.</h2>
+        <span>Workiva, since 2024</span>
+      </div>
+
+      <div class="about-body">
+        <p>I didn't start as a designer. I pushed my way in. Showed up to the design team's standups uninvited, asked for work, enrolled in General Assembly. I've been pulling up chairs ever since.</p>
+        <p>Today I'm a staff product designer working at the intersection of complex B2B workflows and AI tooling, focused on outcomes as much as craft.</p>
+        <p>Every pixel needs a rationale. Design is a tool, not a statement. When things get murky I ask the dumb questions: Who are we designing for? What are the jobs to be done? Why would someone use this?</p>
+        <p>Outside work I'm a dad to an 18-month-old, a drummer, and a perpetual student. Lately that's meant AI coding tools, chess strategy, and why none of my shelves want to be level.</p>
+        <p>There's always something to figure out. That part hasn't changed.</p>
+
+        <div class="exp-section">
+          <p class="exp-label">Experience</p>
+          <table class="exp-table">
+            <tbody>
+              <tr>
+                <td class="exp-company">Workiva</td>
+                <td class="exp-title">Staff Product Designer</td>
+                <td class="exp-dates">2024-Present</td>
+              </tr>
+              <tr>
+                <td class="exp-company">Thrive Global</td>
+                <td class="exp-title">Senior Product Designer</td>
+                <td class="exp-dates">2022-2024</td>
+              </tr>
+              <tr>
+                <td class="exp-company">JPMorgan Chase</td>
+                <td class="exp-title">Lead Product Designer, VP</td>
+                <td class="exp-dates">2018-2022</td>
+              </tr>
+              <tr>
+                <td class="exp-company">DOOR3</td>
+                <td class="exp-title">UX Designer</td>
+                <td class="exp-dates">2017-2018</td>
+              </tr>
+              <tr>
+                <td class="exp-company">Sermo</td>
+                <td class="exp-title">Product Designer</td>
+                <td class="exp-dates">2016-2017</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot-dense">
+      <p>Eric Wagner. Staff product designer, New York. <a href="mailto:ericjwag@gmail.com">ericjwag@gmail.com</a> &middot; <a href="https://github.com/ericjwagner" target="_blank" rel="noopener">github.com/ericjwagner</a> &middot; <a href="https://www.linkedin.com/in/ericjwagner/" target="_blank" rel="noopener">linkedin.com/in/ericjwagner/</a>. Built by hand, 2026.</p>
+    </footer>
+
+  </div>
 
 <script>
-  const buttons = document.querySelectorAll('nav button');
+  const tabBtns = document.querySelectorAll('.tab');
   const sections = document.querySelectorAll('.section');
 
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      buttons.forEach(b => b.classList.remove('active'));
-      sections.forEach(s => s.classList.remove('active'));
-
-      btn.classList.add('active');
-      document.getElementById(btn.dataset.section).classList.add('active');
+  function setSection(name) {
+    tabBtns.forEach(b => {
+      const isActive = b.dataset.section === name;
+      b.classList.toggle('active', isActive);
+      b.setAttribute('aria-selected', String(isActive));
     });
+    sections.forEach(s => s.classList.toggle('active', s.id === name));
+  }
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => setSection(btn.dataset.section));
   });
 </script>
 
