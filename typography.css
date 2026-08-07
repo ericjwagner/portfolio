@@ -5,10 +5,10 @@
    overrides — a page only needs to declare a property here if it
    wants to deviate from the shared look. */
 
-:where(header h1) {
+:where(header h1, .who-text .name) {
   font-family: "Familjen Grotesk", var(--font-body), sans-serif;
   font-weight: 600;
-  font-size: var(--text-xl);
+  font-size: var(--text-lg);
   letter-spacing: -0.01em;
   line-height: 1.2;
 }
