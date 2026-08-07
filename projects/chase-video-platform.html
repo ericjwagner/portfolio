@@ -46,15 +46,17 @@
 
     .thumbnail {
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 4 / 3;
       border-radius: 6px;
-      background: #f4f4f4;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #bbb;
-      font-size: 13px;
+      overflow: hidden;
       margin: 40px 0;
+    }
+
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .case-study { max-width: 640px; }
@@ -95,6 +97,15 @@
     }
 
     .case-study ul li { margin-bottom: 6px; }
+
+    .case-study figure {
+      margin: 20px 0;
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .case-study figure img { width: 100%; display: block; }
 
     .stats-grid {
       display: grid;
@@ -187,7 +198,9 @@
     <p class="meta">Chase &mdash; Lead Product Designer &mdash; November 2020–November 2021</p>
   </header>
 
-  <div class="thumbnail">Thumbnail</div>
+  <div class="thumbnail">
+    <img src="../assets/images/chase-video-platform/virtual-meeting-collab-1.png" alt="Virtual meeting shown across laptop, tablet, and phone" />
+  </div>
 
   <div class="case-study">
 
@@ -253,10 +266,18 @@
         The meeting window needed to handle collapsed, expanded, minimized, and maximized views — plus browser resizing — without breaking the experience. I designed resize controls alongside familiar meeting controls to accommodate docking, repositioning, and various screen sizes.
       </p>
 
+      <figure>
+        <img src="../assets/images/chase-video-platform/virtual-meeting-grid-large-1.png" alt="Full screen and floating window states of the meeting window, expanded and collapsed" />
+      </figure>
+
       <h3>Accessibility</h3>
       <p>
         For a sighted user, it's obvious when you're sharing your screen. For a keyboard-only user, it isn't. I created a11y specs documenting how keyboard-only users could have the full experience — including dragging and repositioning the meeting window.
       </p>
+
+      <figure>
+        <img src="../assets/images/chase-video-platform/group-33649-1.webp" alt="Accessibility specs for screen sharing, including keyboard controls for dragging and repositioning the meeting window" />
+      </figure>
 
       <h3>Screen sharing — before and after user testing</h3>
       <div class="before-after">
