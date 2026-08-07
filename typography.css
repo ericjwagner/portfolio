@@ -1,0 +1,38 @@
+/* Typography — shared across the whole site.
+   Edit a rule here and it updates everywhere this file is linked:
+   index.html, projects.html, and every case study in /projects.
+   Uses :where() (0 specificity) so it never fights page-specific
+   overrides — a page only needs to declare a property here if it
+   wants to deviate from the shared look. */
+
+:where(header h1) {
+  font-family: "Familjen Grotesk", var(--font-body), sans-serif;
+  font-weight: 600;
+  font-size: var(--text-xl);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+:where(.sec-head h2, .case-study h2, .fav-group-label) {
+  font-family: "Familjen Grotesk", var(--font-body), sans-serif;
+  font-weight: 400;
+  font-size: var(--text-lg);
+  color: var(--color-ink);
+  line-height: 1.3;
+}
+
+:where(.case-study h3, .grid-card__title, .index-row__title) {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-base);
+  color: var(--color-ink);
+  line-height: 1.4;
+}
+
+:where(.case-study p, .case-study ul) {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--text-base);
+  color: var(--color-muted);
+  line-height: 1.75;
+}

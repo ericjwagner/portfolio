@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Style Guide — Eric Wagner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Familjen+Grotesk:wght@400;600;700&family=Geist:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="typography.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-paper);
+      color: var(--color-ink);
+      font-size: var(--text-base);
+      line-height: 1.6;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: var(--space-2xl) var(--space-lg);
+    }
+
+    h1.page-title {
+      font-family: "Familjen Grotesk", var(--font-body), sans-serif;
+      font-weight: 600;
+      font-size: var(--text-2xl);
+      letter-spacing: -0.01em;
+      margin-bottom: var(--space-2xs);
+    }
+
+    .page-sub {
+      color: var(--color-muted);
+      margin-bottom: var(--space-2xl);
+      max-width: 60ch;
+    }
+
+    .block {
+      margin-bottom: var(--space-2xl);
+      padding-bottom: var(--space-2xl);
+      border-bottom: 1px solid var(--color-rule);
+    }
+
+    .block:last-child { border-bottom: none; }
+
+    .block-label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-neutral);
+      margin-bottom: var(--space-lg);
+    }
+
+    .sample-row {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .sample-row:last-child { margin-bottom: 0; }
+
+    .sample-tag {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-neutral);
+      width: 90px;
+      flex-shrink: 0;
+    }
+
+    /* Reuse the exact selectors typography.css targets, so this page
+       always reflects what's actually live on the site. */
+    .sample-row header,
+    .sample-row .sec-head,
+    .sample-row .case-study { display: contents; }
+
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .swatch {
+      border: 1px solid var(--color-rule);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .swatch-color {
+      height: 64px;
+    }
+
+    .swatch-label {
+      padding: var(--space-xs) var(--space-sm);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+    }
+
+    .swatch-name { color: var(--color-ink); display: block; }
+    .swatch-hex { color: var(--color-muted); display: block; }
+
+    .space-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .space-bar {
+      background: var(--color-ink);
+      height: 10px;
+      border-radius: 2px;
+    }
+
+    .space-tag {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      width: 160px;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+
+    <h1 class="page-title">Style guide</h1>
+    <p class="page-sub">
+      A live reference for <code>tokens.css</code> and <code>typography.css</code>. Edit either file and every page that links them — <code>index.html</code>, <code>projects.html</code>, this page, and everything in <code>/projects</code> — updates together.
+    </p>
+
+    <div class="block">
+      <div class="block-label">Headings — typography.css</div>
+
+      <div class="sample-row">
+        <span class="sample-tag">header h1</span>
+        <header><h1>Case study page title</h1></header>
+      </div>
+
+      <div class="sample-row">
+        <span class="sample-tag">.sec-head h2 /<br>.case-study h2</span>
+        <div class="sec-head"><h2>Section heading</h2></div>
+      </div>
+
+      <div class="sample-row">
+        <span class="sample-tag">.case-study h3 /<br>.grid-card__title /<br>.index-row__title</span>
+        <div class="case-study"><h3>Subheading or card title</h3></div>
+      </div>
+
+      <div class="sample-row">
+        <span class="sample-tag">.case-study p</span>
+        <div class="case-study"><p>Body copy reads like this — used for case study paragraphs across every project page.</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Color — tokens.css</div>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--color-paper);"></div>
+          <div class="swatch-label"><span class="swatch-name">paper</span><span class="swatch-hex">--color-paper</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--color-paper-2);"></div>
+          <div class="swatch-label"><span class="swatch-name">paper-2</span><span class="swatch-hex">--color-paper-2</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--color-rule);"></div>
+          <div class="swatch-label"><span class="swatch-name">rule</span><span class="swatch-hex">--color-rule</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--color-neutral);"></div>
+          <div class="swatch-label"><span class="swatch-name">neutral</span><span class="swatch-hex">--color-neutral</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--color-muted);"></div>
+          <div class="swatch-label"><span class="swatch-name">muted</span><span class="swatch-hex">--color-muted</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--color-ink);"></div>
+          <div class="swatch-label"><span class="swatch-name">ink</span><span class="swatch-hex">--color-ink</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label">Space scale — tokens.css</div>
+      <div class="space-row"><span class="space-tag">--space-3xs · 2px</span><div class="space-bar" style="width: var(--space-3xs);"></div></div>
+      <div class="space-row"><span class="space-tag">--space-2xs · 4px</span><div class="space-bar" style="width: var(--space-2xs);"></div></div>
+      <div class="space-row"><span class="space-tag">--space-xs · 8px</span><div class="space-bar" style="width: var(--space-xs);"></div></div>
+      <div class="space-row"><span class="space-tag">--space-sm · 12px</span><div class="space-bar" style="width: var(--space-sm);"></div></div>
+      <div class="space-row"><span class="space-tag">--space-md · 16px</span><div class="space-bar" style="width: var(--space-md);"></div></div>
+      <div class="space-row"><span class="space-tag">--space-lg · 24px</span><div class="space-bar" style="width: var(--space-lg);"></div></div>
+      <div class="space-row"><span class="space-tag">--space-xl · 40px</span><div class="space-bar" style="width: var(--space-xl);"></div></div>
+      <div class="space-row"><span class="space-tag">--space-2xl · 64px</span><div class="space-bar" style="width: var(--space-2xl);"></div></div>
+      <div class="space-row"><span class="space-tag">--space-3xl · 96px</span><div class="space-bar" style="width: var(--space-3xl);"></div></div>
+    </div>
+
+  </div>
+
+</body>
+</html>
