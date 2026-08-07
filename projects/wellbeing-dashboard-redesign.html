@@ -4,115 +4,121 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Well-being Dashboard Redesign — Eric Wagner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Familjen+Grotesk:wght@400;600;700&family=Geist:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../tokens.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      background: #fff;
-      color: #1a1a1a;
-      font-size: 15px;
+      font-family: var(--font-body);
+      background: var(--color-paper);
+      color: var(--color-ink);
+      font-size: var(--text-base);
       line-height: 1.6;
     }
 
     .container {
       max-width: 860px;
       margin: 0 auto;
-      padding: 0 32px;
+      padding: 0 var(--space-lg);
     }
 
-    header { padding: 64px 0 40px; }
+    header { padding: var(--space-2xl) 0 var(--space-xl); }
 
     .back-link {
       display: inline-block;
-      font-size: 13px;
-      color: #aaa;
+      font-size: var(--text-sm);
+      color: var(--color-neutral);
       text-decoration: none;
-      margin-bottom: 32px;
-      transition: color 0.15s;
+      margin-bottom: var(--space-lg);
+      transition: color var(--dur-short) var(--ease-out);
     }
 
-    .back-link:hover { color: #1a1a1a; }
+    .back-link:hover { color: var(--color-ink); }
     .back-link::before { content: "← "; }
 
     header h1 {
-      font-size: 26px;
+      font-family: "Familjen Grotesk", var(--font-body), sans-serif;
+      font-size: var(--text-xl);
       font-weight: 600;
-      letter-spacing: -0.4px;
-      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+      margin-bottom: var(--space-sm);
     }
 
-    .meta { font-size: 13px; color: #6b6b6b; }
+    .meta { font-size: var(--text-sm); color: var(--color-muted); }
 
     .thumbnail {
       width: 100%;
       aspect-ratio: 16 / 9;
-      border-radius: 6px;
-      background: #f4f4f4;
+      border-radius: var(--radius-md);
+      background: var(--color-paper-2);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #bbb;
-      font-size: 13px;
-      margin: 40px 0;
+      color: var(--color-neutral);
+      font-size: var(--text-sm);
+      margin: var(--space-xl) 0;
     }
 
     .case-study { max-width: 640px; }
-    .case-study section { margin-bottom: 48px; }
+    .case-study section { margin-bottom: var(--space-xl); }
 
     .case-study h2 {
-      font-size: 13px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      color: #aaa;
-      margin-bottom: 12px;
+      font-family: "Familjen Grotesk", var(--font-body), sans-serif;
+      font-size: var(--text-lg);
+      font-weight: 400;
+      color: var(--color-ink);
+      margin-bottom: var(--space-sm);
     }
 
     .case-study h3 {
-      font-size: 15px;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
       font-weight: 600;
-      margin-bottom: 8px;
-      margin-top: 28px;
+      color: var(--color-ink);
+      margin-bottom: var(--space-xs);
+      margin-top: var(--space-lg);
     }
 
-    .case-study h3:first-child { margin-top: 0; }
+    .case-study h2 + h3 { margin-top: 0; }
 
     .case-study p {
-      font-size: 15px;
-      color: #3a3a3a;
+      font-size: var(--text-base);
+      color: var(--color-muted);
       line-height: 1.75;
-      margin-bottom: 14px;
+      margin-bottom: var(--space-sm);
     }
 
     .case-study p:last-child { margin-bottom: 0; }
 
     .case-study ul {
-      margin: 0 0 14px 20px;
-      color: #3a3a3a;
-      font-size: 15px;
+      margin: 0 0 var(--space-sm) var(--space-md);
+      color: var(--color-muted);
+      font-size: var(--text-base);
       line-height: 1.75;
     }
 
-    .case-study ul li { margin-bottom: 6px; }
+    .case-study ul li { margin-bottom: var(--space-2xs); }
 
     .stat-callout {
-      border: 1px solid #e8e8e8;
-      border-radius: 6px;
-      padding: 20px 24px;
-      margin-bottom: 24px;
+      border: 1px solid var(--color-rule);
+      border-radius: var(--radius-md);
+      padding: var(--space-md) var(--space-lg);
+      margin-bottom: var(--space-lg);
     }
 
     .stat-callout .stat-number {
-      font-size: 22px;
+      font-size: var(--text-lg);
       font-weight: 600;
-      color: #1a1a1a;
-      margin-bottom: 4px;
+      color: var(--color-ink);
+      margin-bottom: var(--space-2xs);
     }
 
     .stat-callout p {
-      font-size: 13px;
-      color: #6b6b6b;
+      font-size: var(--text-sm);
+      color: var(--color-muted);
       line-height: 1.5;
       margin: 0;
     }
@@ -121,47 +127,47 @@
       display: flex;
       flex-direction: column;
       gap: 0;
-      margin-top: 8px;
+      margin-top: var(--space-xs);
     }
 
     .decision-item {
-      border-bottom: 1px solid #e8e8e8;
-      padding: 16px 0;
+      border-bottom: 1px solid var(--color-rule);
+      padding: var(--space-md) 0;
     }
 
-    .decision-item:first-child { border-top: 1px solid #e8e8e8; }
+    .decision-item:first-child { border-top: 1px solid var(--color-rule); }
 
     .decision-item h3 {
-      font-size: 14px;
+      font-size: var(--text-sm);
       font-weight: 600;
-      margin: 0 0 6px;
+      margin: 0 0 var(--space-2xs);
     }
 
     .decision-item p {
-      font-size: 13px;
-      color: #6b6b6b;
+      font-size: var(--text-sm);
+      color: var(--color-muted);
       line-height: 1.5;
       margin: 0;
     }
 
     footer {
-      margin-top: 80px;
-      padding: 32px 0 48px;
+      margin-top: var(--space-2xl);
+      padding: var(--space-lg) 0 var(--space-xl);
       display: flex;
-      gap: 20px;
-      border-top: 1px solid #e8e8e8;
+      gap: var(--space-md);
+      border-top: 1px solid var(--color-rule);
     }
 
     footer a {
-      font-size: 13px;
-      color: #aaa;
+      font-size: var(--text-sm);
+      color: var(--color-neutral);
       text-decoration: none;
-      transition: color 0.15s;
+      transition: color var(--dur-short) var(--ease-out);
     }
 
-    footer a:hover { color: #1a1a1a; }
+    footer a:hover { color: var(--color-ink); }
 
-    @media (max-width: 600px) { header { padding: 40px 0 28px; } }
+    @media (max-width: 600px) { header { padding: var(--space-xl) 0 var(--space-lg); } }
   </style>
 </head>
 <body>
