@@ -58,11 +58,11 @@
     }
 
     .sample-row {
-      display: flex;
+      display: grid;
+      grid-template-columns: 130px 1fr 170px;
       align-items: baseline;
       gap: var(--space-lg);
-      margin-bottom: var(--space-md);
-      flex-wrap: wrap;
+      margin-bottom: var(--space-lg);
     }
 
     .sample-row:last-child { margin-bottom: 0; }
@@ -71,8 +71,19 @@
       font-family: var(--font-mono);
       font-size: var(--text-xs);
       color: var(--color-neutral);
-      width: 90px;
-      flex-shrink: 0;
+    }
+
+    .sample-meta {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      text-align: right;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 640px) {
+      .sample-row { grid-template-columns: 1fr; gap: var(--space-2xs); }
+      .sample-meta { text-align: left; }
     }
 
     /* Reuse the exact selectors typography.css targets, so this page
@@ -142,22 +153,26 @@
 
       <div class="sample-row">
         <span class="sample-tag">header h1</span>
-        <header><h1>Case study page title</h1></header>
+        <header><h1 data-sample>Case study page title</h1></header>
+        <span class="sample-meta" data-meta></span>
       </div>
 
       <div class="sample-row">
         <span class="sample-tag">.sec-head h2 /<br>.case-study h2</span>
-        <div class="sec-head"><h2>Section heading</h2></div>
+        <div class="sec-head"><h2 data-sample>Section heading</h2></div>
+        <span class="sample-meta" data-meta></span>
       </div>
 
       <div class="sample-row">
         <span class="sample-tag">.case-study h3 /<br>.grid-card__title /<br>.index-row__title</span>
-        <div class="case-study"><h3>Subheading or card title</h3></div>
+        <div class="case-study"><h3 data-sample>Subheading or card title</h3></div>
+        <span class="sample-meta" data-meta></span>
       </div>
 
       <div class="sample-row">
         <span class="sample-tag">.case-study p</span>
-        <div class="case-study"><p>Body copy reads like this — used for case study paragraphs across every project page.</p></div>
+        <div class="case-study"><p data-sample>Body copy reads like this — used for case study paragraphs across every project page.</p></div>
+        <span class="sample-meta" data-meta></span>
       </div>
     </div>
 
@@ -205,6 +220,18 @@
     </div>
 
   </div>
+
+  <script>
+    document.querySelectorAll('.sample-row').forEach(function (row) {
+      var sample = row.querySelector('[data-sample]');
+      var meta = row.querySelector('[data-meta]');
+      if (!sample || !meta) return;
+      var cs = getComputedStyle(sample);
+      var fontName = cs.fontFamily.split(',')[0].replace(/["']/g, '').trim();
+      var px = Math.round(parseFloat(cs.fontSize));
+      meta.textContent = sample.tagName.toLowerCase() + ' · ' + fontName + ' · ' + px + 'px · ' + cs.fontWeight;
+    });
+  </script>
 
 </body>
 </html>
