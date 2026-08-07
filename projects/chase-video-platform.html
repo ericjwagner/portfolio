@@ -107,6 +107,119 @@
 
     .case-study figure img { width: 100%; display: block; }
 
+    .ba-slider {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1202 / 910;
+      margin: 0 0 28px;
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      overflow: hidden;
+      user-select: none;
+      touch-action: pan-y;
+    }
+
+    .ba-slider img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+
+    .ba-slider .ba-layer-clip {
+      clip-path: inset(0 calc(100% - 50%) 0 0);
+      z-index: 2;
+    }
+
+    .ba-slider .ba-layer-base {
+      z-index: 1;
+    }
+
+    .ba-slider .ba-tag {
+      position: absolute;
+      z-index: 3;
+      top: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.55);
+      padding: 4px 8px;
+      border-radius: 4px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s ease-out;
+    }
+
+    .ba-slider .ba-tag.is-visible { opacity: 1; }
+
+    .ba-slider .ba-tag-after { left: 12px; }
+    .ba-slider .ba-tag-before { right: 12px; }
+
+    .ba-handle {
+      position: absolute;
+      z-index: 3;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: #fff;
+      transform: translateX(-1px);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+      pointer-events: none;
+    }
+
+    .ba-handle::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+      transform: translate(-50%, -50%);
+    }
+
+    .ba-handle::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 22px;
+      height: 14px;
+      transform: translate(-50%, -50%);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 20' fill='none' stroke='%236b6b6b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='11 3 4 10 11 17'%3E%3C/polyline%3E%3Cpolyline points='21 3 28 10 21 17'%3E%3C/polyline%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .ba-range {
+      position: absolute;
+      z-index: 4;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      opacity: 0;
+      cursor: ew-resize;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .ba-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 40px;
+      height: 100%;
+    }
+
     .stats-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -138,7 +251,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
-      margin: 16px 0 28px;
+      margin: 16px 0;
     }
 
     .before-after-item {
@@ -298,6 +411,15 @@
           </ul>
         </div>
       </div>
+
+      <div class="ba-slider" id="screenShareSlider">
+        <img class="ba-layer-clip" src="../assets/images/chase-video-platform/virtual-meeting-after.webp" alt="After: screen sharing with the green border and clearer messaging" />
+        <img class="ba-layer-base" src="../assets/images/chase-video-platform/virtual-meeting-cobrowse.webp" alt="Before: screen sharing in the original blue-bordered design" />
+        <span class="ba-tag ba-tag-before">Before</span>
+        <span class="ba-tag ba-tag-after">After</span>
+        <div class="ba-handle"></div>
+        <input type="range" class="ba-range" min="0" max="100" value="50" aria-label="Drag to compare before and after screen sharing designs" />
+      </div>
     </section>
 
     <section>
@@ -319,6 +441,31 @@
   </footer>
 
 </div>
+
+<script>
+  (function () {
+    var slider = document.getElementById('screenShareSlider');
+    if (!slider) return;
+    var range = slider.querySelector('.ba-range');
+    var clipLayer = slider.querySelector('.ba-layer-clip');
+    var handle = slider.querySelector('.ba-handle');
+    var beforeTag = slider.querySelector('.ba-tag-before');
+    var afterTag = slider.querySelector('.ba-tag-after');
+
+    function update(value) {
+      clipLayer.style.clipPath = 'inset(0 calc(100% - ' + value + '%) 0 0)';
+      handle.style.left = value + '%';
+      afterTag.classList.toggle('is-visible', value >= 50);
+      beforeTag.classList.toggle('is-visible', value < 50);
+    }
+
+    range.addEventListener('input', function () {
+      update(range.value);
+    });
+
+    update(range.value);
+  })();
+</script>
 
 </body>
 </html>
