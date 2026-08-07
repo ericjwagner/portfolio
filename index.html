@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eric Wagner, Staff Product Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Familjen+Grotesk:wght@600;700&family=Geist:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&amp;family=Familjen+Grotesk:wght@400;600;700&amp;family=Geist:wght@400;500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="tokens.css">
   <style>
-    /* genre: editorial index · theme: Ink & Rule (monochrome, dual-mode) · nav: top bar, single line · footer: dense typographic */
+    /* genre: editorial single-scroll · theme: Ink & Rule (monochrome + olive accent, dual-mode) · nav: none · footer: dense typographic */
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { overflow-x: clip; }
@@ -31,16 +30,16 @@
     :root {
       --accent2: #5f6b3f;
       --accent2-soft: #e7e4d3;
-      --brand-workiva: #2f6fed; --brand-workiva-soft: #e4ecfd;
+      --brand-workiva: #4fb84f; --brand-workiva-soft: #e4ecfd;
       --brand-thrive: #1f9c8a; --brand-thrive-soft: #dcf2ee;
-      --brand-jpm: #0a2f5c; --brand-jpm-soft: #e2e7ed;
+      --brand-jpm: #1279cd; --brand-jpm-soft: #e2e7ed;
     }
     @media (prefers-color-scheme: dark) {
       :root {
         --accent2: #a3ad7c; --accent2-soft: #2c2f1f;
-        --brand-workiva: #7ea4f7; --brand-workiva-soft: #1c2740;
+        --brand-workiva: #7ed37e; --brand-workiva-soft: #1c2740;
         --brand-thrive: #5cc9b8; --brand-thrive-soft: #163330;
-        --brand-jpm: #7591b3; --brand-jpm-soft: #1c2530;
+        --brand-jpm: #4fa3e8; --brand-jpm-soft: #1c2530;
       }
     }
 
@@ -67,62 +66,6 @@
       }
     }
 
-    /* ══════════════════ Top nav ══════════════════ */
-
-    .topnav {
-      position: sticky;
-      top: 0;
-      z-index: var(--z-sticky);
-      background: var(--color-paper);
-      border-bottom: 1px solid var(--color-rule);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: var(--space-md) var(--space-lg);
-      min-height: 60px;
-    }
-
-    .topnav__mark {
-      font-family: var(--font-mono);
-      font-weight: 600;
-      font-size: var(--text-sm);
-      letter-spacing: 0.06em;
-      text-decoration: none;
-      color: var(--color-ink);
-      flex-shrink: 0;
-    }
-
-    .topnav__tabs {
-      display: flex;
-      gap: var(--space-lg);
-    }
-
-    .tab {
-      appearance: none;
-      background: none;
-      border: none;
-      border-bottom: 2px solid transparent;
-      font-family: "Geist", var(--font-body);
-      font-weight: 500;
-      font-size: var(--text-xs);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--color-neutral);
-      cursor: pointer;
-      padding: var(--space-xs) var(--space-3xs) 6px;
-      transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
-      white-space: nowrap;
-    }
-
-    .tab:hover { color: var(--color-ink); }
-    .tab:active { transform: scale(0.96); }
-
-    .tab.active {
-      color: var(--color-ink);
-      font-weight: 600;
-      border-bottom-color: var(--color-ink);
-    }
-
     /* ══════════════════ Main ══════════════════ */
 
     .wrap {
@@ -138,7 +81,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: var(--space-sm);
+      gap: var(--space-lg);
       margin-bottom: var(--space-lg);
     }
 
@@ -163,12 +106,13 @@
       font-weight: 700;
       font-size: var(--text-lg);
       letter-spacing: -0.01em;
+      line-height: 1.2;
     }
 
     .who-text .role {
       font-size: var(--text-md);
       color: var(--color-muted);
-      margin-top: 3px;
+      margin-top: 5px;
     }
 
     .intro .bio p {
@@ -183,45 +127,96 @@
     .intro .bio strong { color: var(--color-ink); font-weight: 600; }
 
     .ico {
-      width: 15px;
-      height: 15px;
+      width: 19px;
+      height: 19px;
       border-radius: 4px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       font-family: var(--font-mono);
-      font-size: 9px;
+      font-size: 11px;
       font-weight: 700;
       flex-shrink: 0;
       background: var(--color-paper-2);
       color: var(--color-muted);
       transition: background var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+      overflow: hidden;
+    }
+
+    .ico:has(img) {
+      background: none;
+    }
+
+    .ico img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 2px;
+      filter: grayscale(1) brightness(0);
+      transition: filter var(--dur-short) var(--ease-out);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .ico img { filter: grayscale(1) brightness(0) invert(1); }
+    }
+
+    .ilink:hover .ico img {
+      filter: none;
     }
 
     .ilink {
       color: var(--color-ink);
-      font-weight: 600;
+      font-weight: inherit;
       text-decoration: none;
-      border-bottom: 1.5px solid var(--color-rule);
-      padding-bottom: 1px;
       display: inline-flex;
-      align-items: center;
-      gap: 5px;
+      align-items: baseline;
+      gap: 3px;
       transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
     }
 
-    .ilink[data-brand="workiva"]:hover { color: var(--brand-workiva); border-color: var(--brand-workiva); }
-    .ilink[data-brand="workiva"]:hover .ico { background: var(--brand-workiva-soft); color: var(--brand-workiva); }
-    .ilink[data-brand="thrive"]:hover { color: var(--brand-thrive); border-color: var(--brand-thrive); }
-    .ilink[data-brand="thrive"]:hover .ico { background: var(--brand-thrive-soft); color: var(--brand-thrive); }
-    .ilink[data-brand="jpm"]:hover { color: var(--brand-jpm); border-color: var(--brand-jpm); }
-    .ilink[data-brand="jpm"]:hover .ico { background: var(--brand-jpm-soft); color: var(--brand-jpm); }
+    .ilink .ico {
+      align-self: center;
+    }
 
-    /* ── Flagship card ── */
+    .ilink .ilabel {
+      text-decoration: underline;
+      text-decoration-color: var(--color-rule);
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 3.5px;
+      transition: text-decoration-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+    }
+
+    .ilink[data-brand="workiva"]:hover { color: var(--brand-workiva); }
+    .ilink[data-brand="thrive"]:hover { color: var(--brand-thrive); }
+    .ilink[data-brand="jpm"]:hover { color: var(--brand-jpm); }
+
+
+    /* ── Section head ── */
+    .sec-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .sec-head h2 {
+      font-family: "Familjen Grotesk", var(--font-body), sans-serif;
+      font-weight: 400;
+      font-size: var(--text-lg);
+      color: var(--color-ink);
+    }
+
+    .sec-head span {
+      font-size: var(--text-xs);
+      color: var(--color-neutral);
+      white-space: nowrap;
+    }
+
+    /* ── Flagship card (hero) ── */
     .feat-card {
       position: relative;
       display: block;
-      margin-top: var(--space-xl);
       border-radius: var(--radius-md);
       overflow: hidden;
       text-decoration: none;
@@ -244,23 +239,85 @@
       background: linear-gradient(0deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0) 70%);
     }
     .feat-body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: var(--space-lg); }
-    .feat-eyebrow {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--accent2);
-      margin-bottom: 6px;
-    }
     .feat-title {
       display: block;
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: var(--text-xl);
-      line-height: 1.15;
+      font-weight: 400;
+      font-size: var(--text-md);
+      line-height: 1.5;
     }
-    .feat-desc { display: block; margin-top: 8px; font-size: var(--text-sm); opacity: 0.85; max-width: 46ch; }
+
+    /* ── Case study grid (horizontal, 2.5 visible) ── */
+    .grid-row {
+      display: flex;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      margin-left: calc(var(--space-lg) * -1);
+      margin-right: calc(var(--space-lg) * -1);
+      padding-left: var(--space-lg);
+      padding-right: var(--space-lg);
+      scroll-padding-left: var(--space-lg);
+    }
+    .grid-row::-webkit-scrollbar { display: none; }
+
+    .grid-card {
+      flex: 0 0 40%;
+      scroll-snap-align: start;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .grid-card__thumb {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      filter: grayscale(1) contrast(1.05);
+      background: var(--color-paper-2);
+      transition: filter var(--dur-short) var(--ease-out);
+    }
+
+    .grid-card:hover .grid-card__thumb { filter: grayscale(0) contrast(1.08); }
+
+    .grid-card__title {
+      margin-top: var(--space-sm);
+      font-weight: 400;
+      font-size: var(--text-base);
+      color: var(--color-ink);
+      line-height: 1.3;
+    }
+
+    @media (max-width: 40rem) {
+      .grid-card { flex-basis: 72%; }
+      .grid-row {
+        margin-left: calc(var(--space-md) * -1);
+        margin-right: calc(var(--space-md) * -1);
+        padding-left: var(--space-md);
+        padding-right: var(--space-md);
+        scroll-padding-left: var(--space-md);
+      }
+    }
+
+    .view-all-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: var(--space-lg);
+      font-size: var(--text-base);
+      font-weight: 400;
+      color: var(--color-ink);
+      text-decoration: none;
+      border-bottom: 1.5px solid var(--color-rule);
+      padding-bottom: 1px;
+      transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .view-all-link:hover { border-color: var(--accent2); }
+    .view-all-link svg { width: 12px; height: 12px; transition: transform var(--dur-short) var(--ease-out); }
+    .view-all-link:hover svg { transform: translate(3px, -3px); }
 
     /* ── Page-corner frame (ambient, static, site-wide) ── */
     .page-corner { position: fixed; width: 14px; height: 14px; z-index: 500; pointer-events: none; }
@@ -279,103 +336,15 @@
     .page-corner-br::after { top: 0; right: 0; }
     @media (max-width: 40rem) { .page-corner { display: none; } }
 
-    /* ── Section head ── */
-    .sec-head {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: var(--space-md);
-      margin-bottom: var(--space-lg);
-    }
-
-    .sec-head h2 {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-weight: 400;
-      font-size: var(--text-md);
-      color: var(--color-muted);
-    }
-
-    .sec-head span {
-      font-size: var(--text-xs);
-      color: var(--color-neutral);
-      white-space: nowrap;
-    }
-
-    .section { display: none; }
-    .section.active { display: block; }
-
-    /* ── Index list (Projects) ── */
-    .index-list { border-top: 1px solid var(--color-ink); }
-
-    .index-row {
-      display: flex;
-      gap: var(--space-md);
-      align-items: center;
-      padding: var(--space-md) var(--space-sm);
-      margin: 0 calc(var(--space-sm) * -1);
-      border-bottom: 1px solid var(--color-rule);
-      text-decoration: none;
-      color: inherit;
-      transition: border-color var(--dur-short) var(--ease-out), background var(--dur-short) var(--ease-out);
-    }
-
-    .index-row:hover { border-bottom-color: var(--color-ink); background: color-mix(in srgb, var(--accent2-soft) 55%, transparent); }
-    .index-row:hover .index-row__title { text-decoration: underline; text-decoration-color: var(--color-rule); }
-    .index-row:active { opacity: 0.7; }
-
-    .index-row__num {
-      font-family: var(--font-mono);
-      font-size: var(--text-sm);
-      color: var(--color-neutral);
-      width: 2.5ch;
-      flex-shrink: 0;
-    }
-
-    .index-row__thumb {
-      width: 84px;
-      height: 62px;
-      object-fit: cover;
-      border-radius: var(--radius-sm);
-      filter: grayscale(1) contrast(1.05);
-      flex-shrink: 0;
-      background: var(--color-paper-2);
-    }
-
-    .index-row__body { flex: 1; min-width: 0; }
-
-    .index-row__title {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: var(--text-md);
-      line-height: 1.25;
-    }
-
-    .index-row__desc {
-      margin-top: var(--space-3xs);
-      font-size: var(--text-sm);
-      color: var(--color-muted);
-      line-height: 1.5;
-    }
-
-    .index-row__cat {
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--color-neutral);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
     /* ── Favorites ── */
     .fav-group { margin-bottom: var(--space-2xl); }
+    .fav-group:last-child { margin-bottom: 0; }
 
     .fav-group-label {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: var(--text-md);
-      color: var(--color-muted);
+      font-family: "Familjen Grotesk", var(--font-body), sans-serif;
+      font-weight: 400;
+      font-size: var(--text-lg);
+      color: var(--color-ink);
       margin-bottom: var(--space-md);
     }
 
@@ -389,7 +358,7 @@
       margin-bottom: var(--space-2xs);
     }
 
-    .fav-link-list, .band-list { list-style: none; }
+    .fav-link-list, .band-list { list-style: none; padding: 0 var(--space-sm); margin: 0 calc(var(--space-sm) * -1); }
 
     .fav-link-list li, .band-list li { border-bottom: 1px solid var(--color-rule); }
     .fav-link-list li:first-child, .band-list li:first-child { border-top: 1px solid var(--color-rule); }
@@ -399,12 +368,13 @@
       align-items: center;
       gap: var(--space-md);
       padding: var(--space-md) var(--space-2xs);
+      border-radius: var(--radius-md);
       text-decoration: none;
       color: var(--color-ink);
-      transition: opacity var(--dur-short) var(--ease-out);
+      transition: background var(--dur-short) var(--ease-out);
     }
 
-    .fav-link-list a:hover, .band-list a:hover { opacity: 0.6; }
+    .fav-link-list a:hover, .band-list a:hover { background: var(--color-paper-2); }
 
     .fav-link-list .link-thumb {
       width: 48px;
@@ -414,7 +384,18 @@
       flex-shrink: 0;
       background: var(--color-paper-2);
       filter: grayscale(1);
+      transition: filter var(--dur-short) var(--ease-out);
     }
+
+    .fav-link-list a:hover .link-thumb { filter: none; }
+    .fav-link-list a:hover .link-desc,
+    .fav-link-list a:hover .link-domain { color: var(--color-ink); }
+
+    .spotify-embed iframe {
+      filter: grayscale(1);
+      transition: filter var(--dur-short) var(--ease-out);
+    }
+    .spotify-embed:hover iframe { filter: none; }
 
     .fav-link-list .link-content { display: flex; flex-direction: column; gap: var(--space-3xs); flex: 1; min-width: 0; }
     .fav-link-list .link-title-row { display: flex; align-items: center; gap: var(--space-xs); }
@@ -429,12 +410,10 @@
       white-space: nowrap;
     }
 
-    .fav-link-list .link-desc { font-size: var(--text-sm); color: var(--color-muted); }
+    .fav-link-list .link-desc { font-size: var(--text-base); color: var(--color-muted); }
 
     .fav-link-list .link-domain {
-      font-family: var(--font-mono);
-      font-variant-numeric: tabular-nums;
-      font-size: var(--text-xs);
+      font-size: var(--text-base);
       color: var(--color-neutral);
       white-space: nowrap;
       flex-shrink: 0;
@@ -454,38 +433,55 @@
     .band-name { font-size: var(--text-base); font-weight: 500; }
     .band-desc { font-size: var(--text-sm); color: var(--color-muted); }
 
-    /* ── About ── */
-    .about-body p {
-      font-family: var(--font-display);
-      font-size: var(--text-md);
-      color: var(--color-ink);
-      margin-bottom: var(--space-md);
-      line-height: 1.7;
+    /* ── About (reversed) ── */
+    .about-reverse {
+      background: var(--color-ink);
+      color: var(--color-paper);
+      margin-top: var(--space-3xl);
+      padding: var(--space-3xl) 0;
     }
 
-    .exp-section { margin-top: var(--space-2xl); }
+    .about-reverse .sec-head h2 { color: var(--color-paper); }
+    .about-reverse .sec-head span { color: color-mix(in srgb, var(--color-paper) 45%, transparent); }
+
+    .about-cols {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    .about-cols p {
+      font-size: var(--text-md);
+      line-height: 1.7;
+      max-width: 56ch;
+      color: color-mix(in srgb, var(--color-paper) 88%, transparent);
+    }
 
     .exp-label {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: var(--text-md);
-      color: var(--color-muted);
+      font-family: "Familjen Grotesk", var(--font-body), sans-serif;
+      font-weight: 400;
+      font-size: var(--text-lg);
+      color: var(--color-ink);
       margin-bottom: var(--space-md);
     }
 
     table.exp-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
     table.exp-table tr { border-bottom: 1px solid var(--color-rule); }
-    table.exp-table tr:first-child { border-top: 1px solid var(--color-ink); }
+    table.exp-table tr:first-child { border-top: 1px solid var(--color-rule); }
 
     table.exp-table td {
       padding: var(--space-sm) var(--space-xs) var(--space-sm) 0;
-      font-size: var(--text-sm);
+      font-size: var(--text-base);
       vertical-align: baseline;
     }
 
     table.exp-table td.exp-company { font-weight: 600; color: var(--color-ink); width: 32%; }
     table.exp-table td.exp-title { color: var(--color-muted); }
     table.exp-table td.exp-dates { color: var(--color-neutral); text-align: right; white-space: nowrap; width: 14ch; }
+
+    @media (max-width: 40rem) {
+      .about-cols { grid-template-columns: 1fr; gap: var(--space-lg); }
+    }
 
     /* ══════════════════ Footer ══════════════════ */
 
@@ -496,7 +492,7 @@
     }
 
     footer.foot-dense p {
-      font-size: var(--text-sm);
+      font-size: var(--text-base);
       color: var(--color-muted);
       line-height: 1.7;
       max-width: 60ch;
@@ -516,8 +512,6 @@
 
     @media (max-width: 40rem) {
       .wrap { padding: var(--space-2xl) var(--space-md) var(--space-2xl); }
-      .index-row__thumb { width: 56px; height: 42px; }
-      .index-row__cat { display: none; }
       .band-thumb { width: 84px; height: 84px; }
     }
   </style>
@@ -529,299 +523,200 @@
   <span class="page-corner page-corner-bl"></span>
   <span class="page-corner page-corner-br"></span>
 
-  <header class="topnav">
-    <a class="topnav__mark" href="#" aria-hidden="true">EW &middot; 2026</a>
-    <nav class="topnav__tabs" aria-label="Section navigation" role="tablist">
-      <button class="tab active" data-section="projects" role="tab" aria-selected="true">Projects</button>
-      <button class="tab" data-section="random" role="tab" aria-selected="false">Favorites</button>
-      <button class="tab" data-section="about" role="tab" aria-selected="false">About</button>
-    </nav>
-  </header>
+  <div class="wrap" style="padding-bottom: 0;">
 
-  <div class="wrap">
-
+    <!-- Intro -->
     <div class="intro reveal" style="--i: 0">
       <div class="who">
         <div class="avatar"><img src="assets/eric-headshot.jpg" alt="Eric Wagner"></div>
         <div class="who-text">
           <div class="name">Eric Wagner</div>
-          <div class="role">Staff Product Designer, Workiva</div>
+          <div class="role">Staff Product Designer at Workiva</div>
         </div>
       </div>
 
       <div class="bio">
-        <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading enterprise migration work at
-          <a class="ilink" href="#about" data-brand="workiva"><span class="ico">W</span>Workiva</a>, where a structured AI workflow got engineers migrating 66% of surfaces on their own, with zero production regressions.
-        </p>
-        <p>Before that I led design at <a class="ilink" href="#about" data-brand="thrive"><span class="ico">T</span>Thrive Global</a>, where a well-being dashboard hit a 90% interaction rate, and at <a class="ilink" href="#about" data-brand="jpm"><span class="ico">J</span>J.P. Morgan Chase</a>, where I redesigned a robo-advisor that helped generate $472M in AUM.</p>
+        <p>I design complex enterprise products and AI workflows that scale design quality across teams.</p><p>Currently, I lead AI initiatives for Financial Reporting at&nbsp;<a class="ilink" href="https://www.workiva.com" target="_blank" rel="noopener" data-brand="workiva"><span class="ico"><img src="assets/logo-workiva.png" alt=""></span><span class="ilabel">Workiva</span></a>. Along the way, I developed AI workflows that enabled engineering teams to ship UI updates independently, and designed core reporting tools that drove a 35% increase in YoY bookings.</p><p>At&nbsp;<a class="ilink" href="https://www.chase.com" target="_blank" rel="noopener" data-brand="jpm"><span class="ico"><img src="assets/chase-bank.png" alt=""></span><span class="ilabel">Chase</span></a>, I built a virtual meeting platform connecting clients nationwide with thousands of wealth advisors, earning a 9.5/10 client rating at launch.</p>
       </div>
     </div>
 
-    <!-- Projects -->
-    <section id="projects" class="section active reveal" style="--i: 2">
+    <!-- Hero + case study grid -->
+    <section class="reveal" style="--i: 1">
       <div class="sec-head">
-        <h2>Work, 2016 to 2026.</h2>
-        <span>8 case studies</span>
+        <h2>Projects</h2>
+        
       </div>
 
       <a class="feat-card" href="projects/ai-design-enablement.html">
-        <img src="https://picsum.photos/seed/network-grid/900/506" alt="" />
+        <img src="https://picsum.photos/seed/network-grid/900/506" alt="">
         <span class="feat-body">
-          <span class="feat-eyebrow">Case study &middot; 01 &middot; Start here</span>
           <span class="feat-title">66% Automated: Enterprise Migration</span>
-          <span class="feat-desc">How I enabled engineers to migrate 31 of 47 product surfaces autonomously using a structured AI workflow, with zero production regressions.</span>
         </span>
       </a>
 
-      <div class="index-list">
-
-        <a class="index-row" href="projects/historical-data-roll-forward.html">
-          <span class="index-row__num">02</span>
-          <img class="index-row__thumb" src="https://picsum.photos/seed/archive-shelves/320/220" alt="" />
-          <div class="index-row__body">
-            <div class="index-row__title">Historical Data Roll Forward</div>
-            <p class="index-row__desc">Automated a quarterly financial reporting task that took 75% of users a full day, cutting it to minutes and driving a 35% increase in SEC bookings.</p>
-          </div>
-          <span class="index-row__cat">Fintech</span>
+      <div class="grid-row">
+        <a class="grid-card" href="projects/historical-data-roll-forward.html">
+          <img class="grid-card__thumb" src="https://picsum.photos/seed/archive-shelves/480/360" alt="">
+          <div class="grid-card__title">Historical Data Roll Forward</div>
         </a>
-
-        <a class="index-row" href="projects/chase-video-platform.html">
-          <span class="index-row__num">03</span>
-          <img class="index-row__thumb" src="https://picsum.photos/seed/glass-office/320/220" alt="" />
-          <div class="index-row__body">
-            <div class="index-row__title">Chase Advisor Video Platform</div>
-            <p class="index-row__desc">Built Chase's first video collaboration suite from scratch, enabling 5,000+ wealth advisors to meet clients remotely and launching a new investment product line.</p>
-          </div>
-          <span class="index-row__cat">Fintech</span>
+        <a class="grid-card" href="projects/chase-video-platform.html">
+          <img class="grid-card__thumb" src="https://picsum.photos/seed/glass-office/480/360" alt="">
+          <div class="grid-card__title">Chase Advisor Video Platform</div>
         </a>
-
-        <a class="index-row" href="projects/jpmorgan-automated-investing.html">
-          <span class="index-row__num">04</span>
-          <img class="index-row__thumb" src="https://picsum.photos/seed/ticker-tape/320/220" alt="" />
-          <div class="index-row__body">
-            <div class="index-row__title">J.P. Morgan Automated Investing</div>
-            <p class="index-row__desc">Redesigned a robo-advisor used by millions, reducing drop-off and generating $472M in assets under management.</p>
-          </div>
-          <span class="index-row__cat">Fintech</span>
+        <a class="grid-card" href="projects/jpmorgan-automated-investing.html">
+          <img class="grid-card__thumb" src="https://picsum.photos/seed/ticker-tape/480/360" alt="">
+          <div class="grid-card__title">J.P. Morgan Automated Investing</div>
         </a>
-
-        <a class="index-row" href="projects/wellbeing-dashboard-redesign.html">
-          <span class="index-row__num">05</span>
-          <img class="index-row__thumb" src="https://picsum.photos/seed/quiet-morning/320/220" alt="" />
-          <div class="index-row__body">
-            <div class="index-row__title">Well-being Dashboard Redesign</div>
-            <p class="index-row__desc">How I helped HR executives prove the ROI of employee well-being, saving Customer Success 600 hours a year in the process.</p>
-          </div>
-          <span class="index-row__cat">HR Analytics</span>
-        </a>
-
-        <a class="index-row" href="projects/wellbeing-insights-dashboard.html">
-          <span class="index-row__num">06</span>
-          <img class="index-row__thumb" src="https://picsum.photos/seed/soft-window/320/220" alt="" />
-          <div class="index-row__body">
-            <div class="index-row__title">Employee Well-being Insights Dashboard</div>
-            <p class="index-row__desc">Designed the first user-level well-being dashboard at Thrive, driving a 31K increase in weekly check-in responses and a 90% interaction rate.</p>
-          </div>
-          <span class="index-row__cat">HR Analytics</span>
-        </a>
-
-        <a class="index-row" href="projects/structured-data-north-star.html">
-          <span class="index-row__num">07</span>
-          <img class="index-row__thumb" src="https://picsum.photos/seed/paper-grid/320/220" alt="" />
-          <div class="index-row__body">
-            <div class="index-row__title">Structured Data North Star</div>
-            <p class="index-row__desc">A north star vision for Workiva's structured data tools, unifying a disconnected product suite with AI-driven tagging and guided workflows for compliance reporting.</p>
-          </div>
-          <span class="index-row__cat">Compliance</span>
-        </a>
-
-        <a class="index-row" href="projects/internal-admin-tool.html">
-          <span class="index-row__num">08</span>
-          <img class="index-row__thumb" src="https://picsum.photos/seed/control-panel/320/220" alt="" />
-          <div class="index-row__body">
-            <div class="index-row__title">Internal Admin Tool Redesign</div>
-            <p class="index-row__desc">Replaced a deprecated customer admin tool in 6 weeks, improving onboarding speed and reducing support tickets caused by confusing group codes.</p>
-          </div>
-          <span class="index-row__cat">Internal Tools</span>
-        </a>
-
       </div>
+
+      <a class="view-all-link" href="work.html">
+        View all projects
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 19L19 5M19 5H8M19 5V16"></path></svg>
+      </a>
     </section>
+  </div>
 
-    <!-- Favorites -->
-    <section id="random" class="section">
+  <!-- About (reversed background) -->
+  <section id="about" class="about-reverse">
+    <div class="wrap" style="padding-top: 0; padding-bottom: 0;">
       <div class="sec-head">
-        <h2>Elsewhere.</h2>
-        <span>currently</span>
+        <h2>My main goal: simplify complexity</h2>
       </div>
 
+      <div class="about-cols">
+        <p>I took a side door into product design. Early on, I started sitting in on design standups, taking on extra projects after hours, and enrolling in General Assembly to bridge the gap. I&rsquo;ve been pulling up a chair ever since. Today, I&rsquo;m a Staff Product Designer working at the intersection of complex B2B systems and AI tooling, balancing business outcomes with thoughtful craft.</p>
+        <p>My main goal is to turn complexity into simplicity. When things get messy, I resort to first principles: who we&rsquo;re building for, the job to be done, and why it matters.</p>
+        <p>Outside of work, I'm a dad, a drummer, and a perpetual learner. Lately, that's meant AI coding tools, growing a garden for the first time, and trying to make shelves actually level.</p>
+        <p>There's always something to figure out. That part hasn't changed.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap" style="padding-top: 0; padding-bottom: 0;">
+    <!-- Favorites -->
+    <section class="reveal" style="--i: 2; margin-top: var(--space-3xl);">
       <div class="fav-group">
-        <h3 class="fav-group-label">Inspo</h3>
+        <h2 class="fav-group-label">Inspo</h2>
         <ul class="fav-link-list">
           <li>
             <a href="https://x.com/i/lists/1764931648397988203?s=20" target="_blank" rel="noopener">
-              <img class="link-thumb" src="images/logo-x.png" alt="X" style="background:transparent; padding:8px;" />
+              <img class="link-thumb" src="assets/logo-x.png" alt="X" style="background:transparent; padding:8px;">
               <div class="link-content">
                 <div class="link-title-row">
                   <span class="link-name">Designers to follow</span>
-                  <span class="link-chip">list</span>
                 </div>
                 <span class="link-desc">My curated list of designers for news and inspiration</span>
               </div>
-              <span class="link-domain">x.com</span>
+              <span class="link-domain">List</span>
             </a>
           </li>
           <li>
             <a href="https://www.producthunt.com/" target="_blank" rel="noopener">
-              <img class="link-thumb" src="images/logo-producthunt.png" alt="Product Hunt" style="background:transparent;" />
+              <img class="link-thumb" src="assets/logo-producthunt.png" alt="Product Hunt" style="background:transparent;">
               <div class="link-content">
                 <div class="link-title-row">
                   <span class="link-name">Product Hunt</span>
-                  <span class="link-chip">tool</span>
                 </div>
-                <span class="link-desc">Where I find new tools and stay on top of what's shipping</span>
+                <span class="link-desc">How I stay on top of what's shipping</span>
               </div>
-              <span class="link-domain">producthunt.com</span>
+              <span class="link-domain">Website</span>
             </a>
           </li>
           <li>
             <a href="https://open.spotify.com/show/4aRP2XSavdtrLG5FZoonOK?si=c27b0db1e3834107" target="_blank" rel="noopener">
-              <img class="link-thumb" src="images/podcast-how-i-ai.jpg" alt="How I AI" />
+              <img class="link-thumb" src="assets/podcast-how-i-ai.jpg" alt="How I AI">
               <div class="link-content">
                 <div class="link-title-row">
-                  <span class="link-name">How I AI with Claire Vo</span>
-                  <span class="link-chip">podcast</span>
+                  <span class="link-name">How I AI</span>
                 </div>
-                <span class="link-desc">How product leaders are actually using AI day to day</span>
+                <span class="link-desc">Practical AI workflows for product leaders</span>
               </div>
-              <span class="link-domain">spotify.com</span>
+              <span class="link-domain">Podcast</span>
             </a>
           </li>
           <li>
             <a href="https://open.spotify.com/show/6BuKkGfVR7FDaB3VPrN5fo?si=10bd23b49c3d4f68" target="_blank" rel="noopener">
-              <img class="link-thumb" src="images/podcast-dive-club.jpg" alt="Dive Club" />
+              <img class="link-thumb" src="assets/podcast-dive-club.jpg" alt="Dive Club">
               <div class="link-content">
                 <div class="link-title-row">
                   <span class="link-name">Dive Club</span>
-                  <span class="link-chip">podcast</span>
                 </div>
                 <span class="link-desc">Deep dives on design, product, and creative work</span>
               </div>
-              <span class="link-domain">spotify.com</span>
+              <span class="link-domain">Podcast</span>
             </a>
           </li>
           <li>
             <a href="https://open.spotify.com/show/5qSUyCrk9KR69lEiXbjwXM?si=19fe7e433bd14316" target="_blank" rel="noopener">
-              <img class="link-thumb" src="images/podcast-tim-ferriss.jpg" alt="The Tim Ferriss Show" />
+              <img class="link-thumb" src="assets/podcast-tim-ferriss.jpg" alt="The Tim Ferriss Show">
               <div class="link-content">
                 <div class="link-title-row">
                   <span class="link-name">The Tim Ferriss Show</span>
-                  <span class="link-chip">podcast</span>
                 </div>
                 <span class="link-desc">Long-form interviews with world-class performers</span>
               </div>
-              <span class="link-domain">spotify.com</span>
+              <span class="link-domain">Podcast</span>
             </a>
           </li>
         </ul>
       </div>
 
       <div class="fav-group">
-        <h3 class="fav-group-label">Music</h3>
-
-        <h4 class="fav-subgroup-label">Bands I've played in</h4>
-        <ul class="band-list">
-          <li>
-            <a href="https://www.instagram.com/gnarly.rae.jepsen/?hl=en" target="_blank" rel="noopener">
-              <img class="band-thumb" src="images/GRJ.png" alt="Gnarly Rae Jepsen" />
-              <div class="band-info">
-                <span class="band-name">Gnarly Rae Jepsen</span>
-                <span class="band-desc">The best '90s &amp; '00s band in NYC</span>
-              </div>
-            </a>
-          </li>
-        </ul>
-
-        <h4 class="fav-subgroup-label">Playing on repeat</h4>
+        <h2 class="fav-group-label">On repeat</h2>
         <div style="margin-top: var(--space-md);">
-          <iframe data-testid="embed-iframe" style="border-radius:var(--radius-md); border: 1px solid var(--color-rule); filter: grayscale(1);" src="https://open.spotify.com/embed/playlist/37i9dQZF1CKPJY0UjNTCYl?utm_source=generator&theme=0&si=40ee177c51dd442a" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          <div class="spotify-embed">
+            <iframe data-testid="embed-iframe" style="border-radius:var(--radius-md);" src="https://open.spotify.com/embed/playlist/37i9dQZF1CKPJY0UjNTCYl?utm_source=generator&amp;theme=0&amp;si=40ee177c51dd442a" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
         </div>
       </div>
 
     </section>
-
-    <!-- About -->
-    <section id="about" class="section">
-      <div class="sec-head">
-        <h2>A studied hand.</h2>
-        <span>Workiva, since 2024</span>
-      </div>
-
-      <div class="about-body">
-        <p>I didn't start as a designer. I pushed my way in. Showed up to the design team's standups uninvited, asked for work, enrolled in General Assembly. I've been pulling up chairs ever since.</p>
-        <p>Today I'm a staff product designer working at the intersection of complex B2B workflows and AI tooling, focused on outcomes as much as craft.</p>
-        <p>Every pixel needs a rationale. Design is a tool, not a statement. When things get murky I ask the dumb questions: Who are we designing for? What are the jobs to be done? Why would someone use this?</p>
-        <p>Outside work I'm a dad to an 18-month-old, a drummer, and a perpetual student. Lately that's meant AI coding tools, chess strategy, and why none of my shelves want to be level.</p>
-        <p>There's always something to figure out. That part hasn't changed.</p>
-
-        <div class="exp-section">
-          <p class="exp-label">Experience</p>
-          <table class="exp-table">
-            <tbody>
-              <tr>
-                <td class="exp-company">Workiva</td>
-                <td class="exp-title">Staff Product Designer</td>
-                <td class="exp-dates">2024-Present</td>
-              </tr>
-              <tr>
-                <td class="exp-company">Thrive Global</td>
-                <td class="exp-title">Senior Product Designer</td>
-                <td class="exp-dates">2022-2024</td>
-              </tr>
-              <tr>
-                <td class="exp-company">JPMorgan Chase</td>
-                <td class="exp-title">Lead Product Designer, VP</td>
-                <td class="exp-dates">2018-2022</td>
-              </tr>
-              <tr>
-                <td class="exp-company">DOOR3</td>
-                <td class="exp-title">UX Designer</td>
-                <td class="exp-dates">2017-2018</td>
-              </tr>
-              <tr>
-                <td class="exp-company">Sermo</td>
-                <td class="exp-title">Product Designer</td>
-                <td class="exp-dates">2016-2017</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <footer class="foot-dense">
-      <p>Eric Wagner. Staff product designer, New York. <a href="mailto:ericjwag@gmail.com">ericjwag@gmail.com</a> &middot; <a href="https://github.com/ericjwagner" target="_blank" rel="noopener">github.com/ericjwagner</a> &middot; <a href="https://www.linkedin.com/in/ericjwagner/" target="_blank" rel="noopener">linkedin.com/in/ericjwagner/</a>. Built by hand, 2026.</p>
-    </footer>
 
   </div>
 
-<script>
-  const tabBtns = document.querySelectorAll('.tab');
-  const sections = document.querySelectorAll('.section');
+  <div class="wrap" style="padding-top: 0; padding-bottom: 0;">
+    <section class="reveal" style="margin-top: var(--space-3xl);">
+      <h2 class="exp-label">Experience</h2>
+      <table class="exp-table">
+        <tbody>
+          <tr>
+            <td class="exp-company">Workiva</td>
+            <td class="exp-title">Staff Product Designer</td>
+            <td class="exp-dates">2024-Present</td>
+          </tr>
+          <tr>
+            <td class="exp-company">Thrive Global</td>
+            <td class="exp-title">Senior Product Designer</td>
+            <td class="exp-dates">2022-2024</td>
+          </tr>
+          <tr>
+            <td class="exp-company">JPMorgan Chase</td>
+            <td class="exp-title">Lead Product Designer, VP</td>
+            <td class="exp-dates">2018-2022</td>
+          </tr>
+          <tr>
+            <td class="exp-company">DOOR3</td>
+            <td class="exp-title">UX Designer</td>
+            <td class="exp-dates">2017-2018</td>
+          </tr>
+          <tr>
+            <td class="exp-company">Sermo</td>
+            <td class="exp-title">Product Designer</td>
+            <td class="exp-dates">2016-2017</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
 
-  function setSection(name) {
-    tabBtns.forEach(b => {
-      const isActive = b.dataset.section === name;
-      b.classList.toggle('active', isActive);
-      b.setAttribute('aria-selected', String(isActive));
-    });
-    sections.forEach(s => s.classList.toggle('active', s.id === name));
-  }
+  <div class="wrap" style="padding-top: 0;">
+    <footer class="foot-dense">
+      <p>Eric Wagner &middot; <a href="mailto:ericjwag@gmail.com">ericjwag@gmail.com</a><br>
+      <a href="https://www.linkedin.com/in/ericjwagner/" target="_blank" rel="noopener">linkedin.com/in/ericjwagner</a> &middot; Built by me &#129309; AI &middot; 2026</p>
+    </footer>
+  </div>
 
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => setSection(btn.dataset.section));
-  });
-</script>
 
-</body>
-</html>
+
+
+</body></html>
