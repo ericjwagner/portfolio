@@ -5,6 +5,14 @@
    overrides — a page only needs to declare a property here if it
    wants to deviate from the shared look. */
 
+:where(body) {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+}
+
+a { color: inherit; }
+
 :where(header h1, .who-text .name) {
   font-family: "Familjen Grotesk", var(--font-body), sans-serif;
   font-weight: 600;
@@ -36,3 +44,20 @@
   color: var(--color-muted);
   line-height: 1.75;
 }
+
+.who-text .role {
+  font-size: var(--text-md);
+  color: var(--color-muted);
+  margin-top: 5px;
+}
+
+.intro .bio p {
+  font-size: var(--text-md);
+  color: var(--color-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-md);
+  max-width: 56ch;
+}
+
+.intro .bio p:last-child { margin-bottom: 0; }
+.intro .bio strong { color: var(--color-ink); font-weight: 600; }

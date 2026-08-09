@@ -59,7 +59,7 @@
 
     .sample-row {
       display: grid;
-      grid-template-columns: 130px 1fr 170px;
+      grid-template-columns: 130px 1fr auto;
       align-items: baseline;
       gap: var(--space-lg);
       margin-bottom: var(--space-lg);
@@ -78,7 +78,7 @@
       font-size: var(--text-xs);
       color: var(--color-muted);
       text-align: right;
-      line-height: 1.5;
+      white-space: nowrap;
     }
 
     @media (max-width: 640px) {

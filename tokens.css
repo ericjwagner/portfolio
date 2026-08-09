@@ -14,7 +14,7 @@
 
   /* ── Type ── */
   --font-display: "Cardo", "Iowan Old Style", Georgia, serif;
-  --font-body:    "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+  --font-body:    "Geist", -apple-system, "Segoe UI", sans-serif;
   --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", monospace;
 
   --text-xs:   0.7rem;
