@@ -23,22 +23,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    :root {
-      --accent2: #5f6b3f;
-      --accent2-soft: #e7e4d3;
-      --brand-workiva: #4fb84f; --brand-workiva-soft: #e4ecfd;
-      --brand-thrive: #1f9c8a; --brand-thrive-soft: #dcf2ee;
-      --brand-jpm: #1279cd; --brand-jpm-soft: #e2e7ed;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --accent2: #a3ad7c; --accent2-soft: #2c2f1f;
-        --brand-workiva: #7ed37e; --brand-workiva-soft: #1c2740;
-        --brand-thrive: #5cc9b8; --brand-thrive-soft: #163330;
-        --brand-jpm: #4fa3e8; --brand-jpm-soft: #1c2530;
-      }
-    }
-
     ::selection { background: var(--color-accent-soft); color: var(--color-ink); }
 
     :focus-visible {
@@ -206,10 +190,7 @@
     .feat-body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: var(--space-lg); }
     .feat-title {
       display: block;
-      font-family: "Familjen Grotesk", var(--font-body), sans-serif;
-      font-weight: 400;
-      font-size: var(--text-lg);
-      line-height: 1.4;
+      color: #fff;
     }
 
     /* ── Case study grid (horizontal, 2.5 visible) ── */
@@ -367,11 +348,7 @@
       white-space: nowrap;
     }
 
-    .fav-link-list .link-desc { font-size: var(--text-base); color: var(--color-muted); }
-
     .fav-link-list .link-domain {
-      font-size: var(--text-base);
-      color: var(--color-neutral);
       white-space: nowrap;
       flex-shrink: 0;
       margin-left: auto;
@@ -414,10 +391,6 @@
     }
 
     .exp-label {
-      font-family: "Familjen Grotesk", var(--font-body), sans-serif;
-      font-weight: 400;
-      font-size: var(--text-lg);
-      color: var(--color-ink);
       margin-bottom: var(--space-md);
     }
 
@@ -427,13 +400,11 @@
 
     table.exp-table td {
       padding: var(--space-sm) var(--space-xs) var(--space-sm) 0;
-      font-size: var(--text-base);
       vertical-align: baseline;
     }
 
-    table.exp-table td.exp-company { font-weight: 500; color: var(--color-ink); width: 32%; }
-    table.exp-table td.exp-title { color: var(--color-muted); }
-    table.exp-table td.exp-dates { color: var(--color-neutral); text-align: right; white-space: nowrap; width: 14ch; }
+    table.exp-table td.exp-company { width: 32%; }
+    table.exp-table td.exp-dates { text-align: right; white-space: nowrap; width: 14ch; }
 
     @media (max-width: 40rem) {
       .about-cols { grid-template-columns: 1fr; gap: var(--space-lg); }

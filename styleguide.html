@@ -156,103 +156,20 @@
     .motion-row[data-ease="out"] .motion-dot { animation-timing-function: var(--ease-out); }
     .motion-row[data-ease="in-out"] .motion-dot { animation-timing-function: var(--ease-in-out); }
 
-    /* ── Component demos ── */
-    .demo { padding: var(--space-lg); background: var(--color-paper-2); border-radius: var(--radius-md); margin-bottom: var(--space-md); }
-    .demo:last-child { margin-bottom: 0; }
-    .demo-label { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-neutral); margin-bottom: var(--space-md); }
-    .demo-dark { background: var(--color-ink); color: var(--color-paper); }
-    .demo-row { display: flex; align-items: center; gap: var(--space-lg); flex-wrap: wrap; }
+    /* ── Styles found only in index.html's own <style> block (not shared
+       via typography.css), copied here so the samples render live. ── */
 
-    /* ── Component styles, copied from index.html's page-local <style> block
-       so this guide renders the real thing rather than a description of it.
-       If index.html's component CSS changes, mirror the change here. ── */
+    .feat-title { color: #fff; }
 
-    :root {
-      --accent2: #5f6b3f;
-      --accent2-soft: #e7e4d3;
-      --brand-workiva: #4fb84f; --brand-workiva-soft: #e4ecfd;
-      --brand-thrive: #1f9c8a; --brand-thrive-soft: #dcf2ee;
-      --brand-jpm: #1279cd; --brand-jpm-soft: #e2e7ed;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --accent2: #a3ad7c; --accent2-soft: #2c2f1f;
-        --brand-workiva: #7ed37e; --brand-workiva-soft: #1c2740;
-        --brand-thrive: #5cc9b8; --brand-thrive-soft: #163330;
-        --brand-jpm: #4fa3e8; --brand-jpm-soft: #1c2530;
-      }
-    }
+    .ilabel { text-decoration: underline; text-decoration-color: var(--color-rule); text-decoration-thickness: 1.5px; text-underline-offset: 3.5px; }
 
-    .avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--color-paper-2); border: 1px solid var(--color-rule); flex-shrink: 0; overflow: hidden; }
-    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .view-all-link { font-size: var(--text-base); font-weight: 400; color: var(--color-ink); text-decoration: none; border-bottom: 1.5px solid var(--color-rule); padding-bottom: 1px; }
 
-    .ico { width: 19px; height: 19px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 11px; font-weight: 700; flex-shrink: 0; background: var(--color-paper-2); color: var(--color-muted); transition: background var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out); overflow: hidden; }
-    .ico:has(img) { background: none; }
-    .ico img { width: 100%; height: 100%; object-fit: contain; padding: 2px; filter: grayscale(1) brightness(0); transition: filter var(--dur-short) var(--ease-out); }
-    @media (prefers-color-scheme: dark) { .ico img { filter: grayscale(1) brightness(0) invert(1); } }
-    .ilink:hover .ico img { filter: none; }
-    .ilink { color: var(--color-ink); font-weight: inherit; text-decoration: none; display: inline-flex; align-items: baseline; gap: 3px; transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out); }
-    .ilink .ico { align-self: center; }
-    .ilink .ilabel { text-decoration: underline; text-decoration-color: var(--color-rule); text-decoration-thickness: 1.5px; text-underline-offset: 3.5px; transition: text-decoration-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out); }
-    .ilink[data-brand="workiva"]:hover { color: var(--brand-workiva); }
-    .ilink[data-brand="thrive"]:hover { color: var(--brand-thrive); }
-    .ilink[data-brand="jpm"]:hover { color: var(--brand-jpm); }
-
-    .feat-card { position: relative; display: block; border-radius: var(--radius-md); overflow: hidden; text-decoration: none; color: #fff; aspect-ratio: 16/9; background: #111; transition: box-shadow var(--dur-short) var(--ease-out); box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
-    .feat-card:hover { box-shadow: 0 24px 48px -12px rgba(0,0,0,0.35); }
-    .feat-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-long) var(--ease-out), filter var(--dur-long) var(--ease-out); filter: grayscale(0.35) contrast(1.05); }
-    .feat-card:hover img { transform: scale(1.045); filter: grayscale(0) contrast(1.08); }
-    .feat-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0) 70%); }
-    .feat-body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: var(--space-lg); }
-    .feat-title { display: block; font-family: "Familjen Grotesk", var(--font-body), sans-serif; font-weight: 400; font-size: var(--text-lg); line-height: 1.4; }
-
-    .grid-card { text-decoration: none; color: inherit; }
-    .grid-card__thumb { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius-sm); filter: grayscale(1) contrast(1.05); background: var(--color-paper-2); transition: filter var(--dur-short) var(--ease-out); }
-    .grid-card:hover .grid-card__thumb { filter: grayscale(0) contrast(1.08); }
-    .grid-card__title { margin-top: var(--space-sm); }
-
-    .view-all-link { display: inline-flex; align-items: center; gap: 6px; font-size: var(--text-base); font-weight: 400; color: var(--color-ink); text-decoration: none; border-bottom: 1.5px solid var(--color-rule); padding-bottom: 1px; transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out); }
-    .view-all-link:hover { border-color: var(--accent2); }
-    .view-all-link svg { width: 12px; height: 12px; transition: transform var(--dur-short) var(--ease-out); }
-    .view-all-link:hover svg { transform: translate(3px, -3px); }
-
-    .page-corner { width: 14px; height: 14px; pointer-events: none; }
-    .page-corner::before, .page-corner::after { content: ""; position: absolute; background: color-mix(in srgb, var(--accent2) 45%, var(--color-rule)); }
-    .page-corner::before { width: 100%; height: 1.5px; }
-    .page-corner::after { width: 1.5px; height: 100%; }
-    .page-corner-tl::before, .page-corner-tl::after { top: 0; left: 0; }
-    .page-corner-tr::before, .page-corner-tr::after { top: 0; right: 0; }
-    .page-corner-bl::before { bottom: 0; left: 0; }
-    .page-corner-bl::after { top: 0; left: 0; }
-    .page-corner-br::before { bottom: 0; right: 0; }
-    .page-corner-br::after { top: 0; right: 0; }
-
-    .fav-link-list { list-style: none; padding: 0 var(--space-sm); margin: 0 calc(var(--space-sm) * -1); }
-    .fav-link-list li { border-top: 1px solid var(--color-rule); border-bottom: 1px solid var(--color-rule); }
-    .fav-link-list a { display: flex; align-items: center; gap: var(--space-md); padding: var(--space-md) var(--space-2xs); border-radius: var(--radius-md); text-decoration: none; color: var(--color-ink); transition: background var(--dur-short) var(--ease-out); }
-    .fav-link-list a:hover { background: var(--color-paper); }
-    .fav-link-list .link-thumb { width: 48px; height: 48px; border-radius: var(--radius-sm); object-fit: cover; flex-shrink: 0; background: var(--color-paper); filter: grayscale(1); transition: filter var(--dur-short) var(--ease-out); }
-    .fav-link-list a:hover .link-thumb { filter: none; }
-    .fav-link-list .link-content { display: flex; flex-direction: column; gap: var(--space-3xs); flex: 1; min-width: 0; }
-    .fav-link-list .link-title-row { display: flex; align-items: center; gap: var(--space-xs); }
     .fav-link-list .link-chip { font-size: var(--text-xs); color: var(--color-muted); border: 1px solid var(--color-rule); border-radius: var(--radius-sm); padding: 1px var(--space-xs); white-space: nowrap; }
-    .fav-link-list .link-desc { font-size: var(--text-base); color: var(--color-muted); }
-    .fav-link-list .link-domain { font-size: var(--text-base); color: var(--color-neutral); white-space: nowrap; flex-shrink: 0; margin-left: auto; }
+    .fav-link-list .link-domain { white-space: nowrap; }
 
-    .spotify-embed iframe { filter: grayscale(1); transition: filter var(--dur-short) var(--ease-out); }
-    .spotify-embed:hover iframe { filter: none; }
-
-    .exp-label { font-family: "Familjen Grotesk", var(--font-body), sans-serif; font-weight: 400; font-size: var(--text-lg); margin-bottom: var(--space-md); }
-    table.exp-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
-    table.exp-table tr { border-top: 1px solid var(--color-rule); border-bottom: 1px solid var(--color-rule); }
-    table.exp-table td { padding: var(--space-sm) var(--space-xs) var(--space-sm) 0; font-size: var(--text-base); vertical-align: baseline; }
-    table.exp-table td.exp-company { font-weight: 500; color: var(--color-ink); width: 32%; }
-    table.exp-table td.exp-title { color: var(--color-muted); }
-    table.exp-table td.exp-dates { color: var(--color-neutral); text-align: right; white-space: nowrap; width: 14ch; }
-
-    footer.foot-dense p { font-size: var(--text-base); color: var(--color-muted); line-height: 1.7; max-width: 60ch; }
-    footer.foot-dense a { color: var(--color-ink); text-decoration: underline; text-decoration-color: var(--color-rule); text-underline-offset: 2px; transition: text-decoration-color var(--dur-short) var(--ease-out); }
-    footer.foot-dense a:hover { text-decoration-color: var(--color-ink); }
+    footer.foot-dense p { font-size: var(--text-base); color: var(--color-muted); line-height: 1.7; }
+    footer.foot-dense a { color: var(--color-ink); text-decoration: underline; text-decoration-color: var(--color-rule); text-underline-offset: 2px; }
   </style>
 </head>
 <body>
@@ -261,7 +178,7 @@
 
     <h1 class="page-title">Style guide</h1>
     <p class="page-sub">
-      A live reference for <code>tokens.css</code> and <code>typography.css</code>, plus every component style used on the home page. Edit either shared file and every page that links them — <code>index.html</code>, <code>projects.html</code>, this page, and everything in <code>/projects</code> — updates together. Page-local styles (brand and accent colors) live in <code>index.html</code> itself and are called out below.
+      A live reference for every style used on the home page — text, color, spacing, radius, and motion. Shared styles come from <code>tokens.css</code> and <code>typography.css</code>; edit either and every linked page updates together.
     </p>
 
     <div class="block">
@@ -293,46 +210,25 @@
     </div>
 
     <div class="block">
-      <div class="block-label">Home page text — index.html (page-local)</div>
+      <div class="block-label">Text — home page (index.html)</div>
+      <p style="color: var(--color-muted); font-size: var(--text-sm); margin-bottom: var(--space-lg);">
+        .name shares the h1 style above; .feat-title and .exp-label share the h2 style; .link-desc and .exp-title share the p style. Not repeated here.
+      </p>
 
       <div class="sample-row">
-        <span class="sample-tag">.name</span>
-        <div class="who-text"><span class="name" data-sample>Eric Wagner</span></div>
-        <span class="sample-meta" data-meta></span>
-      </div>
-
-      <div class="sample-row">
-        <span class="sample-tag">.role</span>
+        <span class="sample-tag">.role /<br>.bio p</span>
         <div class="who-text"><span class="role" data-sample>Staff Product Designer at Workiva</span></div>
         <span class="sample-meta" data-meta></span>
       </div>
 
       <div class="sample-row">
-        <span class="sample-tag">.bio p</span>
-        <div class="intro bio"><p data-sample>Intro bio copy — the paragraphs under the name and role.</p></div>
-        <span class="sample-meta" data-meta></span>
-      </div>
-
-      <div class="sample-row">
-        <span class="sample-tag">.feat-title</span>
-        <span class="feat-title" data-sample style="color: var(--color-ink);">Flagship project card title</span>
-        <span class="sample-meta" data-meta></span>
-      </div>
-
-      <div class="sample-row">
-        <span class="sample-tag">.link-name</span>
+        <span class="sample-tag">.link-name /<br>.band-name /<br>.exp-company</span>
         <div class="fav-link-list"><span class="link-name" data-sample>Favorites list item title</span></div>
         <span class="sample-meta" data-meta></span>
       </div>
 
       <div class="sample-row">
-        <span class="sample-tag">.link-desc</span>
-        <div class="fav-link-list"><span class="link-desc" data-sample>Favorites list item description</span></div>
-        <span class="sample-meta" data-meta></span>
-      </div>
-
-      <div class="sample-row">
-        <span class="sample-tag">.link-domain</span>
+        <span class="sample-tag">.link-domain /<br>.exp-dates</span>
         <div class="fav-link-list"><span class="link-domain" data-sample>Website</span></div>
         <span class="sample-meta" data-meta></span>
       </div>
@@ -344,20 +240,26 @@
       </div>
 
       <div class="sample-row">
-        <span class="sample-tag">.exp-label</span>
-        <span class="exp-label" data-sample style="color: var(--color-ink);">Section label (e.g. "Experience")</span>
-        <span class="sample-meta" data-meta></span>
-      </div>
-
-      <div class="sample-row">
-        <span class="sample-tag">.exp-table td</span>
-        <table class="exp-table" style="display: contents;"><tbody style="display: contents;"><tr style="display: contents; border: none;"><td data-sample style="display: inline;">Table cell copy</td></tr></tbody></table>
-        <span class="sample-meta" data-meta></span>
-      </div>
-
-      <div class="sample-row">
         <span class="sample-tag">footer p</span>
         <footer class="foot-dense" style="border: none; padding: 0; margin: 0;"><p data-sample>Footer credit line copy</p></footer>
+        <span class="sample-meta" data-meta></span>
+      </div>
+
+      <div class="sample-row">
+        <span class="sample-tag">.ilabel</span>
+        <a href="#" style="color: var(--color-ink);"><span class="ilabel" data-sample>Inline icon-link label</span></a>
+        <span class="sample-meta" data-meta></span>
+      </div>
+
+      <div class="sample-row">
+        <span class="sample-tag">.view-all-link</span>
+        <a class="view-all-link" href="#" data-sample>View all projects</a>
+        <span class="sample-meta" data-meta></span>
+      </div>
+
+      <div class="sample-row">
+        <span class="sample-tag">footer a</span>
+        <footer class="foot-dense" style="border: none; padding: 0; margin: 0;"><a href="#" data-sample>ericjwag@gmail.com</a></footer>
         <span class="sample-meta" data-meta></span>
       </div>
     </div>
@@ -405,7 +307,7 @@
     </div>
 
     <div class="block">
-      <div class="block-label">Accent &amp; brand colors — index.html (page-local, not in tokens.css)</div>
+      <div class="block-label">Accent &amp; brand colors — tokens.css</div>
       <div class="swatch-grid">
         <div class="swatch">
           <div class="swatch-color" style="background: var(--accent2);"></div>
@@ -469,105 +371,6 @@
       <div class="motion-row" data-ease="out"><span class="motion-tag">--ease-out</span><div class="motion-track"><div class="motion-dot"></div></div></div>
       <div class="motion-row" data-ease="in"><span class="motion-tag">--ease-in</span><div class="motion-track"><div class="motion-dot"></div></div></div>
       <div class="motion-row" data-ease="in-out"><span class="motion-tag">--ease-in-out</span><div class="motion-track"><div class="motion-dot"></div></div></div>
-    </div>
-
-    <div class="block">
-      <div class="block-label">Components — index.html</div>
-
-      <div class="demo">
-        <div class="demo-label">.avatar — circular headshot frame</div>
-        <div class="avatar"><img src="assets/eric-headshot.jpg" alt="Eric Wagner"></div>
-      </div>
-
-      <div class="demo">
-        <div class="demo-label">.ilink / .ico — inline icon link, underlines on hover, tints to brand color</div>
-        <div class="demo-row">
-          <a class="ilink" href="#" data-brand="workiva"><span class="ico"><img src="assets/logo-workiva.png" alt=""></span><span class="ilabel">Workiva</span></a>
-          <a class="ilink" href="#" data-brand="jpm"><span class="ico"><img src="assets/chase-bank.png" alt=""></span><span class="ilabel">Chase</span></a>
-        </div>
-      </div>
-
-      <div class="demo">
-        <div class="demo-label">.feat-card — flagship hero card (16:9, gradient scrim, zoom on hover)</div>
-        <a class="feat-card" href="#" style="max-width: 360px; display: block;">
-          <img src="https://picsum.photos/seed/network-grid/720/405" alt="">
-          <span class="feat-body"><span class="feat-title">Flagship project title</span></span>
-        </a>
-      </div>
-
-      <div class="demo">
-        <div class="demo-label">.grid-card — horizontal scroll-snap project card</div>
-        <a class="grid-card" href="#" style="max-width: 220px; display: block;">
-          <img class="grid-card__thumb" src="https://picsum.photos/seed/archive-shelves/440/330" alt="">
-          <div class="grid-card__title">Project card title</div>
-        </a>
-      </div>
-
-      <div class="demo">
-        <div class="demo-label">.view-all-link — underlined text link with animated arrow</div>
-        <a class="view-all-link" href="#">
-          View all projects
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 19L19 5M19 5H8M19 5V16"></path></svg>
-        </a>
-      </div>
-
-      <div class="demo" style="position: relative; min-height: 120px;">
-        <div class="demo-label">.page-corner — fixed-position corner tick marks (site-wide, hidden below 640px)</div>
-        <span class="page-corner page-corner-tl" style="position: absolute; top: 12px; left: 12px;"></span>
-        <span class="page-corner page-corner-tr" style="position: absolute; top: 12px; right: 12px;"></span>
-        <span class="page-corner page-corner-bl" style="position: absolute; bottom: 12px; left: 12px;"></span>
-        <span class="page-corner page-corner-br" style="position: absolute; bottom: 12px; right: 12px;"></span>
-      </div>
-
-      <div class="demo">
-        <div class="demo-label">.fav-link-list — favorites row (thumbnail, title, description, domain chip)</div>
-        <ul class="fav-link-list">
-          <li>
-            <a href="#">
-              <img class="link-thumb" src="assets/logo-producthunt.png" alt="" style="background:transparent;">
-              <div class="link-content">
-                <div class="link-title-row"><span class="link-name">List item title</span></div>
-                <span class="link-desc">Supporting description text</span>
-              </div>
-              <span class="link-domain">Website</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="demo">
-        <div class="demo-label">.spotify-embed — grayscale iframe, full color on hover</div>
-        <div class="spotify-embed" style="max-width: 360px;">
-          <iframe style="border-radius:var(--radius-md);" src="https://open.spotify.com/embed/playlist/37i9dQZF1CKPJY0UjNTCYl?utm_source=generator&theme=0" width="100%" height="152" frameborder="0" loading="lazy"></iframe>
-        </div>
-      </div>
-
-      <div class="demo demo-dark">
-        <div class="demo-label" style="color: color-mix(in srgb, var(--color-paper) 55%, transparent);">.about-reverse — inverted (ink background, paper text) section</div>
-        <div class="sec-head" style="margin-bottom: var(--space-sm);"><h2 style="color: var(--color-paper);">Reversed section heading</h2></div>
-        <p style="max-width: 56ch; color: color-mix(in srgb, var(--color-paper) 88%, transparent); font-size: var(--text-md); line-height: 1.7;">Body copy on the dark About section reads like this.</p>
-      </div>
-
-      <div class="demo">
-        <div class="demo-label">.exp-table — experience table (company / title / dates)</div>
-        <table class="exp-table">
-          <tbody>
-            <tr>
-              <td class="exp-company">Company</td>
-              <td class="exp-title">Job title</td>
-              <td class="exp-dates">2024&ndash;Present</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="demo">
-        <div class="demo-label">footer.foot-dense — dense typographic footer, underlined links</div>
-        <footer class="foot-dense" style="border: none; padding: 0; margin: 0;">
-          <p>Eric Wagner &middot; <a href="#">ericjwag@gmail.com</a><br>
-          <a href="#">linkedin.com/in/ericjwagner</a> &middot; Built by me &amp; AI &middot; 2026</p>
-        </footer>
-      </div>
     </div>
 
   </div>

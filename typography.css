@@ -21,7 +21,7 @@ a { color: inherit; }
   line-height: 1.2;
 }
 
-:where(.sec-head h2, .case-study h2, .fav-group-label) {
+:where(.sec-head h2, .case-study h2, .fav-group-label, .feat-title, .exp-label) {
   font-family: "Familjen Grotesk", var(--font-body), sans-serif;
   font-weight: 400;
   font-size: var(--text-lg);
@@ -37,7 +37,7 @@ a { color: inherit; }
   line-height: 1.4;
 }
 
-:where(.fav-link-list .link-name, .band-name) {
+:where(.fav-link-list .link-name, .band-name, table.exp-table td.exp-company) {
   font-family: var(--font-body);
   font-weight: 500;
   font-size: var(--text-base);
@@ -45,7 +45,7 @@ a { color: inherit; }
   line-height: 1.4;
 }
 
-:where(.case-study p, .case-study ul) {
+:where(.case-study p, .case-study ul, .fav-link-list .link-desc, table.exp-table td.exp-title) {
   font-family: var(--font-body);
   font-weight: 400;
   font-size: var(--text-base);
@@ -53,16 +53,23 @@ a { color: inherit; }
   line-height: 1.75;
 }
 
-.who-text .role {
-  font-size: var(--text-md);
-  color: var(--color-muted);
-  margin-top: 5px;
+:where(.fav-link-list .link-domain, table.exp-table td.exp-dates) {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--text-base);
+  color: var(--color-neutral);
+  line-height: 1.4;
 }
 
-.intro .bio p {
+:where(.who-text .role, .intro .bio p) {
   font-size: var(--text-md);
   color: var(--color-muted);
   line-height: 1.7;
+}
+
+.who-text .role { margin-top: 5px; }
+
+.intro .bio p {
   margin-bottom: var(--space-md);
   max-width: 56ch;
 }

@@ -15,18 +15,10 @@
     body { overflow-x: clip; }
 
     body {
-      font-family: "Geist", var(--font-body);
       background: var(--color-paper);
       color: var(--color-ink);
-      font-size: var(--text-base);
-      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
-
-    a { color: inherit; }
-
-    :root { --accent2: #5f6b3f; --accent2-soft: #e7e4d3; }
-    @media (prefers-color-scheme: dark) { :root { --accent2: #a3ad7c; --accent2-soft: #2c2f1f; } }
 
     ::selection { background: var(--color-accent-soft); color: var(--color-ink); }
     :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
@@ -64,7 +56,6 @@
     .back-link svg { width: 12px; height: 12px; transform: scaleX(-1); }
 
     .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-md); margin-bottom: var(--space-lg); }
-    .sec-head h2 { font-family: "Familjen Grotesk", var(--font-body), sans-serif; font-weight: 400; font-size: var(--text-lg); color: var(--color-ink); }
     .sec-head span { font-size: var(--text-xs); color: var(--color-neutral); white-space: nowrap; }
 
     .index-list { border-top: 1px solid var(--color-rule); padding: 0 var(--space-sm); margin: 0 calc(var(--space-sm) * -1); }

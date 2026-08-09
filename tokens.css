@@ -12,6 +12,16 @@
   --color-accent-soft: #f2efe8;
   --color-focus:       #17150f;
 
+  /* ── Color — accent & brand (page-local usage, e.g. hover states, brand marks) ── */
+  --accent2:            #5f6b3f;
+  --accent2-soft:       #e7e4d3;
+  --brand-workiva:      #4fb84f;
+  --brand-workiva-soft: #e4ecfd;
+  --brand-thrive:       #1f9c8a;
+  --brand-thrive-soft:  #dcf2ee;
+  --brand-jpm:          #1279cd;
+  --brand-jpm-soft:     #e2e7ed;
+
   /* ── Type ── */
   --font-display: "Cardo", "Iowan Old Style", Georgia, serif;
   --font-body:    "Geist", -apple-system, "Segoe UI", sans-serif;
@@ -68,5 +78,14 @@
     --color-accent:      #f5f3ec;
     --color-accent-soft: #2a2820;
     --color-focus:       #f5f3ec;
+
+    --accent2:            #a3ad7c;
+    --accent2-soft:       #2c2f1f;
+    --brand-workiva:      #7ed37e;
+    --brand-workiva-soft: #1c2740;
+    --brand-thrive:       #5cc9b8;
+    --brand-thrive-soft:  #163330;
+    --brand-jpm:          #4fa3e8;
+    --brand-jpm-soft:     #1c2530;
   }
 }
