@@ -37,6 +37,14 @@ a { color: inherit; }
   line-height: 1.4;
 }
 
+:where(.fav-link-list .link-name, .band-name) {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--text-base);
+  color: var(--color-ink);
+  line-height: 1.4;
+}
+
 :where(.case-study p, .case-study ul) {
   font-family: var(--font-body);
   font-weight: 400;
