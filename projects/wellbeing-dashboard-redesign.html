@@ -30,7 +30,6 @@
 
     .back-link {
       display: inline-block;
-      font-size: var(--text-sm);
       color: var(--color-neutral);
       text-decoration: none;
       margin-bottom: var(--space-lg);
@@ -43,20 +42,19 @@
     header h1 {
       margin-bottom: var(--space-sm);
     }
-
-    .meta { font-size: var(--text-sm); color: var(--color-muted); }
-
     .thumbnail {
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 4 / 3;
       border-radius: var(--radius-md);
-      background: var(--color-paper-2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--color-neutral);
-      font-size: var(--text-sm);
-      margin: var(--space-xl) 0;
+      overflow: hidden;
+      margin: 0 0 var(--space-xl);
+    }
+
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .case-study { max-width: 640px; }
@@ -72,6 +70,7 @@
     }
 
     .case-study h2 + h3 { margin-top: 0; }
+    .case-study figure + h3 { margin-top: var(--space-xl); }
 
     .case-study p {
       margin-bottom: var(--space-sm);
@@ -93,16 +92,10 @@
     }
 
     .stat-callout .stat-number {
-      font-size: var(--text-lg);
-      font-weight: 600;
-      color: var(--color-ink);
       margin-bottom: var(--space-2xs);
     }
 
     .stat-callout p {
-      font-size: var(--text-sm);
-      color: var(--color-muted);
-      line-height: 1.5;
       margin: 0;
     }
 
@@ -130,7 +123,153 @@
       font-size: var(--text-sm);
       color: var(--color-muted);
       line-height: 1.5;
+      margin: 0 0 var(--space-sm);
+    }
+
+    .decision-item figure:last-child { margin-bottom: 0; }
+
+    .case-study figure {
+      margin: var(--space-md) 0;
+      border: 1px solid var(--color-rule);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .case-study h2 + figure,
+    .case-study h3 + figure { margin-top: 0; }
+
+    .case-study figure img { width: 100%; display: block; }
+
+    .shot-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      align-items: start;
+      margin: var(--space-md) 0;
+    }
+
+    .shot-row .label {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-neutral);
+      margin-bottom: var(--space-2xs);
+    }
+
+    .shot-row figure { margin: 0; }
+
+    .ba-slider {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 2500 / 2407;
+      margin: var(--space-md) 0;
+      border: 1px solid var(--color-rule);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      user-select: none;
+      touch-action: pan-y;
+    }
+
+    .ba-slider img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+
+    .ba-slider .ba-layer-clip {
+      clip-path: inset(0 calc(100% - 50%) 0 0);
+      z-index: 2;
+    }
+
+    .ba-slider .ba-layer-base {
+      z-index: 1;
+    }
+
+    .ba-slider .ba-tag {
+      position: absolute;
+      z-index: 3;
+      top: var(--space-sm);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-paper);
+      background: rgba(0, 0, 0, 0.55);
+      padding: var(--space-2xs) var(--space-xs);
+      border-radius: var(--radius-sm);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+
+    .ba-slider .ba-tag.is-visible { opacity: 1; }
+
+    .ba-slider .ba-tag-after { left: var(--space-sm); }
+    .ba-slider .ba-tag-before { right: var(--space-sm); }
+
+    .ba-handle {
+      position: absolute;
+      z-index: 3;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: var(--color-paper);
+      transform: translateX(-1px);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+      pointer-events: none;
+    }
+
+    .ba-handle::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--color-paper);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+      transform: translate(-50%, -50%);
+    }
+
+    .ba-handle::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 22px;
+      height: 14px;
+      transform: translate(-50%, -50%);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 20' fill='none' stroke='%236b6558' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='11 3 4 10 11 17'%3E%3C/polyline%3E%3Cpolyline points='21 3 28 10 21 17'%3E%3C/polyline%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .ba-range {
+      position: absolute;
+      z-index: 4;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       margin: 0;
+      opacity: 0;
+      cursor: ew-resize;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .ba-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 40px;
+      height: 100%;
     }
 
     footer {
@@ -150,7 +289,10 @@
 
     footer a:hover { color: var(--color-ink); }
 
-    @media (max-width: 600px) { header { padding: var(--space-xl) 0 var(--space-lg); } }
+    @media (max-width: 600px) {
+      header { padding: var(--space-xl) 0 var(--space-lg); }
+      .shot-row { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -160,10 +302,12 @@
   <header>
     <a class="back-link" href="../index.html">Eric Wagner</a>
     <h1>Well-being Dashboard Redesign</h1>
-    <p class="meta">Thrive Global &mdash; Lead Product Designer &mdash; April–December 2023</p>
+    <p class="meta">Thrive Global / Lead Product Designer / April–December 2023</p>
   </header>
 
-  <div class="thumbnail">Thumbnail</div>
+  <div class="thumbnail">
+    <img src="../assets/images/wellbeing-dashboard-redesign/home-6.webp" alt="Redesigned Pulse dashboard showing an engagement overview with monthly active users, sign-ups, and benchmarked energy and retention scores" />
+  </div>
 
   <div class="case-study">
 
@@ -199,6 +343,9 @@
       <p>
         The original dashboard was hastily assembled by a team that departed soon after launch. CSMs spent roughly half of every quarterly review call explaining how to interpret it.
       </p>
+      <figure>
+        <img src="../assets/images/wellbeing-dashboard-redesign/image-416.webp" alt="Annotated critique of the legacy dashboard, calling out an unclear chart legend, an ambiguous burnout risk breakdown, and generic placeholder recommendations" />
+      </figure>
     </section>
 
     <section>
@@ -209,6 +356,23 @@
       <p>
         I also reviewed past customer calls, identifying moments where customers needed clarification or showed confusion. Then I collaborated with my PM to map each customer's goals and internal KPIs to the datapoints we'd surface in the dashboard.
       </p>
+      <figure>
+        <img src="../assets/images/wellbeing-dashboard-redesign/frame-1171277008.webp" alt="Persona map for a Head of DEI and a CEO, outlining each role's goals, pain points, KPIs, and preferred messaging, used to align dashboard metrics with real stakeholder needs" />
+      </figure>
+      <div class="shot-row">
+        <div class="shot">
+          <div class="label">Categorizing datapoints</div>
+          <figure>
+            <img src="../assets/images/wellbeing-dashboard-redesign/image-9.webp" alt="Sticky-note board grouping candidate quarterly business review datapoints into engagement metrics, popular content, user metrics, and daily check-ins" />
+          </figure>
+        </div>
+        <div class="shot">
+          <div class="label">Prioritizing metrics</div>
+          <figure>
+            <img src="../assets/images/wellbeing-dashboard-redesign/image-426.webp" alt="Metrics ranked in priority order, from active users and sign-ups down to top strength, top opportunity, and content engagement stats" />
+          </figure>
+        </div>
+      </div>
       <p>
         A crucial insight emerged: companies renewed not just when they saw improved well-being, but when they saw increases in usage and engagement. If we could show HR leaders how employees engaged with Thrive, we could ease the burden on CSMs <em>and</em> make it easier for HR leaders to justify renewal to their CEO.
       </p>
@@ -220,22 +384,37 @@
         <div class="decision-item">
           <h3>Clarifying ambiguous terminology</h3>
           <p>Replaced terms like "highly engaged" and "at risk of burnout" with more objective labels — positive and negative responses. The old terms were too loaded; a negative check-in could be a bad day, not a burnout signal.</p>
+          <figure>
+            <img src="../assets/images/wellbeing-dashboard-redesign/frame-1171276997.webp" alt="Legacy dashboard with loaded terminology circled in red, including 'Burnout Risk by Pillar,' 'High Risk,' and 'At risk of burnout'" />
+          </figure>
         </div>
         <div class="decision-item">
           <h3>Engagement vs. well-being — combining both</h3>
           <p>We debated leading with well-being or engagement. I designed both versions plus a combined view. After gathering feedback from CSMs, 82% preferred the combined version — so that became the default.</p>
+          <figure>
+            <img src="../assets/images/wellbeing-dashboard-redesign/home-2.webp" alt="Collage of dashboard layout explorations, including engagement-only, well-being-only, and combined views tested with Customer Success" />
+          </figure>
         </div>
         <div class="decision-item">
           <h3>Building a data viz library</h3>
           <p>Our design system had no chart components yet. I built a data viz system from scratch, enabling faster iteration throughout the project and giving other teams reusable components for their own product areas.</p>
+          <figure>
+            <img src="../assets/images/wellbeing-dashboard-redesign/charts.webp" alt="Data visualization component library covering comparison charts, response breakdowns, rating trends, and usage metrics" />
+          </figure>
         </div>
         <div class="decision-item">
           <h3>Designing with real data</h3>
           <p>Prototyping with real customer data revealed that well-being levels often cluster near the benchmark, making differences hard to see. I designed a new chart view that made comparisons clearer and benchmarks more readable.</p>
+          <figure>
+            <img src="../assets/images/wellbeing-dashboard-redesign/ratings-1.webp" alt="Daily Check-In Ratings detail view showing an energy score trend line plotted against a benchmark, with a tooltip revealing the exact monthly values" />
+          </figure>
         </div>
         <div class="decision-item">
           <h3>Working within technical constraints</h3>
           <p>Aligned all chart designs with Nivo Charts and Material UI, ensuring the engineering team could build quickly without custom work outside our stack.</p>
+          <figure>
+            <img src="../assets/images/wellbeing-dashboard-redesign/frame-1171277010.webp" alt="Nivo's bullet chart documentation next to the resulting benchmark component built for the dashboard's energy and retention scores" />
+          </figure>
         </div>
       </div>
     </section>
@@ -245,9 +424,20 @@
       <p>
         The redesigned dashboard became a self-service tool for HR leaders — removing the need to rely on CSMs for data requests, helping users justify cost and prove ROI, and directly supporting contract renewals. The anticipated 600 hours/year in CSM savings came from reduced data requests and the elimination of quarterly-call explanations.
       </p>
+      <div class="ba-slider" id="dashboardSlider">
+        <img class="ba-layer-clip" src="../assets/images/wellbeing-dashboard-redesign/pulse-22.webp" alt="After: redesigned dashboard with a clear engagement overview, monthly active user trend, and benchmarked energy and retention scores" />
+        <img class="ba-layer-base" src="../assets/images/wellbeing-dashboard-redesign/group-774.webp" alt="Before: legacy dashboard with an ambiguous burnout risk chart and generic placeholder recommendations" />
+        <span class="ba-tag ba-tag-before">Before</span>
+        <span class="ba-tag ba-tag-after">After</span>
+        <div class="ba-handle"></div>
+        <input type="range" class="ba-range" min="0" max="100" value="50" aria-label="Drag to compare the legacy dashboard with the redesigned dashboard" />
+      </div>
       <p>
         Beyond the business metrics, the dashboard helped HR leaders identify when employees reported lower well-being so they could intervene early — translating data into real human impact.
       </p>
+      <figure>
+        <img src="../assets/images/wellbeing-dashboard-redesign/frame-1171277011.webp" alt="Employee recognition card for Jessie Lassabe from Walmart's home office in Bentonville, Arkansas, part of Thrive's employee spotlight series" />
+      </figure>
     </section>
 
   </div>
@@ -259,6 +449,31 @@
   </footer>
 
 </div>
+
+<script>
+  (function () {
+    var slider = document.getElementById('dashboardSlider');
+    if (!slider) return;
+    var range = slider.querySelector('.ba-range');
+    var clipLayer = slider.querySelector('.ba-layer-clip');
+    var handle = slider.querySelector('.ba-handle');
+    var beforeTag = slider.querySelector('.ba-tag-before');
+    var afterTag = slider.querySelector('.ba-tag-after');
+
+    function update(value) {
+      clipLayer.style.clipPath = 'inset(0 calc(100% - ' + value + '%) 0 0)';
+      handle.style.left = value + '%';
+      afterTag.classList.toggle('is-visible', value >= 50);
+      beforeTag.classList.toggle('is-visible', value < 50);
+    }
+
+    range.addEventListener('input', function () {
+      update(range.value);
+    });
+
+    update(range.value);
+  })();
+</script>
 
 </body>
 </html>

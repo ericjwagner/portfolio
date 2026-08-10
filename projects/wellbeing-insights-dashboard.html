@@ -33,7 +33,6 @@
 
     .back-link {
       display: inline-block;
-      font-size: var(--text-sm);
       color: var(--color-neutral);
       text-decoration: none;
       margin-bottom: var(--space-lg);
@@ -46,24 +45,20 @@
     header h1 {
       margin-bottom: var(--space-sm);
     }
-
-    .meta {
-      font-size: var(--text-sm);
-      color: var(--color-muted);
-    }
-
     /* ── Thumbnail ── */
     .thumbnail {
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 3 / 2;
       border-radius: var(--radius-md);
-      background: var(--color-paper-2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--color-neutral);
-      font-size: var(--text-sm);
-      margin: var(--space-xl) 0;
+      overflow: hidden;
+      margin: 0 0 var(--space-xl);
+    }
+
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     /* ── Case study body ── */
@@ -107,16 +102,7 @@
     }
 
     .stat-card .stat-number {
-      font-size: var(--text-lg);
-      font-weight: 600;
-      color: var(--color-ink);
       margin-bottom: var(--space-2xs);
-    }
-
-    .stat-card p {
-      font-size: var(--text-sm);
-      color: var(--color-muted);
-      line-height: 1.5;
     }
 
     /* ── Feature list ── */
@@ -128,25 +114,31 @@
     }
 
     .feature-item {
-      border-bottom: 1px solid var(--color-rule);
-      padding: var(--space-sm) 0;
+      padding: var(--space-lg) 0;
     }
 
     .feature-item:first-child {
-      border-top: 1px solid var(--color-rule);
+      padding-top: 0;
     }
 
     .feature-item h3 {
-      font-size: var(--text-sm);
-      font-weight: 600;
       margin: 0 0 var(--space-2xs);
     }
 
     .feature-item p {
-      font-size: var(--text-sm);
       color: var(--color-muted);
-      line-height: 1.5;
       margin: 0;
+    }
+
+    .feature-item figure {
+      margin: var(--space-sm) 0 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .feature-item figure img {
+      width: 100%;
+      display: block;
     }
 
     /* ── Footer ── */
@@ -155,7 +147,6 @@
       padding: var(--space-lg) 0 var(--space-xl);
       display: flex;
       gap: var(--space-md);
-      border-top: 1px solid var(--color-rule);
     }
 
     footer a {
@@ -180,10 +171,12 @@
   <header>
     <a class="back-link" href="../index.html">Eric Wagner</a>
     <h1>Employee Well-being Insights Dashboard</h1>
-    <p class="meta">Thrive Global &mdash; Lead Product Designer &mdash; September 2022–February 2023</p>
+    <p class="meta">Thrive Global / Lead Product Designer / September 2022–February 2023</p>
   </header>
 
-  <div class="thumbnail">Thumbnail</div>
+  <div class="thumbnail">
+    <img src="../assets/images/wellbeing-insights-dashboard/well-being-dashboard-insights-desktop.webp" alt="Employee well-being insights dashboard shown on desktop, with top strength and top opportunity highlights, well-being score details, and connected activity data" />
+  </div>
 
   <div class="case-study">
 
@@ -230,22 +223,37 @@
         <div class="feature-item">
           <h3>Well-being details</h3>
           <p>Dig into each dimension and see how your scores have changed over time.</p>
+          <figure>
+            <img src="../assets/images/wellbeing-insights-dashboard/well-being-dashboard-insights.webp" alt="Insights home screen on mobile showing the top strength card with a 90% effectiveness score and a link to see details" />
+          </figure>
         </div>
         <div class="feature-item">
           <h3>Compare to your activity</h3>
           <p>Compare your well-being scores to your activity data from connected health and wearable devices.</p>
+          <figure>
+            <img src="../assets/images/wellbeing-insights-dashboard/well-being-dashboard-activity.webp" alt="Sleep and steps activity cards showing a 7-day average of 8 hr 32 min of sleep and 9,224 steps against benchmark ranges" />
+          </figure>
         </div>
         <div class="feature-item">
           <h3>Personalized recommendations</h3>
           <p>Receive personalized content recommendations to help you along your well-being journey.</p>
+          <figure>
+            <img src="../assets/images/wellbeing-insights-dashboard/well-being-dashboard-mobile.webp" alt="Three mobile screens showing an energy score detail, a 6-month energy trend chart compared to steps, and personalized recommendations including a Recharge journey" />
+          </figure>
         </div>
         <div class="feature-item">
           <h3>Top strength and top opportunity</h3>
           <p>See your top strength and top opportunity at a glance.</p>
+          <figure>
+            <img src="../assets/images/wellbeing-insights-dashboard/well-being-dashboard-tops.webp" alt="Top strength card showing 90% effectiveness and top opportunity card showing 20% energy, each with a see details link" />
+          </figure>
         </div>
         <div class="feature-item">
           <h3>Strengths and opportunities</h3>
           <p>Understand where your strengths and opportunities lie and see how your responses compare to the benchmark range.</p>
+          <figure>
+            <img src="../assets/images/wellbeing-insights-dashboard/well-being-dashboard-strengths-and-opportunities.webp" alt="Strengths card listing effectiveness, productivity, and belonging above benchmark, and opportunities card listing enthusiasm and energy below benchmark" />
+          </figure>
         </div>
       </div>
     </section>

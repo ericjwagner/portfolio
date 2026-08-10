@@ -32,7 +32,6 @@
 
     .back-link {
       display: inline-block;
-      font-size: var(--text-sm);
       color: var(--color-neutral);
       text-decoration: none;
       margin-bottom: var(--space-lg);
@@ -45,23 +44,19 @@
     header h1 {
       margin-bottom: var(--space-sm);
     }
-
-    .meta {
-      font-size: var(--text-sm);
-      color: var(--color-muted);
-    }
-
     .thumbnail {
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 4 / 3;
       border-radius: var(--radius-md);
-      background: var(--color-paper-2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--color-neutral);
-      font-size: var(--text-sm);
-      margin: var(--space-xl) 0;
+      overflow: hidden;
+      margin: 0 0 var(--space-xl);
+    }
+
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .case-study {
@@ -82,6 +77,7 @@
     }
 
     .case-study h2 + h3 { margin-top: 0; }
+    .case-study figure + h3 { margin-top: var(--space-xl); }
 
     .case-study p {
       margin-bottom: var(--space-sm);
@@ -105,16 +101,10 @@
     }
 
     .stat-callout .stat-number {
-      font-size: var(--text-lg);
-      font-weight: 600;
-      color: var(--color-ink);
       margin-bottom: var(--space-2xs);
     }
 
     .stat-callout p {
-      font-size: var(--text-sm);
-      color: var(--color-muted);
-      line-height: 1.5;
       margin: 0;
     }
 
@@ -137,17 +127,146 @@
       font-style: normal;
     }
 
-    .placeholder-image {
-      width: 100%;
-      aspect-ratio: 16 / 9;
+    .case-study figure {
+      margin: var(--space-md) 0;
+      border: 1px solid var(--color-rule);
       border-radius: var(--radius-md);
-      background: var(--color-paper-2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      overflow: hidden;
+    }
+
+    .case-study h2 + figure,
+    .case-study h3 + figure { margin-top: 0; }
+
+    .case-study figure img { width: 100%; display: block; }
+
+    .shot-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+      margin: var(--space-md) 0;
+    }
+
+    .shot-row .label {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       color: var(--color-neutral);
-      font-size: var(--text-sm);
-      margin: var(--space-md) 0 var(--space-lg);
+      margin-bottom: var(--space-2xs);
+    }
+
+    .shot-row figure { margin: 0; }
+
+    .ba-slider {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1386 / 1010;
+      margin: var(--space-md) 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      user-select: none;
+      touch-action: pan-y;
+    }
+
+    .ba-slider img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+
+    .ba-slider .ba-layer-clip {
+      clip-path: inset(0 calc(100% - 50%) 0 0);
+      z-index: 2;
+    }
+
+    .ba-slider .ba-layer-base {
+      z-index: 1;
+    }
+
+    .ba-slider .ba-tag {
+      position: absolute;
+      z-index: 3;
+      top: var(--space-sm);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-paper);
+      background: rgba(0, 0, 0, 0.55);
+      padding: var(--space-2xs) var(--space-xs);
+      border-radius: var(--radius-sm);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+
+    .ba-slider .ba-tag.is-visible { opacity: 1; }
+
+    .ba-slider .ba-tag-after { left: var(--space-sm); }
+    .ba-slider .ba-tag-before { right: var(--space-sm); }
+
+    .ba-handle {
+      position: absolute;
+      z-index: 3;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: var(--color-paper);
+      transform: translateX(-1px);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+      pointer-events: none;
+    }
+
+    .ba-handle::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--color-paper);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+      transform: translate(-50%, -50%);
+    }
+
+    .ba-handle::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 22px;
+      height: 14px;
+      transform: translate(-50%, -50%);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 20' fill='none' stroke='%236b6558' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='11 3 4 10 11 17'%3E%3C/polyline%3E%3Cpolyline points='21 3 28 10 21 17'%3E%3C/polyline%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .ba-range {
+      position: absolute;
+      z-index: 4;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      opacity: 0;
+      cursor: ew-resize;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .ba-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 40px;
+      height: 100%;
     }
 
     footer {
@@ -179,10 +298,12 @@
   <header>
     <a class="back-link" href="../index.html">Eric Wagner</a>
     <h1>J.P. Morgan Automated Investing</h1>
-    <p class="meta">Chase &mdash; Lead Product Designer &mdash; October 2019–January 2021</p>
+    <p class="meta">Chase / Lead Product Designer / October 2019–January 2021</p>
   </header>
 
-  <div class="thumbnail">Thumbnail</div>
+  <div class="thumbnail">
+    <img src="../assets/images/jpmorgan-automated-investing/automated-investing-automated.webp" alt="J.P. Morgan Automated Investing portfolio view shown on a MacBook Pro" />
+  </div>
 
   <div class="case-study">
 
@@ -228,12 +349,22 @@
       <p>
         We redesigned the chart to be easier to parse and moved it to the product landing page to eliminate a step of friction and reduce drop-off. The business was sold on the new chart design despite it not existing in our design system — so I designed, specced, and built it with an engineering team, then contributed it to the design system.
       </p>
+      <div class="ba-slider" id="chartSlider">
+        <img class="ba-layer-clip" src="../assets/images/jpmorgan-automated-investing/automated-investing-projection-2.webp" alt="After: single bar chart with legend showing very strong, median, and very weak projected market outcomes" />
+        <img class="ba-layer-base" src="../assets/images/jpmorgan-automated-investing/automated-investing-projection-1.webp" alt="Before: line chart with a shaded uncertainty band projecting portfolio growth over time" />
+        <span class="ba-tag ba-tag-before">Before</span>
+        <span class="ba-tag ba-tag-after">After</span>
+        <div class="ba-handle"></div>
+        <input type="range" class="ba-range" min="0" max="100" value="50" aria-label="Drag to compare before and after projection chart designs" />
+      </div>
 
       <h3>Designing with graphical integrity</h3>
       <p>
         Some edge cases made the chart hard to read, and there was pressure to artificially distort it. I pushed back using Edward Tufte's Principles of Graphical Integrity: in this chart, the amount of money is equal to the area of each bar, not its height. Increasing only the width to accommodate edge cases would misrepresent the data.
       </p>
-      <div class="placeholder-image">Placeholder — projection chart before/after</div>
+      <figure>
+        <img src="../assets/images/jpmorgan-automated-investing/automated-investing-chart-detail.webp" alt="Spec showing the math used to keep the redesigned chart legible at small bar widths, matching relative bar height to bar width instead of distorting the data" />
+      </figure>
     </section>
 
     <section>
@@ -249,7 +380,20 @@
         <li>Designed responsively for all form factors</li>
         <li>Built exclusively from fully baked design system components</li>
       </ul>
-      <div class="placeholder-image">Placeholder — before/after layout comparison</div>
+      <div class="shot-row">
+        <div class="shot">
+          <div class="label">Before</div>
+          <figure>
+            <img src="../assets/images/jpmorgan-automated-investing/automated-investing-drop-1.webp" alt="Before: two-column layout with an asset allocation donut chart in the main column and a projection chart in the sticky right rail" />
+          </figure>
+        </div>
+        <div class="shot">
+          <div class="label">After</div>
+          <figure>
+            <img src="../assets/images/jpmorgan-automated-investing/automated-investing-robo-5.webp" alt="After: single-column layout showing one chart at a time, with three potential market outcomes replacing the second chart" />
+          </figure>
+        </div>
+      </div>
     </section>
 
     <section>
@@ -272,6 +416,31 @@
   </footer>
 
 </div>
+
+<script>
+  (function () {
+    var slider = document.getElementById('chartSlider');
+    if (!slider) return;
+    var range = slider.querySelector('.ba-range');
+    var clipLayer = slider.querySelector('.ba-layer-clip');
+    var handle = slider.querySelector('.ba-handle');
+    var beforeTag = slider.querySelector('.ba-tag-before');
+    var afterTag = slider.querySelector('.ba-tag-after');
+
+    function update(value) {
+      clipLayer.style.clipPath = 'inset(0 calc(100% - ' + value + '%) 0 0)';
+      handle.style.left = value + '%';
+      afterTag.classList.toggle('is-visible', value >= 50);
+      beforeTag.classList.toggle('is-visible', value < 50);
+    }
+
+    range.addEventListener('input', function () {
+      update(range.value);
+    });
+
+    update(range.value);
+  })();
+</script>
 
 </body>
 </html>

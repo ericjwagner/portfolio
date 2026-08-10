@@ -30,7 +30,6 @@
 
     .back-link {
       display: inline-block;
-      font-size: var(--text-sm);
       color: var(--color-neutral);
       text-decoration: none;
       margin-bottom: var(--space-lg);
@@ -43,15 +42,12 @@
     header h1 {
       margin-bottom: var(--space-sm);
     }
-
-    .meta { font-size: var(--text-sm); color: var(--color-muted); }
-
     .thumbnail {
       width: 100%;
       aspect-ratio: 4 / 3;
       border-radius: var(--radius-md);
       overflow: hidden;
-      margin: var(--space-xl) 0;
+      margin: 0 0 var(--space-xl);
     }
 
     .thumbnail img {
@@ -74,6 +70,7 @@
     }
 
     .case-study h2 + h3 { margin-top: 0; }
+    .case-study figure + h3 { margin-top: var(--space-xl); }
 
     .case-study p {
       margin-bottom: var(--space-sm);
@@ -225,16 +222,10 @@
     }
 
     .stat-card .stat-number {
-      font-size: var(--text-md);
-      font-weight: 600;
-      color: var(--color-ink);
       margin-bottom: var(--space-2xs);
     }
 
     .stat-card p {
-      font-size: var(--text-sm);
-      color: var(--color-muted);
-      line-height: 1.5;
       margin: 0;
     }
 
@@ -299,7 +290,7 @@
   <header>
     <a class="back-link" href="../index.html">Eric Wagner</a>
     <h1>Chase Advisor Video Platform</h1>
-    <p class="meta">Chase &mdash; Lead Product Designer &mdash; November 2020–November 2021</p>
+    <p class="meta">Chase / Lead Product Designer / November 2020–November 2021</p>
   </header>
 
   <div class="thumbnail">
