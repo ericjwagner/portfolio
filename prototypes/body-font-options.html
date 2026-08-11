@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Body font: 4 options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Familjen+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+  }
+
+  :root {
+    --accent2: #5f6b3f; --accent2-soft: #e7e4d3;
+    --brand-workiva: #2f6fed; --brand-workiva-soft: #e4ecfd;
+    --brand-thrive: #1f9c8a; --brand-thrive-soft: #dcf2ee;
+    --brand-jpm: #0a2f5c; --brand-jpm-soft: #e2e7ed;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --accent2: #a3ad7c; --accent2-soft: #2c2f1f;
+      --brand-workiva: #7ea4f7; --brand-workiva-soft: #1c2740;
+      --brand-thrive: #5cc9b8; --brand-thrive-soft: #163330;
+      --brand-jpm: #7591b3; --brand-jpm-soft: #1c2530;
+    }
+  }
+
+  #switcher {
+    position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 1000;
+    display: flex; gap: 3px;
+    background: rgba(20,18,14,0.92); backdrop-filter: blur(12px);
+    padding: 4px; border-radius: 999px; box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  #switcher button {
+    appearance: none; border: none; background: transparent; color: rgba(255,255,255,0.62);
+    font-size: 12px; font-weight: 600; padding: 8px 14px; border-radius: 999px; cursor: pointer;
+    transition: background 0.15s, color 0.15s; white-space: nowrap;
+  }
+  #switcher button:hover { color: #fff; }
+  #switcher button.active { background: #fff; color: #111; }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .wrap { max-width: 46rem; margin: 0 auto; padding: 6.5rem var(--space-lg) var(--space-3xl); }
+  .label-tag { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-neutral); margin-bottom: var(--space-lg); }
+
+  .who { display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-xl); }
+  .avatar { width: 46px; height: 46px; border-radius: 50%; background: var(--color-paper-2); border: 1px solid var(--color-rule); flex-shrink: 0; }
+  .who-text .name { font-family: "Familjen Grotesk", sans-serif; font-weight: 700; font-size: var(--text-lg); letter-spacing: -0.01em; }
+  .who-text .role { font-size: var(--text-md); color: var(--color-muted); margin-top: 3px; }
+
+  .bio p { font-size: var(--text-md); color: var(--color-muted); line-height: 1.7; margin-bottom: var(--space-md); max-width: 56ch; }
+  .bio strong { color: var(--color-ink); font-weight: 600; }
+
+  .ico { width: 15px; height: 15px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 9px; font-weight: 700; flex-shrink: 0; background: var(--color-paper-2); color: var(--color-muted); }
+
+  .ilink { color: var(--color-ink); font-weight: 600; text-decoration: none; border-bottom: 1.5px solid var(--color-rule); padding-bottom: 1px; display: inline-flex; align-items: center; gap: 5px; transition: color 160ms ease; }
+  .ilink[data-brand="workiva"]:hover { color: var(--brand-workiva); border-color: var(--brand-workiva); }
+  .ilink[data-brand="workiva"]:hover .ico { background: var(--brand-workiva-soft); color: var(--brand-workiva); }
+  .ilink[data-brand="thrive"]:hover { color: var(--brand-thrive); border-color: var(--brand-thrive); }
+  .ilink[data-brand="thrive"]:hover .ico { background: var(--brand-thrive-soft); color: var(--brand-thrive); }
+  .ilink[data-brand="jpm"]:hover { color: var(--brand-jpm); border-color: var(--brand-jpm); }
+  .ilink[data-brand="jpm"]:hover .ico { background: var(--brand-jpm-soft); color: var(--brand-jpm); }
+
+  .sec-label { font-family: "Cardo", serif; font-style: italic; font-size: var(--text-md); color: var(--color-muted); margin: var(--space-2xl) 0 var(--space-lg); }
+
+  .rule-list { border-top: 1px solid var(--color-ink); }
+  .rule-row { display: flex; gap: var(--space-md); align-items: center; padding: var(--space-md) 0; border-bottom: 1px solid var(--color-rule); }
+  .rule-row .n { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-neutral); width: 2.5ch; flex-shrink: 0; }
+  .rule-row .t { font-family: var(--font-display); font-weight: 700; font-size: var(--text-md); }
+  .rule-row .d { margin-top: 2px; font-size: var(--text-sm); color: var(--color-muted); }
+
+  /* ============ body font per page ============ */
+  .B1 { font-family: "IBM Plex Sans", sans-serif; }
+  .B2 { font-family: "Inter", sans-serif; }
+  .B3 { font-family: "Work Sans", sans-serif; }
+  .B4 { font-family: "Hanken Grotesk", sans-serif; }
+
+  @media (max-width: 40rem) {
+    .wrap { padding: 5.5rem var(--space-md) var(--space-2xl); }
+  }
+</style>
+</head>
+<body>
+
+  <div id="switcher">
+    <button class="active" data-page="B1">1 &middot; IBM Plex Sans (current)</button>
+    <button data-page="B2">2 &middot; Inter</button>
+    <button data-page="B3">3 &middot; Work Sans</button>
+    <button data-page="B4">4 &middot; Hanken Grotesk</button>
+  </div>
+
+  <!-- ============ 1 — IBM Plex Sans ============ -->
+  <div class="page B1 active" data-id="B1">
+    <div class="wrap">
+      <div class="label-tag">1 &middot; IBM Plex Sans, 400 &mdash; what you have now, technical/neutral</div>
+      <div class="who">
+        <div class="avatar"></div>
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer, Workiva</div>
+        </div>
+      </div>
+      <div class="bio">
+        <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading enterprise migration work at
+          <a class="ilink" href="#" data-brand="workiva"><span class="ico">W</span>Workiva</a>, where a structured AI workflow got engineers migrating 66% of surfaces on their own, with zero production regressions.
+        </p>
+        <p>Before that I led design at <a class="ilink" href="#" data-brand="thrive"><span class="ico">T</span>Thrive Global</a>, where a well-being dashboard hit a 90% interaction rate, and at <a class="ilink" href="#" data-brand="jpm"><span class="ico">J</span>J.P. Morgan Chase</a>, where I redesigned a robo-advisor that helped generate $472M in AUM.</p>
+      </div>
+      <div class="sec-label">Start here.</div>
+      <div class="rule-list">
+        <div class="rule-row"><span class="n">02</span><div><div class="t">Historical Data Roll Forward</div><div class="d">Automated a quarterly financial reporting task that took 75% of users a full day, cutting it to minutes and driving a 35% increase in SEC bookings.</div></div></div>
+        <div class="rule-row"><span class="n">03</span><div><div class="t">Chase Advisor Video Platform</div><div class="d">Built Chase's first video collaboration suite from scratch, enabling 5,000+ wealth advisors to meet clients remotely.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2 — Inter ============ -->
+  <div class="page B2" data-id="B2">
+    <div class="wrap">
+      <div class="label-tag">2 &middot; Inter, 400 &mdash; ultra-neutral, extremely readable, the industry-standard default</div>
+      <div class="who">
+        <div class="avatar"></div>
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer, Workiva</div>
+        </div>
+      </div>
+      <div class="bio">
+        <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading enterprise migration work at
+          <a class="ilink" href="#" data-brand="workiva"><span class="ico">W</span>Workiva</a>, where a structured AI workflow got engineers migrating 66% of surfaces on their own, with zero production regressions.
+        </p>
+        <p>Before that I led design at <a class="ilink" href="#" data-brand="thrive"><span class="ico">T</span>Thrive Global</a>, where a well-being dashboard hit a 90% interaction rate, and at <a class="ilink" href="#" data-brand="jpm"><span class="ico">J</span>J.P. Morgan Chase</a>, where I redesigned a robo-advisor that helped generate $472M in AUM.</p>
+      </div>
+      <div class="sec-label">Start here.</div>
+      <div class="rule-list">
+        <div class="rule-row"><span class="n">02</span><div><div class="t">Historical Data Roll Forward</div><div class="d">Automated a quarterly financial reporting task that took 75% of users a full day, cutting it to minutes and driving a 35% increase in SEC bookings.</div></div></div>
+        <div class="rule-row"><span class="n">03</span><div><div class="t">Chase Advisor Video Platform</div><div class="d">Built Chase's first video collaboration suite from scratch, enabling 5,000+ wealth advisors to meet clients remotely.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 3 — Work Sans ============ -->
+  <div class="page B3" data-id="B3">
+    <div class="wrap">
+      <div class="label-tag">3 &middot; Work Sans, 400 &mdash; humanist, a little warmer/rounder than the others</div>
+      <div class="who">
+        <div class="avatar"></div>
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer, Workiva</div>
+        </div>
+      </div>
+      <div class="bio">
+        <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading enterprise migration work at
+          <a class="ilink" href="#" data-brand="workiva"><span class="ico">W</span>Workiva</a>, where a structured AI workflow got engineers migrating 66% of surfaces on their own, with zero production regressions.
+        </p>
+        <p>Before that I led design at <a class="ilink" href="#" data-brand="thrive"><span class="ico">T</span>Thrive Global</a>, where a well-being dashboard hit a 90% interaction rate, and at <a class="ilink" href="#" data-brand="jpm"><span class="ico">J</span>J.P. Morgan Chase</a>, where I redesigned a robo-advisor that helped generate $472M in AUM.</p>
+      </div>
+      <div class="sec-label">Start here.</div>
+      <div class="rule-list">
+        <div class="rule-row"><span class="n">02</span><div><div class="t">Historical Data Roll Forward</div><div class="d">Automated a quarterly financial reporting task that took 75% of users a full day, cutting it to minutes and driving a 35% increase in SEC bookings.</div></div></div>
+        <div class="rule-row"><span class="n">03</span><div><div class="t">Chase Advisor Video Platform</div><div class="d">Built Chase's first video collaboration suite from scratch, enabling 5,000+ wealth advisors to meet clients remotely.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 4 — Hanken Grotesk ============ -->
+  <div class="page B4" data-id="B4">
+    <div class="wrap">
+      <div class="label-tag">4 &middot; Hanken Grotesk, 400 &mdash; sibling energy to Familjen Grotesk, most cohesive with the name font</div>
+      <div class="who">
+        <div class="avatar"></div>
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer, Workiva</div>
+        </div>
+      </div>
+      <div class="bio">
+        <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading enterprise migration work at
+          <a class="ilink" href="#" data-brand="workiva"><span class="ico">W</span>Workiva</a>, where a structured AI workflow got engineers migrating 66% of surfaces on their own, with zero production regressions.
+        </p>
+        <p>Before that I led design at <a class="ilink" href="#" data-brand="thrive"><span class="ico">T</span>Thrive Global</a>, where a well-being dashboard hit a 90% interaction rate, and at <a class="ilink" href="#" data-brand="jpm"><span class="ico">J</span>J.P. Morgan Chase</a>, where I redesigned a robo-advisor that helped generate $472M in AUM.</p>
+      </div>
+      <div class="sec-label">Start here.</div>
+      <div class="rule-list">
+        <div class="rule-row"><span class="n">02</span><div><div class="t">Historical Data Roll Forward</div><div class="d">Automated a quarterly financial reporting task that took 75% of users a full day, cutting it to minutes and driving a 35% increase in SEC bookings.</div></div></div>
+        <div class="rule-row"><span class="n">03</span><div><div class="t">Chase Advisor Video Platform</div><div class="d">Built Chase's first video collaboration suite from scratch, enabling 5,000+ wealth advisors to meet clients remotely.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const btns = document.querySelectorAll('#switcher button');
+  const pages = document.querySelectorAll('.page');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      pages.forEach(p => p.classList.toggle('active', p.dataset.id === btn.dataset.page));
+    });
+  });
+</script>
+
+</body>
+</html>

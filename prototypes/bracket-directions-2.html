@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Brackets v2: 3 variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+  }
+
+  :root { --accent: #5f6b3f; --accent-soft: #e7e4d3; }
+  @media (prefers-color-scheme: dark) { :root { --accent: #a3ad7c; --accent-soft: #2c2f1f; } }
+
+  #switcher {
+    position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 1000;
+    display: flex; gap: 3px;
+    background: rgba(20,18,14,0.92); backdrop-filter: blur(12px);
+    padding: 4px; border-radius: 999px; box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  #switcher button {
+    appearance: none; border: none; background: transparent; color: rgba(255,255,255,0.62);
+    font-size: 12px; font-weight: 600; padding: 8px 14px; border-radius: 999px; cursor: pointer;
+    transition: background 0.15s, color 0.15s; white-space: nowrap;
+  }
+  #switcher button:hover { color: #fff; }
+  #switcher button.active { background: #fff; color: #111; }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .wrap { max-width: 46rem; margin: 0 auto; padding: 6.5rem var(--space-lg) var(--space-3xl); position: relative; }
+  .label-tag { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-neutral); margin-bottom: var(--space-lg); }
+
+  .who { display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-lg); }
+  .avatar { width: 46px; height: 46px; border-radius: 50%; background: var(--color-paper-2); border: 1px solid var(--color-rule); flex-shrink: 0; }
+  .who-text .name { font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); }
+  .who-text .role { font-size: var(--text-sm); color: var(--color-muted); margin-top: 2px; }
+
+  .bio p { font-size: var(--text-md); color: var(--color-muted); line-height: 1.7; margin-bottom: var(--space-md); max-width: 56ch; }
+  .bio strong { color: var(--color-ink); font-weight: 600; }
+  .bio p:last-child { margin-bottom: 0; }
+
+  .ico { width: 15px; height: 15px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 9px; font-weight: 700; }
+
+  .rule-list { border-top: 1px solid var(--color-ink); margin-top: var(--space-2xl); }
+  .rule-row { display: flex; gap: var(--space-md); align-items: center; padding: var(--space-md) 0; border-bottom: 1px solid var(--color-rule); }
+  .rule-row .n { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-neutral); width: 2.5ch; flex-shrink: 0; }
+  .rule-row .t { font-family: var(--font-display); font-weight: 700; font-size: var(--text-md); }
+  .rule-row .d { margin-top: 2px; font-size: var(--text-sm); color: var(--color-muted); }
+  .sec-label { font-family: var(--font-display); font-style: italic; font-size: var(--text-md); color: var(--color-muted); margin: var(--space-2xl) 0 var(--space-lg); }
+
+  .feat-card {
+    position: relative; display: block; border-radius: var(--radius-md); overflow: hidden;
+    text-decoration: none; color: #fff; aspect-ratio: 16/9; background: #111;
+    transition: box-shadow 220ms var(--ease-out); box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  }
+  .feat-card:hover { box-shadow: 0 24px 48px -12px rgba(0,0,0,0.35); }
+  .feat-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 400ms var(--ease-out), filter 400ms var(--ease-out); filter: grayscale(0.35) contrast(1.05); }
+  .feat-card:hover img { transform: scale(1.045); filter: grayscale(0) contrast(1.08); }
+  .feat-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0) 70%); }
+  .feat-body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: var(--space-lg); }
+  .feat-eyebrow { display: block; font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+  .feat-title { display: block; font-family: var(--font-display); font-weight: 700; font-size: var(--text-xl); line-height: 1.15; }
+  .feat-desc { display: block; margin-top: 8px; font-size: var(--text-sm); opacity: 0.85; max-width: 46ch; }
+
+  /* generic plain link style shared where hover-corners aren't the focus */
+  .ilink-plain { color: var(--color-ink); font-weight: 600; text-decoration: none; border-bottom: 1.5px solid var(--accent); padding-bottom: 1px; display: inline-flex; align-items: center; gap: 5px; transition: color 150ms var(--ease-out); }
+  .ilink-plain:hover { color: var(--accent); }
+
+  /* ======================================================
+     VARIANT D — "Framed Intro"
+     The whole intro module (avatar, name, title, bio) is
+     marked as one bounded unit with permanent 4-corner
+     brackets, like a labeled panel on a schematic. Links
+     inside stay plain — the frame is the one accent.
+  ====================================================== */
+  .frame {
+    position: relative;
+    margin-top: 3rem;
+    margin-bottom: var(--space-2xl);
+  }
+  .frame .fc { position: absolute; width: 16px; height: 16px; }
+  .frame .fc::before, .frame .fc::after { content: ""; position: absolute; background: color-mix(in srgb, var(--accent) 55%, var(--color-rule)); }
+  .frame .fc-tl { top: -18px; left: -18px; }
+  .frame .fc-tr { top: -18px; right: -18px; }
+  .frame .fc-bl { bottom: -18px; left: -18px; }
+  .frame .fc-br { bottom: -18px; right: -18px; }
+  .frame .fc-tl::before, .frame .fc-tr::before, .frame .fc-bl::before, .frame .fc-br::before { width: 100%; height: 1.5px; }
+  .frame .fc-tl::after, .frame .fc-tr::after, .frame .fc-bl::after, .frame .fc-br::after { width: 1.5px; height: 100%; }
+  .frame .fc-tl::before, .frame .fc-tl::after { top: 0; left: 0; }
+  .frame .fc-tr::before { top: 0; left: 0; }
+  .frame .fc-tr::after { top: 0; right: 0; }
+  .frame .fc-bl::before { bottom: 0; left: 0; }
+  .frame .fc-bl::after { top: 0; left: 0; }
+  .frame .fc-br::before { bottom: 0; left: 0; }
+  .frame .fc-br::after { top: 0; right: 0; }
+  .frame-label {
+    position: absolute; top: -32px; left: 0;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent);
+  }
+
+  /* ======================================================
+     VARIANT E — "Diagonal Hover"
+     Link hover shows two corner marks only — top-right and
+     bottom-left — instead of full left/right brackets.
+  ====================================================== */
+  .E .ilink { position: relative; color: var(--color-ink); font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; padding: 1px 2px; margin: 0 -2px; }
+  .E .ilink:hover { color: var(--accent); }
+  .E .ilink .cm { position: absolute; width: 6px; height: 6px; opacity: 0; transition: opacity 120ms var(--ease-out); }
+  .E .ilink .cm::before, .E .ilink .cm::after { content: ""; position: absolute; background: var(--accent); }
+  .E .ilink .cm-tr { top: -1px; right: -1px; }
+  .E .ilink .cm-tr::before { width: 100%; height: 1.5px; top: 0; right: 0; }
+  .E .ilink .cm-tr::after { width: 1.5px; height: 100%; top: 0; right: 0; }
+  .E .ilink .cm-bl { bottom: -1px; left: -1px; }
+  .E .ilink .cm-bl::before { width: 100%; height: 1.5px; bottom: 0; left: 0; }
+  .E .ilink .cm-bl::after { width: 1.5px; height: 100%; bottom: 0; left: 0; }
+  .E .ilink:hover .cm { opacity: 1; }
+
+  /* ======================================================
+     VARIANT F — "Quad Hover"
+     Link hover shows all 4 corner marks hugging the word's
+     box — not full-height left/right brackets.
+  ====================================================== */
+  .F .ilink { position: relative; color: var(--color-ink); font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; padding: 1px 3px; margin: 0 -3px; }
+  .F .ilink:hover { color: var(--accent); }
+  .F .ilink .cm { position: absolute; width: 5px; height: 5px; opacity: 0; transition: opacity 120ms var(--ease-out); }
+  .F .ilink .cm::before, .F .ilink .cm::after { content: ""; position: absolute; background: var(--accent); }
+  .F .ilink .cm::before { width: 100%; height: 1.5px; }
+  .F .ilink .cm::after { width: 1.5px; height: 100%; }
+  .F .ilink .cm-tl { top: -1px; left: -1px; }
+  .F .ilink .cm-tl::before, .F .ilink .cm-tl::after { top: 0; left: 0; }
+  .F .ilink .cm-tr { top: -1px; right: -1px; }
+  .F .ilink .cm-tr::before { top: 0; right: 0; }
+  .F .ilink .cm-tr::after { top: 0; right: 0; }
+  .F .ilink .cm-bl { bottom: -1px; left: -1px; }
+  .F .ilink .cm-bl::before { bottom: 0; left: 0; }
+  .F .ilink .cm-bl::after { top: 0; left: 0; }
+  .F .ilink .cm-br { bottom: -1px; right: -1px; }
+  .F .ilink .cm-br::before { bottom: 0; right: 0; }
+  .F .ilink .cm-br::after { top: 0; right: 0; }
+  .F .ilink:hover .cm { opacity: 1; }
+
+  @media (max-width: 40rem) {
+    .wrap { padding: 5.5rem var(--space-md) var(--space-2xl); }
+    .feat-title { font-size: var(--text-lg); }
+  }
+</style>
+</head>
+<body>
+
+  <div id="switcher">
+    <button class="active" data-page="D">D &middot; Framed Intro</button>
+    <button data-page="E">E &middot; Diagonal Hover</button>
+    <button data-page="F">F &middot; Quad Hover</button>
+  </div>
+
+  <!-- ============ D — Framed Intro ============ -->
+  <div class="page active" data-id="D">
+    <div class="wrap">
+      <div class="label-tag">Variant D &middot; the intro module is framed as one bounded unit, 4 permanent corners</div>
+
+      <div class="frame">
+        <span class="fc fc-tl"></span><span class="fc fc-tr"></span><span class="fc fc-bl"></span><span class="fc fc-br"></span>
+        <span class="frame-label">Eric Wagner</span>
+
+        <div class="who">
+          <div class="avatar"></div>
+          <div class="who-text">
+            <div class="name">Eric Wagner</div>
+            <div class="role">Staff Product Designer, Workiva</div>
+          </div>
+        </div>
+
+        <div class="bio">
+          <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading enterprise migration work at
+            <a class="ilink-plain" href="#"><span class="ico">W</span>Workiva</a>, where a structured AI workflow got engineers moving 66% of surfaces on their own.
+          </p>
+          <p>Before that I led design at <a class="ilink-plain" href="#"><span class="ico">T</span>Thrive Global</a> and <a class="ilink-plain" href="#"><span class="ico">J</span>J.P. Morgan Chase</a>, where I redesigned a robo-advisor used by millions.</p>
+        </div>
+      </div>
+
+      <div class="sec-label">Start here.</div>
+
+      <a class="feat-card" href="projects/ai-design-enablement.html">
+        <img src="https://picsum.photos/seed/network-grid/900/506" alt="" />
+        <span class="feat-body">
+          <span class="feat-eyebrow">Case study &middot; 01</span>
+          <span class="feat-title">66% Automated: Enterprise Migration</span>
+          <span class="feat-desc">31 of 47 product surfaces migrated autonomously by engineers, zero production regressions.</span>
+        </span>
+      </a>
+
+      <div class="rule-list">
+        <div class="rule-row"><span class="n">02</span><div><div class="t">Historical Data Roll Forward</div><div class="d">A full-day task cut to minutes, 35% increase in SEC bookings.</div></div></div>
+        <div class="rule-row"><span class="n">03</span><div><div class="t">Chase Advisor Video Platform</div><div class="d">Video collaboration suite for 5,000+ wealth advisors.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ E — Diagonal Hover ============ -->
+  <div class="page E" data-id="E">
+    <div class="wrap">
+      <div class="label-tag">Variant E &middot; link hover shows top-right + bottom-left corners only</div>
+
+      <div class="who">
+        <div class="avatar"></div>
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer, Workiva</div>
+        </div>
+      </div>
+
+      <div class="bio">
+        <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading enterprise migration work at
+          <a class="ilink" href="#"><span class="ico">W</span>Workiva<span class="cm cm-tr"></span><span class="cm cm-bl"></span></a>, where a structured AI workflow got engineers moving 66% of surfaces on their own.
+        </p>
+        <p>Before that I led design at <a class="ilink" href="#"><span class="ico">T</span>Thrive Global<span class="cm cm-tr"></span><span class="cm cm-bl"></span></a> and <a class="ilink" href="#"><span class="ico">J</span>J.P. Morgan Chase<span class="cm cm-tr"></span><span class="cm cm-bl"></span></a>, where I redesigned a robo-advisor used by millions.</p>
+      </div>
+
+      <div class="sec-label">Start here.</div>
+
+      <a class="feat-card" href="projects/ai-design-enablement.html">
+        <img src="https://picsum.photos/seed/network-grid/900/506" alt="" />
+        <span class="feat-body">
+          <span class="feat-eyebrow">Case study &middot; 01</span>
+          <span class="feat-title">66% Automated: Enterprise Migration</span>
+          <span class="feat-desc">31 of 47 product surfaces migrated autonomously by engineers, zero production regressions.</span>
+        </span>
+      </a>
+
+      <div class="rule-list">
+        <div class="rule-row"><span class="n">02</span><div><div class="t">Historical Data Roll Forward</div><div class="d">A full-day task cut to minutes, 35% increase in SEC bookings.</div></div></div>
+        <div class="rule-row"><span class="n">03</span><div><div class="t">Chase Advisor Video Platform</div><div class="d">Video collaboration suite for 5,000+ wealth advisors.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ F — Quad Hover ============ -->
+  <div class="page F" data-id="F">
+    <div class="wrap">
+      <div class="label-tag">Variant F &middot; link hover shows all 4 corners hugging the word, not full brackets</div>
+
+      <div class="who">
+        <div class="avatar"></div>
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer, Workiva</div>
+        </div>
+      </div>
+
+      <div class="bio">
+        <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading enterprise migration work at
+          <a class="ilink" href="#"><span class="ico">W</span>Workiva<span class="cm cm-tl"></span><span class="cm cm-tr"></span><span class="cm cm-bl"></span><span class="cm cm-br"></span></a>, where a structured AI workflow got engineers moving 66% of surfaces on their own.
+        </p>
+        <p>Before that I led design at <a class="ilink" href="#"><span class="ico">T</span>Thrive Global<span class="cm cm-tl"></span><span class="cm cm-tr"></span><span class="cm cm-bl"></span><span class="cm cm-br"></span></a> and <a class="ilink" href="#"><span class="ico">J</span>J.P. Morgan Chase<span class="cm cm-tl"></span><span class="cm cm-tr"></span><span class="cm cm-bl"></span><span class="cm cm-br"></span></a>, where I redesigned a robo-advisor used by millions.</p>
+      </div>
+
+      <div class="sec-label">Start here.</div>
+
+      <a class="feat-card" href="projects/ai-design-enablement.html">
+        <img src="https://picsum.photos/seed/network-grid/900/506" alt="" />
+        <span class="feat-body">
+          <span class="feat-eyebrow">Case study &middot; 01</span>
+          <span class="feat-title">66% Automated: Enterprise Migration</span>
+          <span class="feat-desc">31 of 47 product surfaces migrated autonomously by engineers, zero production regressions.</span>
+        </span>
+      </a>
+
+      <div class="rule-list">
+        <div class="rule-row"><span class="n">02</span><div><div class="t">Historical Data Roll Forward</div><div class="d">A full-day task cut to minutes, 35% increase in SEC bookings.</div></div></div>
+        <div class="rule-row"><span class="n">03</span><div><div class="t">Chase Advisor Video Platform</div><div class="d">Video collaboration suite for 5,000+ wealth advisors.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const btns = document.querySelectorAll('#switcher button');
+  const pages = document.querySelectorAll('.page');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      pages.forEach(p => p.classList.toggle('active', p.dataset.id === btn.dataset.page));
+    });
+  });
+</script>
+
+</body>
+</html>

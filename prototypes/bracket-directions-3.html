@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Brackets v3: grid + waypoints</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+  }
+
+  :root { --accent: #5f6b3f; --accent-soft: #e7e4d3; }
+  @media (prefers-color-scheme: dark) { :root { --accent: #a3ad7c; --accent-soft: #2c2f1f; } }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .wrap { max-width: 46rem; margin: 0 auto; padding: 6.5rem var(--space-lg) var(--space-3xl); position: relative; z-index: 1; }
+  .label-tag { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-neutral); margin-bottom: var(--space-lg); }
+
+  .who { display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-xl); position: relative; }
+  .avatar { width: 46px; height: 46px; border-radius: 50%; background: var(--color-paper-2); border: 1px solid var(--color-rule); flex-shrink: 0; }
+  .who-text .name { font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); }
+  .who-text .role { font-size: var(--text-md); color: var(--color-muted); margin-top: 3px; }
+
+  .bio p { font-size: var(--text-md); color: var(--color-muted); line-height: 1.7; margin-bottom: var(--space-md); max-width: 56ch; }
+  .bio strong { color: var(--color-ink); font-weight: 600; }
+
+  .ilink { color: var(--color-ink); font-weight: 600; text-decoration: none; border-bottom: 1.5px solid var(--accent); padding-bottom: 1px; display: inline-flex; align-items: center; gap: 5px; transition: color 150ms var(--ease-out); }
+  .ilink:hover { color: var(--accent); }
+  .ico { width: 15px; height: 15px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 9px; font-weight: 700; }
+
+  .rule-list { border-top: 1px solid var(--color-ink); margin-top: var(--space-2xl); }
+  .rule-row { position: relative; display: flex; gap: var(--space-md); align-items: center; padding: var(--space-md) var(--space-sm); margin: 0 calc(var(--space-sm) * -1); border-bottom: 1px solid var(--color-rule); transition: background 150ms var(--ease-out); }
+  .rule-row .n { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-neutral); width: 2.5ch; flex-shrink: 0; }
+  .rule-row .t { font-family: var(--font-display); font-weight: 700; font-size: var(--text-md); }
+  .rule-row .d { margin-top: 2px; font-size: var(--text-sm); color: var(--color-muted); }
+  .sec-label { position: relative; font-family: var(--font-display); font-style: italic; font-size: var(--text-md); color: var(--color-muted); margin: var(--space-2xl) 0 var(--space-lg); }
+
+  .feat-card {
+    position: relative; display: block; border-radius: var(--radius-md); overflow: hidden;
+    text-decoration: none; color: #fff; aspect-ratio: 16/9; background: #111;
+    transition: box-shadow 220ms var(--ease-out); box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  }
+  .feat-card:hover { box-shadow: 0 24px 48px -12px rgba(0,0,0,0.35); }
+  .feat-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 400ms var(--ease-out), filter 400ms var(--ease-out); filter: grayscale(0.35) contrast(1.05); }
+  .feat-card:hover img { transform: scale(1.045); filter: grayscale(0) contrast(1.08); }
+  .feat-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0) 70%); }
+  .feat-body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: var(--space-lg); }
+  .feat-eyebrow { display: block; font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+  .feat-title { display: block; font-family: var(--font-display); font-weight: 700; font-size: var(--text-xl); line-height: 1.15; }
+  .feat-desc { display: block; margin-top: 8px; font-size: var(--text-sm); opacity: 0.85; max-width: 46ch; }
+
+  /* shared: small corner-mark component, used as a "waypoint" at various spots */
+  .wp { position: relative; }
+  .wp .wc { position: absolute; width: 10px; height: 10px; pointer-events: none; }
+  .wp .wc::before, .wp .wc::after { content: ""; position: absolute; background: color-mix(in srgb, var(--accent) 60%, var(--color-rule)); }
+  .wp .wc-tl { top: -6px; left: -8px; }
+  .wp .wc-tl::before { width: 100%; height: 1.5px; top: 0; left: 0; }
+  .wp .wc-tl::after { width: 1.5px; height: 100%; top: 0; left: 0; }
+  .wp .wc-br { bottom: -6px; right: -8px; }
+  .wp .wc-br::before { width: 100%; height: 1.5px; bottom: 0; right: 0; }
+  .wp .wc-br::after { width: 1.5px; height: 100%; top: 0; right: 0; }
+  .wp .wc-tr { top: -6px; right: -8px; }
+  .wp .wc-tr::before { width: 100%; height: 1.5px; top: 0; right: 0; }
+  .wp .wc-tr::after { width: 1.5px; height: 100%; top: 0; right: 0; }
+  .wp .wc-bl { bottom: -6px; left: -8px; }
+  .wp .wc-bl::before { width: 100%; height: 1.5px; bottom: 0; left: 0; }
+  .wp .wc-bl::after { width: 1.5px; height: 100%; top: 0; left: 0; }
+
+  /* ======================================================
+     Corner marks stay ONLY where they're the sole hover
+     signal (inline text links — nothing else changes there
+     but text color). Rows and the card already communicate
+     hover with a bg tint / shadow+zoom, so no brackets there
+     — stacking both felt heavy-handed.
+
+     The "technical" feel instead lives as ambient, static page
+     chrome: four quiet corner marks pinned to the viewport
+     itself, never tied to interaction at all.
+  ====================================================== */
+  .rule-row:hover { background: color-mix(in srgb, var(--accent-soft) 55%, transparent); }
+
+  .page-corner { position: fixed; width: 14px; height: 14px; z-index: 500; pointer-events: none; }
+  .page-corner::before, .page-corner::after { content: ""; position: absolute; background: color-mix(in srgb, var(--accent) 45%, var(--color-rule)); }
+  .page-corner::before { width: 100%; height: 1.5px; }
+  .page-corner::after { width: 1.5px; height: 100%; }
+  .page-corner-tl { top: 16px; left: 16px; }
+  .page-corner-tl::before, .page-corner-tl::after { top: 0; left: 0; }
+  .page-corner-tr { top: 16px; right: 16px; }
+  .page-corner-tr::before { top: 0; right: 0; }
+  .page-corner-tr::after { top: 0; right: 0; }
+  .page-corner-bl { bottom: 16px; left: 16px; }
+  .page-corner-bl::before { bottom: 0; left: 0; }
+  .page-corner-bl::after { top: 0; left: 0; }
+  .page-corner-br { bottom: 16px; right: 16px; }
+  .page-corner-br::before { bottom: 0; right: 0; }
+  .page-corner-br::after { top: 0; right: 0; }
+
+  @media (max-width: 40rem) {
+    .wrap { padding: 5.5rem var(--space-md) var(--space-2xl); }
+    .feat-title { font-size: var(--text-lg); }
+    .page-corner { display: none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="page active">
+    <div class="wrap">
+      <div class="label-tag">Brackets live in one place only: an ambient page-corner frame, always on, never tied to interaction</div>
+
+      <div class="who">
+        <div class="avatar"></div>
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer, Workiva</div>
+        </div>
+      </div>
+
+      <div class="bio">
+        <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading enterprise migration work at
+          <a class="ilink" href="#"><span class="ico">W</span>Workiva</a>, where a structured AI workflow got engineers moving 66% of surfaces on their own.
+        </p>
+        <p>Before that I led design at <a class="ilink" href="#"><span class="ico">T</span>Thrive Global</a> and <a class="ilink" href="#"><span class="ico">J</span>J.P. Morgan Chase</a>, where I redesigned a robo-advisor used by millions.</p>
+      </div>
+
+      <a class="feat-card" href="projects/ai-design-enablement.html">
+        <img src="https://picsum.photos/seed/network-grid/900/506" alt="" />
+        <span class="feat-body">
+          <span class="feat-eyebrow">Case study &middot; 01 &middot; Start here</span>
+          <span class="feat-title">66% Automated: Enterprise Migration</span>
+          <span class="feat-desc">31 of 47 product surfaces migrated autonomously by engineers, zero production regressions.</span>
+        </span>
+      </a>
+
+      <div class="rule-list">
+        <div class="rule-row"><span class="n">02</span><div><div class="t">Historical Data Roll Forward</div><div class="d">A full-day task cut to minutes, 35% increase in SEC bookings.</div></div></div>
+        <div class="rule-row"><span class="n">03</span><div><div class="t">Chase Advisor Video Platform</div><div class="d">Video collaboration suite for 5,000+ wealth advisors.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <span class="page-corner page-corner-tl"></span>
+  <span class="page-corner page-corner-tr"></span>
+  <span class="page-corner page-corner-bl"></span>
+  <span class="page-corner page-corner-br"></span>
+
+</body>
+</html>

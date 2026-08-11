@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Intro links: 3 variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+  }
+
+  :root {
+    --accent: #5f6b3f;
+    --accent-soft: #e7e4d3;
+    --brand-workiva: #2f6fed;
+    --brand-workiva-soft: #e4ecfd;
+    --brand-thrive: #1f9c8a;
+    --brand-thrive-soft: #dcf2ee;
+    --brand-jpm: #0a2f5c;
+    --brand-jpm-soft: #e2e7ed;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --accent: #a3ad7c; --accent-soft: #2c2f1f;
+      --brand-workiva: #7ea4f7; --brand-workiva-soft: #1c2740;
+      --brand-thrive: #5cc9b8; --brand-thrive-soft: #163330;
+      --brand-jpm: #7591b3; --brand-jpm-soft: #1c2530;
+    }
+  }
+
+  #switcher {
+    position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 1000;
+    display: flex; gap: 3px;
+    background: rgba(20,18,14,0.92); backdrop-filter: blur(12px);
+    padding: 4px; border-radius: 999px; box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  #switcher button {
+    appearance: none; border: none; background: transparent; color: rgba(255,255,255,0.62);
+    font-size: 12px; font-weight: 600; padding: 8px 14px; border-radius: 999px; cursor: pointer;
+    transition: background 0.15s, color 0.15s; white-space: nowrap;
+  }
+  #switcher button:hover { color: #fff; }
+  #switcher button.active { background: #fff; color: #111; }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .wrap { max-width: 46rem; margin: 0 auto; padding: 6.5rem var(--space-lg) var(--space-3xl); }
+  .label-tag { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-neutral); margin-bottom: var(--space-lg); }
+
+  .who { display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-xl); }
+  .avatar { width: 46px; height: 46px; border-radius: 50%; background: var(--color-paper-2); border: 1px solid var(--color-rule); flex-shrink: 0; }
+  .who-text .name { font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); }
+  .who-text .role { font-size: var(--text-md); color: var(--color-muted); margin-top: 3px; }
+
+  .bio p { font-size: var(--text-md); color: var(--color-muted); line-height: 1.7; margin-bottom: var(--space-md); max-width: 56ch; }
+  .bio strong { color: var(--color-ink); font-weight: 600; }
+
+  .ico { width: 15px; height: 15px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 9px; font-weight: 700; flex-shrink: 0; transition: background 160ms var(--ease-out), color 160ms var(--ease-out); }
+
+  /* ======================================================
+     VARIANT 1 — ink at rest, uniform site-accent on hover.
+     Same accent color for every company; the icon is neutral
+     (not brand-colored) until hovered.
+  ====================================================== */
+  .V1 .ilink { color: var(--color-ink); font-weight: 600; text-decoration: none; border-bottom: 1.5px solid var(--color-rule); padding-bottom: 1px; display: inline-flex; align-items: center; gap: 5px; transition: color 160ms var(--ease-out), border-color 160ms var(--ease-out); }
+  .V1 .ico { background: var(--color-paper-2); color: var(--color-muted); }
+  .V1 .ilink:hover { color: var(--accent); border-color: var(--accent); }
+  .V1 .ilink:hover .ico { background: var(--accent-soft); color: var(--accent); }
+
+  /* ======================================================
+     VARIANT 2 — icon always shows its brand color; the name
+     stays ink until hover, then syncs to match the icon.
+  ====================================================== */
+  .V2 .ilink { color: var(--color-ink); font-weight: 600; text-decoration: none; border-bottom: 1.5px solid var(--color-rule); padding-bottom: 1px; display: inline-flex; align-items: center; gap: 5px; transition: color 160ms var(--ease-out), border-color 160ms var(--ease-out); }
+  .V2 .ilink[data-brand="workiva"] .ico { background: var(--brand-workiva-soft); color: var(--brand-workiva); }
+  .V2 .ilink[data-brand="thrive"] .ico { background: var(--brand-thrive-soft); color: var(--brand-thrive); }
+  .V2 .ilink[data-brand="jpm"] .ico { background: var(--brand-jpm-soft); color: var(--brand-jpm); }
+  .V2 .ilink[data-brand="workiva"]:hover { color: var(--brand-workiva); border-color: var(--brand-workiva); }
+  .V2 .ilink[data-brand="thrive"]:hover { color: var(--brand-thrive); border-color: var(--brand-thrive); }
+  .V2 .ilink[data-brand="jpm"]:hover { color: var(--brand-jpm); border-color: var(--brand-jpm); }
+
+  /* ======================================================
+     VARIANT 3 — everything ink at rest; icon + name both
+     switch to the company's own brand color on hover.
+  ====================================================== */
+  .V3 .ilink { color: var(--color-ink); font-weight: 600; text-decoration: none; border-bottom: 1.5px solid var(--color-rule); padding-bottom: 1px; display: inline-flex; align-items: center; gap: 5px; transition: color 160ms var(--ease-out), border-color 160ms var(--ease-out); }
+  .V3 .ico { background: var(--color-paper-2); color: var(--color-muted); }
+  .V3 .ilink[data-brand="workiva"]:hover { color: var(--brand-workiva); border-color: var(--brand-workiva); }
+  .V3 .ilink[data-brand="workiva"]:hover .ico { background: var(--brand-workiva-soft); color: var(--brand-workiva); }
+  .V3 .ilink[data-brand="thrive"]:hover { color: var(--brand-thrive); border-color: var(--brand-thrive); }
+  .V3 .ilink[data-brand="thrive"]:hover .ico { background: var(--brand-thrive-soft); color: var(--brand-thrive); }
+  .V3 .ilink[data-brand="jpm"]:hover { color: var(--brand-jpm); border-color: var(--brand-jpm); }
+  .V3 .ilink[data-brand="jpm"]:hover .ico { background: var(--brand-jpm-soft); color: var(--brand-jpm); }
+
+  @media (max-width: 40rem) {
+    .wrap { padding: 5.5rem var(--space-md) var(--space-2xl); }
+  }
+</style>
+</head>
+<body>
+
+  <div id="switcher">
+    <button class="active" data-page="V1">1 &middot; Ink &rarr; Site Accent</button>
+    <button data-page="V2">2 &middot; Brand Icon &rarr; Name Syncs</button>
+    <button data-page="V3">3 &middot; Ink &rarr; Brand Color</button>
+  </div>
+
+  <!-- ============ 1 ============ -->
+  <div class="page V1 active" data-id="V1">
+    <div class="wrap">
+      <div class="label-tag">Variant 1 &middot; icon + name are ink at rest, both turn the site's olive accent on hover</div>
+
+      <div class="who">
+        <div class="avatar"></div>
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer, Workiva</div>
+        </div>
+      </div>
+
+      <div class="bio">
+        <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading enterprise migration work at
+          <a class="ilink" href="#" data-brand="workiva"><span class="ico">W</span>Workiva</a>, where a structured AI workflow got engineers moving 66% of surfaces on their own.
+        </p>
+        <p>Before that I led design at <a class="ilink" href="#" data-brand="thrive"><span class="ico">T</span>Thrive Global</a> and <a class="ilink" href="#" data-brand="jpm"><span class="ico">J</span>J.P. Morgan Chase</a>, where I redesigned a robo-advisor used by millions.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2 ============ -->
+  <div class="page V2" data-id="V2">
+    <div class="wrap">
+      <div class="label-tag">Variant 2 &middot; icon shows the company's own color at rest; name syncs to it on hover</div>
+
+      <div class="who">
+        <div class="avatar"></div>
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer, Workiva</div>
+        </div>
+      </div>
+
+      <div class="bio">
+        <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading enterprise migration work at
+          <a class="ilink" href="#" data-brand="workiva"><span class="ico">W</span>Workiva</a>, where a structured AI workflow got engineers moving 66% of surfaces on their own.
+        </p>
+        <p>Before that I led design at <a class="ilink" href="#" data-brand="thrive"><span class="ico">T</span>Thrive Global</a> and <a class="ilink" href="#" data-brand="jpm"><span class="ico">J</span>J.P. Morgan Chase</a>, where I redesigned a robo-advisor used by millions.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 3 ============ -->
+  <div class="page V3" data-id="V3">
+    <div class="wrap">
+      <div class="label-tag">Variant 3 &middot; icon + name are ink at rest, both switch to the company's own brand color on hover</div>
+
+      <div class="who">
+        <div class="avatar"></div>
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer, Workiva</div>
+        </div>
+      </div>
+
+      <div class="bio">
+        <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading enterprise migration work at
+          <a class="ilink" href="#" data-brand="workiva"><span class="ico">W</span>Workiva</a>, where a structured AI workflow got engineers moving 66% of surfaces on their own.
+        </p>
+        <p>Before that I led design at <a class="ilink" href="#" data-brand="thrive"><span class="ico">T</span>Thrive Global</a> and <a class="ilink" href="#" data-brand="jpm"><span class="ico">J</span>J.P. Morgan Chase</a>, where I redesigned a robo-advisor used by millions.</p>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const btns = document.querySelectorAll('#switcher button');
+  const pages = document.querySelectorAll('.page');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      pages.forEach(p => p.classList.toggle('active', p.dataset.id === btn.dataset.page));
+    });
+  });
+</script>
+
+</body>
+</html>

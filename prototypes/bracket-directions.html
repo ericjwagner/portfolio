@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Brackets: 3 variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+  }
+
+  :root { --accent: #5f6b3f; --accent-soft: #e7e4d3; }
+  @media (prefers-color-scheme: dark) { :root { --accent: #a3ad7c; --accent-soft: #2c2f1f; } }
+
+  /* ============ Switcher ============ */
+  #switcher {
+    position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 1000;
+    display: flex; gap: 3px;
+    background: rgba(20,18,14,0.92); backdrop-filter: blur(12px);
+    padding: 4px; border-radius: 999px; box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  #switcher button {
+    appearance: none; border: none; background: transparent; color: rgba(255,255,255,0.62);
+    font-size: 12px; font-weight: 600; padding: 8px 14px; border-radius: 999px; cursor: pointer;
+    transition: background 0.15s, color 0.15s; white-space: nowrap;
+  }
+  #switcher button:hover { color: #fff; }
+  #switcher button.active { background: #fff; color: #111; }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .wrap { max-width: 46rem; margin: 0 auto; padding: 6.5rem var(--space-lg) var(--space-3xl); position: relative; }
+
+  .label-tag { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-neutral); margin-bottom: var(--space-lg); }
+
+  /* dot grid — darker, contained to a panel behind the bio block, not full-bleed */
+  .grid-panel {
+    position: relative;
+    padding: var(--space-xl) var(--space-lg);
+    margin: 0 calc(var(--space-lg) * -1) var(--space-xl);
+    border-radius: var(--radius-md);
+  }
+  .grid-panel::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: radial-gradient(color-mix(in srgb, var(--color-ink) 20%, transparent) 1.2px, transparent 1.2px);
+    background-size: 20px 20px;
+    -webkit-mask-image: radial-gradient(ellipse 90% 100% at 50% 50%, #000 55%, transparent 100%);
+    mask-image: radial-gradient(ellipse 90% 100% at 50% 50%, #000 55%, transparent 100%);
+    z-index: 0;
+  }
+  .grid-panel > * { position: relative; z-index: 1; }
+
+  .who { display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-xl); }
+  .avatar { width: 46px; height: 46px; border-radius: 50%; background: var(--color-paper-2); border: 1px solid var(--color-rule); flex-shrink: 0; }
+  .who-text .name { font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); }
+  .who-text .role { font-size: var(--text-sm); color: var(--color-muted); margin-top: 2px; }
+
+  .bio p { font-size: var(--text-md); color: var(--color-muted); line-height: 1.7; margin-bottom: var(--space-md); max-width: 56ch; }
+  .bio strong { color: var(--color-ink); font-weight: 600; }
+
+  .rule-list { border-top: 1px solid var(--color-ink); margin-top: var(--space-2xl); }
+  .rule-row { display: flex; gap: var(--space-md); align-items: center; padding: var(--space-md) 0; border-bottom: 1px solid var(--color-rule); }
+  .rule-row .n { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-neutral); width: 2.5ch; flex-shrink: 0; }
+  .rule-row .t { font-family: var(--font-display); font-weight: 700; font-size: var(--text-md); }
+  .rule-row .d { margin-top: 2px; font-size: var(--text-sm); color: var(--color-muted); }
+
+  .sec-label { font-family: var(--font-display); font-style: italic; font-size: var(--text-md); color: var(--color-muted); margin: var(--space-2xl) 0 var(--space-lg); }
+
+  .feat-card {
+    position: relative; display: block; border-radius: var(--radius-md); overflow: hidden;
+    text-decoration: none; color: #fff; aspect-ratio: 16/9; background: #111;
+    transition: box-shadow 220ms var(--ease-out); box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  }
+  .feat-card:hover { box-shadow: 0 24px 48px -12px rgba(0,0,0,0.35); }
+  .feat-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 400ms var(--ease-out), filter 400ms var(--ease-out); filter: grayscale(0.35) contrast(1.05); }
+  .feat-card:hover img { transform: scale(1.045); filter: grayscale(0) contrast(1.08); }
+  .feat-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0) 70%); }
+  .feat-body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: var(--space-lg); }
+  .feat-eyebrow { display: block; font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-light, var(--accent)); margin-bottom: 6px; }
+  .feat-title { display: block; font-family: var(--font-display); font-weight: 700; font-size: var(--text-xl); line-height: 1.15; }
+  .feat-desc { display: block; margin-top: 8px; font-size: var(--text-sm); opacity: 0.85; max-width: 46ch; }
+
+  /* ======================================================
+     VARIANT A — "Focus Brackets"
+     Brackets are a hover-triggered focus ring: they snap
+     onto whatever link or card you're pointing at, like a
+     camera autofocus box. Nowhere unless you're interacting.
+  ====================================================== */
+  .A .ilink {
+    position: relative; display: inline-flex; align-items: center; gap: 5px;
+    color: var(--color-ink); font-weight: 600; text-decoration: none;
+    padding: 1px 5px; margin: 0 -5px;
+    cursor: crosshair;
+  }
+  .A .ilink .ico { width: 15px; height: 15px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 9px; font-weight: 700; }
+  .A .ilink::before, .A .ilink::after {
+    content: ""; position: absolute; top: -3px; bottom: -3px; width: 7px;
+    border-top: 1.5px solid var(--accent); border-bottom: 1.5px solid var(--accent);
+    opacity: 0; transition: opacity 150ms var(--ease-out), transform 150ms var(--ease-out);
+  }
+  .A .ilink::before { left: -3px; border-left: 1.5px solid var(--accent); transform: translateX(4px); }
+  .A .ilink::after { right: -3px; border-right: 1.5px solid var(--accent); transform: translateX(-4px); }
+  .A .ilink:hover { color: var(--accent); }
+  .A .ilink:hover::before, .A .ilink:hover::after { opacity: 1; transform: none; }
+
+  .A .feat-card { cursor: crosshair; }
+  .A .feat-card .bracket { position: absolute; width: 22px; height: 22px; z-index: 3; opacity: 0; transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out); }
+  .A .feat-card .bracket::before, .A .feat-card .bracket::after { content: ""; position: absolute; background: #fff; }
+  .A .bracket-tl { top: 14px; left: 14px; transform: translate(6px, 6px); }
+  .A .bracket-br { bottom: 14px; right: 14px; transform: translate(-6px, -6px) scale(-1); }
+  .A .bracket::before { width: 100%; height: 2px; top: 0; left: 0; }
+  .A .bracket::after { width: 2px; height: 100%; top: 0; left: 0; }
+  .A .feat-card:hover .bracket { opacity: 1; transform: translate(0,0); }
+  .A .feat-card:hover .bracket-br { transform: translate(0,0) scale(-1); }
+
+  /* ======================================================
+     VARIANT B — "Utility Marks"
+     Brackets are permanent, static typographic chrome —
+     numbering, section labels, a single crop-mark on the
+     avatar. Nothing moves; they just organize the page.
+  ====================================================== */
+  .B .sec-label::before { content: "[ "; color: var(--accent); font-style: normal; font-family: var(--font-mono); }
+  .B .sec-label::after { content: " ]"; color: var(--accent); font-style: normal; font-family: var(--font-mono); }
+
+  .B .rule-row .n { font-family: var(--font-mono); }
+  .B .rule-row .n::before { content: "["; color: var(--accent); }
+  .B .rule-row .n::after { content: "]"; color: var(--accent); }
+
+  .B .who { position: relative; }
+  .B .avatar { position: relative; }
+  .B .avatar::after {
+    content: ""; position: absolute; bottom: -4px; right: -4px; width: 12px; height: 12px;
+    border-bottom: 1.5px solid var(--accent); border-right: 1.5px solid var(--accent);
+  }
+
+  .B .ilink { color: var(--color-ink); font-weight: 600; text-decoration: none; border-bottom: 1.5px solid var(--accent); padding-bottom: 1px; display: inline-flex; align-items: center; gap: 5px; }
+  .B .ilink .ico { width: 15px; height: 15px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 9px; font-weight: 700; }
+  .B .ilink:hover { color: var(--accent); }
+
+  .B .feat-eyebrow::before { content: "[ "; }
+  .B .feat-eyebrow::after { content: " ]"; }
+
+  /* ======================================================
+     VARIANT C — "Reticle"
+     Literal bracket characters slide in around link text on
+     hover — [ Workiva ] — paired with a small reticle-style
+     custom cursor. The flagship card carries two permanent
+     corner marks as a signature, not four.
+  ====================================================== */
+  .C .ilink {
+    position: relative; color: var(--color-ink); font-weight: 600; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 5px;
+    cursor: none;
+  }
+  .C .ilink .ico { width: 15px; height: 15px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 9px; font-weight: 700; }
+  .C .ilink .bl, .C .ilink .br {
+    font-family: var(--font-mono); color: var(--accent); display: inline-block;
+    opacity: 0; transform: translateX(0); transition: opacity 140ms var(--ease-out), margin 140ms var(--ease-out); width: 0; overflow: hidden;
+  }
+  .C .ilink:hover .bl, .C .ilink:hover .br { opacity: 1; width: 0.6em; }
+  .C .ilink:hover .bl { margin-right: 2px; }
+  .C .ilink:hover .br { margin-left: 2px; }
+  .C .ilink:hover { color: var(--accent); }
+
+  .C .feat-card { position: relative; }
+  .C .feat-card::before, .C .feat-card::after { content: ""; position: absolute; width: 20px; height: 20px; z-index: 3; }
+  .C .feat-card::before { top: 12px; left: 12px; border-top: 2px solid var(--accent-soft); border-left: 2px solid var(--accent-soft); }
+  .C .feat-card::after { bottom: 12px; right: 12px; border-bottom: 2px solid var(--accent-soft); border-right: 2px solid var(--accent-soft); }
+
+  .reticle {
+    position: fixed; top: 0; left: 0; width: 20px; height: 20px; z-index: 2000;
+    pointer-events: none; opacity: 0; transition: opacity 120ms var(--ease-out);
+    transform: translate(-9999px, -9999px);
+  }
+  .reticle.show { opacity: 1; }
+  .reticle::before, .reticle::after { content: ""; position: absolute; background: var(--accent); }
+  .reticle::before { top: 50%; left: 0; width: 100%; height: 1px; transform: translateY(-50%); }
+  .reticle::after { left: 50%; top: 0; height: 100%; width: 1px; transform: translateX(-50%); }
+  .reticle .rc { position: absolute; inset: 4px; border: 1px solid var(--accent); border-radius: 50%; }
+
+  @media (max-width: 40rem) {
+    .wrap { padding: 5.5rem var(--space-md) var(--space-2xl); }
+    .feat-title { font-size: var(--text-lg); }
+  }
+</style>
+</head>
+<body>
+
+  <div id="switcher">
+    <button class="active" data-page="A">A &middot; Focus Brackets</button>
+    <button data-page="B">B &middot; Utility Marks</button>
+    <button data-page="C">C &middot; Reticle</button>
+  </div>
+
+  <div class="reticle" id="reticle"><span class="rc"></span></div>
+
+  <!-- ============ A — Focus Brackets ============ -->
+  <div class="page A active" data-id="A">
+    <div class="wrap">
+      <div class="label-tag">Variant A &middot; brackets snap on as a hover focus-ring, dot grid darkened</div>
+
+      <div class="grid-panel">
+        <div class="who">
+          <div class="avatar"></div>
+          <div class="who-text">
+            <div class="name">Eric Wagner</div>
+            <div class="role">Staff Product Designer, Workiva</div>
+          </div>
+        </div>
+
+        <div class="bio">
+          <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading enterprise migration work at
+            <a class="ilink" href="#"><span class="ico">W</span>Workiva</a>, where a structured AI workflow got engineers moving 66% of surfaces on their own.
+          </p>
+          <p>Before that I led design at <a class="ilink" href="#"><span class="ico">T</span>Thrive Global</a> and <a class="ilink" href="#"><span class="ico">J</span>J.P. Morgan Chase</a>, where I redesigned a robo-advisor used by millions.</p>
+        </div>
+      </div>
+
+      <div class="sec-label">Start here.</div>
+
+      <a class="feat-card" href="projects/ai-design-enablement.html">
+        <img src="https://picsum.photos/seed/network-grid/900/506" alt="" />
+        <span class="bracket bracket-tl"></span>
+        <span class="bracket bracket-br"></span>
+        <span class="feat-body">
+          <span class="feat-eyebrow">Case study &middot; 01</span>
+          <span class="feat-title">66% Automated: Enterprise Migration</span>
+          <span class="feat-desc">31 of 47 product surfaces migrated autonomously by engineers, zero production regressions.</span>
+        </span>
+      </a>
+
+      <div class="rule-list">
+        <div class="rule-row"><span class="n">02</span><div><div class="t">Historical Data Roll Forward</div><div class="d">A full-day task cut to minutes, 35% increase in SEC bookings.</div></div></div>
+        <div class="rule-row"><span class="n">03</span><div><div class="t">Chase Advisor Video Platform</div><div class="d">Video collaboration suite for 5,000+ wealth advisors.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ B — Utility Marks ============ -->
+  <div class="page B" data-id="B">
+    <div class="wrap">
+      <div class="label-tag">Variant B &middot; brackets as static typographic chrome, dot grid darkened</div>
+
+      <div class="grid-panel">
+        <div class="who">
+          <div class="avatar"></div>
+          <div class="who-text">
+            <div class="name">Eric Wagner</div>
+            <div class="role">Staff Product Designer, Workiva</div>
+          </div>
+        </div>
+
+        <div class="bio">
+          <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading enterprise migration work at
+            <a class="ilink" href="#"><span class="ico">W</span>Workiva</a>, where a structured AI workflow got engineers moving 66% of surfaces on their own.
+          </p>
+          <p>Before that I led design at <a class="ilink" href="#"><span class="ico">T</span>Thrive Global</a> and <a class="ilink" href="#"><span class="ico">J</span>J.P. Morgan Chase</a>, where I redesigned a robo-advisor used by millions.</p>
+        </div>
+      </div>
+
+      <div class="sec-label">Start here.</div>
+
+      <a class="feat-card" href="projects/ai-design-enablement.html">
+        <img src="https://picsum.photos/seed/network-grid/900/506" alt="" />
+        <span class="feat-body">
+          <span class="feat-eyebrow">Case study &middot; 01</span>
+          <span class="feat-title">66% Automated: Enterprise Migration</span>
+          <span class="feat-desc">31 of 47 product surfaces migrated autonomously by engineers, zero production regressions.</span>
+        </span>
+      </a>
+
+      <div class="rule-list">
+        <div class="rule-row"><span class="n">02</span><div><div class="t">Historical Data Roll Forward</div><div class="d">A full-day task cut to minutes, 35% increase in SEC bookings.</div></div></div>
+        <div class="rule-row"><span class="n">03</span><div><div class="t">Chase Advisor Video Platform</div><div class="d">Video collaboration suite for 5,000+ wealth advisors.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ C — Reticle ============ -->
+  <div class="page C" data-id="C">
+    <div class="wrap">
+      <div class="label-tag">Variant C &middot; literal [ bracket ] characters on hover + reticle cursor, dot grid darkened</div>
+
+      <div class="grid-panel">
+        <div class="who">
+          <div class="avatar"></div>
+          <div class="who-text">
+            <div class="name">Eric Wagner</div>
+            <div class="role">Staff Product Designer, Workiva</div>
+          </div>
+        </div>
+
+        <div class="bio">
+          <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading enterprise migration work at
+            <a class="ilink" href="#"><span class="ico">W</span><span class="bl">[</span>Workiva<span class="br">]</span></a>, where a structured AI workflow got engineers moving 66% of surfaces on their own.
+          </p>
+          <p>Before that I led design at <a class="ilink" href="#"><span class="ico">T</span><span class="bl">[</span>Thrive Global<span class="br">]</span></a> and <a class="ilink" href="#"><span class="ico">J</span><span class="bl">[</span>J.P. Morgan Chase<span class="br">]</span></a>, where I redesigned a robo-advisor used by millions.</p>
+        </div>
+      </div>
+
+      <div class="sec-label">Start here.</div>
+
+      <a class="feat-card" href="projects/ai-design-enablement.html">
+        <img src="https://picsum.photos/seed/network-grid/900/506" alt="" />
+        <span class="feat-body">
+          <span class="feat-eyebrow">Case study &middot; 01</span>
+          <span class="feat-title">66% Automated: Enterprise Migration</span>
+          <span class="feat-desc">31 of 47 product surfaces migrated autonomously by engineers, zero production regressions.</span>
+        </span>
+      </a>
+
+      <div class="rule-list">
+        <div class="rule-row"><span class="n">02</span><div><div class="t">Historical Data Roll Forward</div><div class="d">A full-day task cut to minutes, 35% increase in SEC bookings.</div></div></div>
+        <div class="rule-row"><span class="n">03</span><div><div class="t">Chase Advisor Video Platform</div><div class="d">Video collaboration suite for 5,000+ wealth advisors.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const btns = document.querySelectorAll('#switcher button');
+  const pages = document.querySelectorAll('.page');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      pages.forEach(p => p.classList.toggle('active', p.dataset.id === btn.dataset.page));
+    });
+  });
+
+  const reticle = document.getElementById('reticle');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reticle && !reduced) {
+    document.addEventListener('mousemove', (e) => {
+      const overC = document.querySelector('.page.C.active');
+      if (!overC) { reticle.classList.remove('show'); return; }
+      reticle.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+      reticle.classList.add('show');
+    });
+  }
+</script>
+
+</body>
+</html>

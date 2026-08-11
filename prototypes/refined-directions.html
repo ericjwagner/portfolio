@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Refined: 1 vs 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+  }
+
+  :root { --accent: #5f6b3f; --accent-soft: #e7e4d3; }
+  @media (prefers-color-scheme: dark) { :root { --accent: #a3ad7c; --accent-soft: #2c2f1f; } }
+
+  /* ============ Switcher ============ */
+  #switcher {
+    position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 1000;
+    display: flex; gap: 3px;
+    background: rgba(20,18,14,0.92); backdrop-filter: blur(12px);
+    padding: 4px; border-radius: 999px; box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  #switcher button {
+    appearance: none; border: none; background: transparent; color: rgba(255,255,255,0.62);
+    font-size: 12px; font-weight: 600; padding: 8px 14px; border-radius: 999px; cursor: pointer;
+    transition: background 0.15s, color 0.15s; white-space: nowrap;
+  }
+  #switcher button:hover { color: #fff; }
+  #switcher button.active { background: #fff; color: #111; }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .wrap { max-width: 46rem; margin: 0 auto; padding: 6.5rem var(--space-lg) var(--space-3xl); position: relative; z-index: 1; }
+
+  .label-tag { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-neutral); margin-bottom: var(--space-lg); }
+
+  /* shared bio block */
+  .who { display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-xl); position: relative; }
+  .avatar { width: 46px; height: 46px; border-radius: 50%; background: var(--color-paper-2); border: 1px solid var(--color-rule); flex-shrink: 0; }
+  .who-text .name { font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); }
+  .who-text .role { font-size: var(--text-sm); color: var(--color-muted); margin-top: 2px; }
+
+  .bio p { font-size: var(--text-md); color: var(--color-muted); line-height: 1.7; margin-bottom: var(--space-md); max-width: 56ch; }
+  .bio p:has(.presence) { line-height: 2.3; }
+  .bio strong { color: var(--color-ink); font-weight: 600; }
+
+  /* icon-in-link chip, inline in prose */
+  .ilink {
+    display: inline-flex; align-items: center; gap: 5px;
+    color: var(--color-ink); font-weight: 600; text-decoration: none;
+    border-bottom: 1.5px solid var(--accent);
+    padding-bottom: 1px;
+    transition: border-color 160ms var(--ease-out), color 160ms var(--ease-out);
+  }
+  .ilink:hover { color: var(--accent); }
+  .ilink .ico {
+    width: 15px; height: 15px; border-radius: 4px;
+    background: var(--accent-soft); color: var(--accent);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 9px; font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .rule-list { border-top: 1px solid var(--color-ink); margin-top: var(--space-2xl); }
+  .rule-row { display: flex; gap: var(--space-md); align-items: center; padding: var(--space-md) 0; border-bottom: 1px solid var(--color-rule); }
+  .rule-row .n { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-neutral); width: 2.5ch; flex-shrink: 0; }
+  .rule-row .t { font-family: var(--font-display); font-weight: 700; font-size: var(--text-md); }
+  .rule-row .d { margin-top: 2px; font-size: var(--text-sm); color: var(--color-muted); }
+
+  .sec-label { font-family: var(--font-display); font-style: italic; font-size: var(--text-md); color: var(--color-muted); margin: var(--space-2xl) 0 var(--space-lg); }
+
+
+  /* ======================================================
+     VARIANT 1 — Flagship Thumbnail + accent system
+  ====================================================== */
+  .feat-card {
+    position: relative; display: block; border-radius: var(--radius-md); overflow: hidden;
+    text-decoration: none; color: #fff; aspect-ratio: 16/9; background: #111;
+    transition: box-shadow 220ms var(--ease-out); box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    cursor: none;
+  }
+  .feat-card:hover { box-shadow: 0 24px 48px -12px rgba(0,0,0,0.35); }
+  .feat-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 400ms var(--ease-out), filter 400ms var(--ease-out); filter: grayscale(0.35) contrast(1.05); }
+  .feat-card:hover img { transform: scale(1.045); filter: grayscale(0) contrast(1.08); }
+  .feat-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0) 70%); }
+  .feat-body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: var(--space-lg); }
+  .feat-eyebrow { display: block; font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); opacity: 1; margin-bottom: 6px; }
+  .feat-title { display: block; font-family: var(--font-display); font-weight: 700; font-size: var(--text-xl); line-height: 1.15; }
+  .feat-desc { display: block; margin-top: 8px; font-size: var(--text-sm); opacity: 0.85; max-width: 46ch; }
+
+  .cursor-pill {
+    position: fixed; top: 0; left: 0; z-index: 2000;
+    display: flex; align-items: center; gap: 6px;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+    background: #fff; color: #111; padding: 8px 14px 8px 10px; border-radius: 999px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    transform: translate(-9999px, -9999px);
+    opacity: 0;
+    transition: opacity 140ms var(--ease-out);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .cursor-pill.show { opacity: 1; }
+  .cursor-pill svg { width: 12px; height: 12px; }
+
+  /* ======================================================
+     VARIANT 3 — Aurora + editor peek
+  ====================================================== */
+  .C-page { position: relative; }
+  .C-page::before {
+    content: ""; position: fixed; inset: 0; z-index: -1;
+    background-image: radial-gradient(color-mix(in srgb, var(--accent) 45%, transparent) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-position: -11px -11px;
+    -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.6), transparent 70%);
+    mask-image: linear-gradient(180deg, rgba(0,0,0,0.6), transparent 70%);
+    opacity: 0.35;
+  }
+  .C-page::after {
+    content: ""; position: fixed; inset: 0; z-index: 999; pointer-events: none;
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+  .corner { position: fixed; width: 14px; height: 14px; z-index: 999; pointer-events: none; opacity: 0.6; }
+  .corner::before, .corner::after { content: ""; position: absolute; background: var(--accent); }
+  .corner-tl { top: 10px; left: 10px; }
+  .corner-tr { top: 10px; right: 10px; transform: scaleX(-1); }
+  .corner-bl { bottom: 10px; left: 10px; transform: scaleY(-1); }
+  .corner-br { bottom: 10px; right: 10px; transform: scale(-1, -1); }
+  .corner::before { width: 100%; height: 1.5px; top: 0; left: 0; }
+  .corner::after { width: 1.5px; height: 100%; top: 0; left: 0; }
+
+  .geo-tag { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-neutral); letter-spacing: 0.04em; margin-bottom: var(--space-2xl); }
+  .geo-tag b { color: var(--color-ink); font-weight: 600; }
+
+  /* live-cursor presence badge, pinned above a highlighted word (à la Marc Bouchenoire/Liveblocks) */
+  .presence { position: relative; display: inline-block; }
+  .presence-target {
+    background: color-mix(in srgb, var(--accent) 16%, transparent);
+    border-radius: 3px;
+    padding: 0 3px;
+    margin: 0 -3px;
+  }
+  .presence-badge {
+    position: absolute;
+    top: -27px; left: -2px;
+    display: inline-flex; align-items: center; gap: 4px;
+    background: var(--accent); color: #fff;
+    font-family: var(--font-body); font-size: 11px; font-weight: 600;
+    padding: 3px 8px 3px 6px;
+    border-radius: 6px 6px 6px 2px;
+    white-space: nowrap;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+    opacity: 0;
+    animation: presence-in 420ms var(--ease-out) 900ms forwards;
+  }
+  .presence-badge::before { content: "\25CF"; font-size: 6px; transform: translateY(-1px); }
+  @keyframes presence-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  .C-page .who-text .name {
+    background: linear-gradient(90deg, var(--color-ink) 55%, var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+
+  .social-row { display: flex; gap: var(--space-md); margin-top: var(--space-lg); }
+  .social-row a {
+    width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--color-rule);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--color-muted); text-decoration: none;
+    transition: border-color 160ms var(--ease-out), color 160ms var(--ease-out), transform 160ms var(--ease-out);
+    font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+  }
+  .social-row a:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  @media (max-width: 40rem) {
+    .wrap { padding: 5.5rem var(--space-md) var(--space-2xl); }
+    .feat-title { font-size: var(--text-lg); }
+  }
+</style>
+</head>
+<body>
+
+  <div id="switcher">
+    <button class="active" data-page="1">1 &middot; Flagship + Accent</button>
+    <button data-page="3">3 &middot; Grid + Presence</button>
+  </div>
+
+  <div class="cursor-pill" id="cursorPill">
+    <span>View case study</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 19L19 5M19 5H8M19 5V16"/></svg>
+  </div>
+
+  <!-- ============ 1 — Flagship + Accent ============ -->
+  <div class="page active" data-id="1">
+    <div class="wrap">
+      <div class="label-tag">Refined 1 &middot; cursor pill, icon-links, accent underlines</div>
+
+      <div class="who">
+        <div class="avatar"></div>
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer, Workiva</div>
+        </div>
+      </div>
+
+      <div class="bio">
+        <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading enterprise migration work at
+          <a class="ilink" href="#"><span class="ico">W</span>Workiva</a>, where a structured AI workflow got engineers moving 66% of surfaces on their own.
+        </p>
+        <p>Before that I led design at <a class="ilink" href="#"><span class="ico">T</span>Thrive Global</a> and <a class="ilink" href="#"><span class="ico">J</span>J.P. Morgan Chase</a>, where I redesigned a robo-advisor used by millions.</p>
+      </div>
+
+      <div class="sec-label">Start here.</div>
+
+      <a class="feat-card" id="tiltCard" href="projects/ai-design-enablement.html">
+        <img src="https://picsum.photos/seed/network-grid/900/506" alt="" />
+        <span class="feat-body">
+          <span class="feat-eyebrow">Case study &middot; 01</span>
+          <span class="feat-title">66% Automated: Enterprise Migration</span>
+          <span class="feat-desc">31 of 47 product surfaces migrated autonomously by engineers, zero production regressions.</span>
+        </span>
+      </a>
+
+      <div class="rule-list">
+        <div class="rule-row"><span class="n">02</span><div><div class="t">Historical Data Roll Forward</div><div class="d">A full-day task cut to minutes, 35% increase in SEC bookings.</div></div></div>
+        <div class="rule-row"><span class="n">03</span><div><div class="t">Chase Advisor Video Platform</div><div class="d">Video collaboration suite for 5,000+ wealth advisors.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 3 — Grid + Presence ============ -->
+  <div class="page C-page" data-id="3">
+    <span class="corner corner-tl"></span>
+    <span class="corner corner-tr"></span>
+    <span class="corner corner-bl"></span>
+    <span class="corner corner-br"></span>
+    <div class="wrap">
+      <div class="label-tag">Refined 3 &middot; dot-grid ground, live-cursor presence badge, olive accent</div>
+
+      <div class="geo-tag">@ <b>NYC</b> &middot; 40.71&deg;N, 74.00&deg;W</div>
+
+      <div class="who">
+        <div class="avatar"></div>
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer, Workiva</div>
+        </div>
+      </div>
+
+      <div class="bio">
+        <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading
+          <span class="presence">
+            <span class="presence-badge">Eric</span>
+            <span class="presence-target">enterprise migration</span>
+          </span>
+          work at <a class="ilink" href="#"><span class="ico">W</span>Workiva</a>, where a structured AI workflow got engineers moving 66% of surfaces on their own.
+        </p>
+        <p>Before that I led design at <a class="ilink" href="#"><span class="ico">T</span>Thrive Global</a> and <a class="ilink" href="#"><span class="ico">J</span>J.P. Morgan Chase</a>, where I redesigned a robo-advisor used by millions.</p>
+      </div>
+
+      <div class="social-row">
+        <a href="#" aria-label="GitHub">Gh</a>
+        <a href="#" aria-label="LinkedIn">In</a>
+        <a href="#" aria-label="Email">@</a>
+      </div>
+
+      <div class="sec-label">Case studies.</div>
+      <div class="rule-list">
+        <div class="rule-row"><span class="n">01</span><div><div class="t">66% Automated: Enterprise Migration</div><div class="d">Structured AI workflow, zero production regressions.</div></div></div>
+        <div class="rule-row"><span class="n">02</span><div><div class="t">Historical Data Roll Forward</div><div class="d">A full-day task cut to minutes, 35% increase in SEC bookings.</div></div></div>
+        <div class="rule-row"><span class="n">03</span><div><div class="t">Chase Advisor Video Platform</div><div class="d">Video collaboration suite for 5,000+ wealth advisors.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const btns = document.querySelectorAll('#switcher button');
+  const pages = document.querySelectorAll('.page');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      pages.forEach(p => p.classList.toggle('active', p.dataset.id === btn.dataset.page));
+    });
+  });
+
+  // custom "view case study" cursor pill, scoped to the flagship card only
+  const tiltCard = document.getElementById('tiltCard');
+  const pill = document.getElementById('cursorPill');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (tiltCard && pill && !reduced) {
+    tiltCard.addEventListener('mousemove', (e) => {
+      pill.style.transform = `translate(${e.clientX + 16}px, ${e.clientY + 16}px)`;
+      pill.classList.add('show');
+    });
+    tiltCard.addEventListener('mouseleave', () => pill.classList.remove('show'));
+  }
+</script>
+
+</body>
+</html>

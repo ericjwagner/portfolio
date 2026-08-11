@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Intro: 3 directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+
+  /* ============ Switcher ============ */
+  #switcher {
+    position: fixed;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    gap: 3px;
+    background: rgba(20,18,14,0.92);
+    backdrop-filter: blur(12px);
+    padding: 4px;
+    border-radius: 999px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  #switcher button {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: rgba(255,255,255,0.62);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  #switcher button:hover { color: #fff; }
+  #switcher button.active { background: #fff; color: #111; }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .wrap {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 6.5rem var(--space-lg) var(--space-3xl);
+  }
+
+  .label-tag {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-neutral);
+    margin-bottom: var(--space-lg);
+  }
+
+  /* shared bits used across directions */
+  .avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-paper-2);
+    border: 1px solid var(--color-rule);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.3em;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--color-ink);
+    background: var(--color-paper-2);
+    border: 1px solid var(--color-rule);
+    border-radius: 999px;
+    padding: 0.05em 0.6em;
+    white-space: nowrap;
+  }
+
+  .rule-list { border-top: 1px solid var(--color-ink); margin-top: var(--space-2xl); }
+  .rule-row {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .rule-row .n { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-neutral); width: 2.5ch; flex-shrink: 0; }
+  .rule-row .t { font-family: var(--font-display); font-weight: 700; font-size: var(--text-md); }
+  .rule-row .d { margin-top: 2px; font-size: var(--text-sm); color: var(--color-muted); }
+
+  /* ======================================================
+     DIRECTION A — "Editorial Serif"  (inspired by daneden.me)
+     One big italic-accented serif sentence carries the whole
+     intro — name, role, and headline stats inline. No separate
+     h1/eyebrow/stat-bar; the paragraph IS the hero.
+  ====================================================== */
+  .A .intro {
+    font-family: var(--font-display);
+    font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.5rem);
+    line-height: 1.28;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+  }
+  .A .intro em {
+    font-style: italic;
+    color: var(--color-muted);
+  }
+  .A .intro .mark {
+    text-decoration: underline;
+    text-decoration-color: var(--color-rule);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1.5px;
+    transition: text-decoration-color var(--dur-short) var(--ease-out);
+  }
+  .A .intro .mark:hover { text-decoration-color: var(--color-ink); }
+  .A .sub {
+    margin-top: var(--space-lg);
+    font-size: var(--text-md);
+    color: var(--color-muted);
+    max-width: 50ch;
+  }
+
+  /* ======================================================
+     DIRECTION B — "Conversational Bio"  (Josh Puckett / Jakub Krehel)
+     Small avatar + name + title, then plain first-person
+     paragraphs with bold inline mentions in place of the nav
+     tabs and stat bar entirely.
+  ====================================================== */
+  .B .who { display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-xl); }
+  .B .who-text .name { font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); }
+  .B .who-text .role { font-size: var(--text-sm); color: var(--color-muted); margin-top: 2px; }
+  .B .bio p {
+    font-size: var(--text-md);
+    color: var(--color-muted);
+    line-height: 1.65;
+    margin-bottom: var(--space-md);
+    max-width: 54ch;
+  }
+  .B .bio strong { color: var(--color-ink); font-weight: 600; }
+  .B .bio a { text-decoration: underline; text-decoration-color: var(--color-rule); text-underline-offset: 2px; color: var(--color-ink); font-weight: 600; }
+  .B .bio a:hover { text-decoration-color: var(--color-ink); }
+
+  /* ======================================================
+     DIRECTION C — "Inline Stat Chips"  (Matt Rothenberg)
+     The stat-line becomes rounded mono chips woven directly
+     into the sentences, instead of living in a separate bar.
+  ====================================================== */
+  .C .eyebrow {
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-neutral);
+    margin-bottom: var(--space-md);
+  }
+  .C h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-2xl);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    margin-bottom: var(--space-lg);
+  }
+  .C .bio p {
+    font-size: var(--text-md);
+    color: var(--color-muted);
+    line-height: 1.75;
+    margin-bottom: var(--space-md);
+    max-width: 56ch;
+  }
+  .C .bio a { color: var(--color-ink); text-decoration: underline; text-decoration-color: var(--color-rule); text-underline-offset: 2px; }
+  .C .bio a:hover { text-decoration-color: var(--color-ink); }
+
+  @media (max-width: 40rem) {
+    .wrap { padding: 5.5rem var(--space-md) var(--space-2xl); }
+  }
+</style>
+</head>
+<body>
+
+  <div id="switcher">
+    <button class="active" data-page="A">A · Editorial Serif</button>
+    <button data-page="B">B · Conversational Bio</button>
+    <button data-page="C">C · Inline Chips</button>
+  </div>
+
+  <!-- ============ A ============ -->
+  <div class="page A active">
+    <div class="wrap">
+      <div class="label-tag">Direction A &middot; inspired by daneden.me</div>
+
+      <p class="intro">
+        <span class="mark">Eric Wagner</span> is a <em>Staff Product Designer</em> at Workiva, designing products customers love and the AI systems that help teams ship more of them. He led the effort that got engineers migrating <span class="mark">66% of surfaces</span> on their own, and his robo-advisor work at J.P. Morgan drove <span class="mark">$472M</span> in AUM.
+      </p>
+      <p class="sub">Case studies below cover fintech, HR analytics, and internal tools: eight in total, 2016 to 2026.</p>
+
+      <div class="rule-list">
+        <div class="rule-row">
+          <span class="n">01</span>
+          <div>
+            <div class="t">66% Automated: Enterprise Migration</div>
+            <div class="d">Structured AI workflow, zero production regressions.</div>
+          </div>
+        </div>
+        <div class="rule-row">
+          <span class="n">02</span>
+          <div>
+            <div class="t">Historical Data Roll Forward</div>
+            <div class="d">A full-day task cut to minutes, 35% increase in SEC bookings.</div>
+          </div>
+        </div>
+        <div class="rule-row">
+          <span class="n">03</span>
+          <div>
+            <div class="t">Chase Advisor Video Platform</div>
+            <div class="d">Video collaboration suite for 5,000+ wealth advisors.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ B ============ -->
+  <div class="page B">
+    <div class="wrap">
+      <div class="label-tag">Direction B &middot; inspired by joshpuckett.me &amp; jakub.kr</div>
+
+      <div class="who">
+        <img class="avatar" src="images/eric-wagner-headshot.jpg" alt="" onerror="this.style.display='none'" />
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer, Workiva</div>
+        </div>
+      </div>
+
+      <div class="bio">
+        <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading <strong>enterprise migration</strong> work at <a href="#">Workiva</a>, where a structured AI workflow got engineers moving 66% of surfaces on their own.</p>
+        <p>Before that I led design at <a href="#">Thrive Global</a> and <a href="#">J.P. Morgan Chase</a>, where I redesigned a robo-advisor used by millions and helped generate $472M in AUM.</p>
+        <p>Case studies below, eight of them, 2016 to 2026.</p>
+      </div>
+
+      <div class="rule-list">
+        <div class="rule-row">
+          <span class="n">01</span>
+          <div>
+            <div class="t">66% Automated: Enterprise Migration</div>
+            <div class="d">Structured AI workflow, zero production regressions.</div>
+          </div>
+        </div>
+        <div class="rule-row">
+          <span class="n">02</span>
+          <div>
+            <div class="t">Historical Data Roll Forward</div>
+            <div class="d">A full-day task cut to minutes, 35% increase in SEC bookings.</div>
+          </div>
+        </div>
+        <div class="rule-row">
+          <span class="n">03</span>
+          <div>
+            <div class="t">Chase Advisor Video Platform</div>
+            <div class="d">Video collaboration suite for 5,000+ wealth advisors.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ C ============ -->
+  <div class="page C">
+    <div class="wrap">
+      <div class="label-tag">Direction C &middot; inspired by mattrothenberg.com</div>
+
+      <div class="eyebrow">Staff Product Designer</div>
+      <h1>Eric Wagner</h1>
+
+      <div class="bio">
+        <p>I work at <span class="chip">&#9670; Workiva</span> designing products customers love, then building the AI systems so the team can ship more of them. That work got engineers migrating <span class="chip">66%</span> of surfaces on their own, with zero production regressions.</p>
+        <p>Before that I led design at <span class="chip">&#9670; J.P. Morgan</span> where a robo-advisor redesign drove <span class="chip">$472M</span> in AUM, and at <span class="chip">&#9670; Thrive</span> where a well-being dashboard hit a <span class="chip">90%</span> interaction rate.</p>
+      </div>
+
+      <div class="rule-list">
+        <div class="rule-row">
+          <span class="n">01</span>
+          <div>
+            <div class="t">66% Automated: Enterprise Migration</div>
+            <div class="d">Structured AI workflow, zero production regressions.</div>
+          </div>
+        </div>
+        <div class="rule-row">
+          <span class="n">02</span>
+          <div>
+            <div class="t">Historical Data Roll Forward</div>
+            <div class="d">A full-day task cut to minutes, 35% increase in SEC bookings.</div>
+          </div>
+        </div>
+        <div class="rule-row">
+          <span class="n">03</span>
+          <div>
+            <div class="t">Chase Advisor Video Platform</div>
+            <div class="d">Video collaboration suite for 5,000+ wealth advisors.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const btns = document.querySelectorAll('#switcher button');
+  const pages = document.querySelectorAll('.page');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      pages.forEach(p => p.classList.toggle('active', p.classList.contains(btn.dataset.page)));
+    });
+  });
+</script>
+
+</body>
+</html>

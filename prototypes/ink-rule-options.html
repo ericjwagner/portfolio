@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ink and Rule: 3 layouts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; }
+
+  :root {
+    --paper: #fbfaf8;
+    --paper-2: #f2efe8;
+    --rule: #dedad0;
+    --neutral: #8a8578;
+    --muted: #6b6558;
+    --ink: #17150f;
+    --radius: 4px;
+  }
+
+  body { background: var(--paper); color: var(--ink); font-family: "IBM Plex Sans", -apple-system, sans-serif; }
+
+  /* ============ Switcher ============ */
+  #switcher {
+    position: fixed;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    gap: 3px;
+    background: rgba(20,18,14,0.92);
+    backdrop-filter: blur(12px);
+    padding: 4px;
+    border-radius: 999px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+  }
+  #switcher button {
+    appearance: none; border: none; background: transparent;
+    color: rgba(255,255,255,0.6); font-size: 12px; font-weight: 600;
+    padding: 8px 16px; border-radius: 999px; cursor: pointer;
+    transition: background 0.15s, color 0.15s; white-space: nowrap;
+    font-family: "IBM Plex Sans", sans-serif;
+  }
+  #switcher button:hover { color: #fff; }
+  #switcher button.active { background: #fbfaf8; color: #17150f; }
+
+  .page { display: none; min-height: 100vh; }
+  .page.active { display: block; }
+
+  .hatch { background: repeating-linear-gradient(135deg, var(--paper-2) 0 1px, var(--paper) 1px 14px); }
+
+  /* shared bits */
+  .stats { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .stats div { padding: 18px 16px 16px 0; border-left: 1px solid var(--rule); }
+  .stats div:first-child { border-left: none; padding-left: 0; }
+  .stats b { display: block; font-family: "JetBrains Mono", monospace; font-size: 26px; font-weight: 600; }
+  .stats span { display: block; margin-top: 4px; font-size: 12px; color: var(--neutral); }
+
+  /* ======================================================
+     LAYOUT 1 — "Rail"
+     Same side-rail architecture as the live site today.
+     Grid of cards, hatch thumbnails, index-numbered tags.
+  ====================================================== */
+  .L1-flex { display: flex; }
+  .L1 .rail {
+    width: 15ch; flex-shrink: 0; min-height: 100vh;
+    border-right: 1px solid var(--rule);
+    display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+    padding: 40px 0 24px;
+  }
+  .L1 .rail-mark { font-family: "JetBrains Mono", monospace; font-weight: 600; font-size: 13px; letter-spacing: 0.06em; writing-mode: vertical-rl; }
+  .L1 .rail-nav { list-style: none; display: flex; flex-direction: column; gap: 24px; writing-mode: vertical-rl; }
+  .L1 .rail-nav li { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--neutral); display: flex; align-items: center; gap: 8px; }
+  .L1 .rail-nav li.active { color: var(--ink); font-weight: 600; }
+  .L1 .rail-nav li::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--rule); }
+  .L1 .rail-nav li.active::before { background: var(--ink); }
+  .L1 .rail-foot { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--neutral); writing-mode: vertical-rl; }
+  .L1 .main { flex: 1; max-width: 880px; padding: 72px 56px 90px; }
+  .L1 h1 { font-family: "Cardo", serif; font-weight: 700; font-size: 42px; line-height: 1.1; }
+  .L1 .lede { margin-top: 14px; font-size: 16px; line-height: 1.55; color: var(--muted); max-width: 46ch; }
+  .L1 .stats { margin: 44px 0 52px; }
+  .L1 .sec-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); }
+  .L1 .sec-head h2 { font-family: "Cardo", serif; font-style: italic; font-weight: 400; font-size: 17px; color: var(--muted); }
+  .L1 .sec-head span { font-size: 12px; color: var(--neutral); }
+  .L1 .grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; }
+  .L1 .card { border: 1px solid var(--rule); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: border-color .18s, transform .18s; }
+  .L1 .card:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .L1 .card--feat { grid-column: 1/-1; flex-direction: row; }
+  .L1 .thumb { aspect-ratio: 16/9; position: relative; }
+  .L1 .card--feat .thumb { width: 42%; aspect-ratio: 4/3; }
+  .L1 .thumb .idx { position: absolute; bottom: 10px; left: 12px; font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--neutral); }
+  .L1 .info { padding: 18px; display: flex; flex-direction: column; gap: 6px; }
+  .L1 .tag { align-self: flex-start; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--ink); border-radius: 999px; padding: 2px 10px; margin-bottom: 4px; }
+  .L1 .info h3 { font-family: "Cardo", serif; font-weight: 700; font-size: 17px; }
+  .L1 .card--feat .info h3 { font-size: 21px; }
+  .L1 .info p { font-size: 13px; line-height: 1.5; color: var(--muted); }
+
+  /* ======================================================
+     LAYOUT 2 — "Split"
+     Asymmetric hero: name/lede in a wide left column,
+     a quiet credentials card on the right. Row-varied grid
+     instead of uniform tiles (one wide, two narrow, etc).
+  ====================================================== */
+  .L2 .wrap { max-width: 1080px; margin: 0 auto; padding: 96px 40px 90px; }
+  .L2 .hero { display: grid; grid-template-columns: 1.4fr 1fr; gap: 56px; align-items: start; }
+  .L2 h1 { font-family: "Cardo", serif; font-weight: 700; font-size: 50px; line-height: 1.05; }
+  .L2 .lede { margin-top: 16px; font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 42ch; }
+  .L2 .card-now { border-top: 1px solid var(--ink); padding-top: 16px; }
+  .L2 .card-now b { display: block; font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--neutral); margin-bottom: 10px; }
+  .L2 .card-now p { font-size: 14px; line-height: 1.55; color: var(--muted); }
+  .L2 .stats { margin: 56px 0; }
+  .L2 .sec-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 22px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); }
+  .L2 .sec-head h2 { font-family: "Cardo", serif; font-style: italic; font-size: 18px; color: var(--muted); }
+  .L2 .sec-head span { font-size: 12px; color: var(--neutral); }
+  .L2 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .L2 .card { border: 1px solid var(--rule); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: border-color .18s, transform .18s; }
+  .L2 .card:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .L2 .card--wide { grid-column: span 2; flex-direction: row; }
+  .L2 .thumb { aspect-ratio: 4/3; position: relative; }
+  .L2 .card--wide .thumb { width: 46%; aspect-ratio: auto; }
+  .L2 .thumb .idx { position: absolute; bottom: 10px; left: 12px; font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--neutral); }
+  .L2 .info { padding: 18px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .L2 .tag { align-self: flex-start; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--ink); border-radius: 999px; padding: 2px 10px; margin-bottom: 4px; }
+  .L2 .info h3 { font-family: "Cardo", serif; font-weight: 700; font-size: 16px; }
+  .L2 .card--wide .info h3 { font-size: 20px; }
+  .L2 .info p { font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+
+  /* ======================================================
+     LAYOUT 3 — "Index"
+     No thumbnails at all. Magazine table-of-contents:
+     numbered rows, hairline dividers, mono tag on the right.
+     Quietest, most typographic of the three.
+  ====================================================== */
+  .L3 .wrap { max-width: 760px; margin: 0 auto; padding: 100px 32px 90px; }
+  .L3 .eyebrow { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--neutral); margin-bottom: 16px; }
+  .L3 h1 { font-family: "Cardo", serif; font-weight: 700; font-size: 40px; line-height: 1.1; }
+  .L3 .lede { margin-top: 14px; font-size: 16px; line-height: 1.6; color: var(--muted); max-width: 50ch; }
+  .L3 .statline { display: flex; gap: 28px; margin-top: 36px; padding: 18px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule); flex-wrap: wrap; }
+  .L3 .statline div { display: flex; align-items: baseline; gap: 6px; }
+  .L3 .statline b { font-family: "JetBrains Mono", monospace; font-size: 16px; }
+  .L3 .statline span { font-size: 12px; color: var(--neutral); }
+  .L3 .sec-head { display: flex; justify-content: space-between; align-items: baseline; margin: 48px 0 4px; }
+  .L3 .sec-head h2 { font-family: "Cardo", serif; font-style: italic; font-size: 18px; color: var(--muted); }
+  .L3 .sec-head span { font-size: 12px; color: var(--neutral); }
+  .L3 .index-list { border-top: 1px solid var(--ink); }
+  .L3 .row { display: flex; gap: 20px; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--rule); transition: opacity .15s; }
+  .L3 .row:hover { opacity: 0.55; }
+  .L3 .row .num { font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--neutral); width: 2.5ch; flex-shrink: 0; }
+  .L3 .row-thumb { width: 88px; height: 66px; object-fit: cover; border-radius: 3px; filter: grayscale(1) contrast(1.05); flex-shrink: 0; }
+  .L3 .row--feat .row-thumb { width: 168px; height: 116px; }
+  .L3 .row .body { flex: 1; min-width: 0; }
+  .L3 .row h3 { font-family: "Cardo", serif; font-weight: 700; font-size: 17px; }
+  .L3 .row p { font-size: 13px; line-height: 1.5; color: var(--muted); margin-top: 4px; max-width: 60ch; }
+  .L3 .row .cat { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--neutral); white-space: nowrap; flex-shrink: 0; }
+  .L3 .row--feat .num, .L3 .row--feat .cat { color: var(--ink); }
+  .L3 .row--feat h3 { font-size: 19px; }
+
+  @media (max-width: 780px) {
+    .L1 .rail { display: none; }
+    .L1 .main { padding: 40px 24px; }
+    .L1 .grid, .L2 .grid { grid-template-columns: 1fr; }
+    .L2 .hero { grid-template-columns: 1fr; }
+    .L1 .card--feat, .L2 .card--wide { flex-direction: column; }
+    .L1 .card--feat .thumb, .L2 .card--wide .thumb { width: 100%; aspect-ratio: 16/9; }
+    .stats, .L3 .statline { grid-template-columns: repeat(2,1fr); }
+    .L3 .row-thumb { width: 64px; height: 48px; }
+    .L3 .row--feat .row-thumb { width: 96px; height: 68px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="switcher">
+  <button data-page="l1">1 · Rail</button>
+  <button data-page="l2">2 · Split</button>
+  <button class="active" data-page="l3">3 · Index</button>
+</div>
+
+<!-- LAYOUT 1: Rail -->
+<div class="page L1" id="l1">
+  <div class="L1-flex">
+  <nav class="rail">
+    <span class="rail-mark">EW · 2026</span>
+    <ul class="rail-nav">
+      <li class="active">Projects</li>
+      <li>Favorites</li>
+      <li>About</li>
+    </ul>
+    <span class="rail-foot">NYC</span>
+  </nav>
+  <div class="main">
+    <h1>Eric Wagner</h1>
+    <p class="lede">I design products customers love, then build AI systems so the team can ship more of them.</p>
+
+    <div class="stats">
+      <div><b>66%</b><span>surfaces migrated autonomously</span></div>
+      <div><b>$472M</b><span>AUM generated, J.P. Morgan</span></div>
+      <div><b>35%</b><span>increase in SEC bookings</span></div>
+      <div><b>90%</b><span>interaction rate, Thrive dashboard</span></div>
+    </div>
+
+    <div class="sec-head"><h2>Work, 2016 to 2026.</h2><span>8 case studies</span></div>
+    <div class="grid">
+      <a class="card card--feat">
+        <div class="thumb hatch"><span class="idx">01</span></div>
+        <div class="info">
+          <span class="tag">Start here</span>
+          <h3>66% Automated: Enterprise Migration</h3>
+          <p>How I enabled engineers to migrate 31 of 47 product surfaces autonomously using a structured AI workflow, with zero production regressions.</p>
+        </div>
+      </a>
+      <a class="card">
+        <div class="thumb hatch"><span class="idx">02</span></div>
+        <div class="info"><h3>Historical Data Roll Forward</h3><p>Automated a quarterly financial reporting task that took 75% of users a full day, cutting it to minutes.</p></div>
+      </a>
+      <a class="card">
+        <div class="thumb hatch"><span class="idx">03</span></div>
+        <div class="info"><h3>Chase Advisor Video Platform</h3><p>Built Chase's first video collaboration suite from scratch for 5,000+ wealth advisors.</p></div>
+      </a>
+      <a class="card">
+        <div class="thumb hatch"><span class="idx">04</span></div>
+        <div class="info"><h3>J.P. Morgan Automated Investing</h3><p>Redesigned a robo-advisor used by millions, generating $472M in assets under management.</p></div>
+      </a>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- LAYOUT 2: Split -->
+<div class="page L2" id="l2">
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <h1>Eric Wagner</h1>
+        <p class="lede">I design products customers love, then build AI systems so the team can ship more of them.</p>
+      </div>
+      <div class="card-now">
+        <b>Now</b>
+        <p>Staff Product Designer at Workiva, working across complex B2B workflows and AI-assisted engineering tools.</p>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div><b>66%</b><span>surfaces migrated autonomously</span></div>
+      <div><b>$472M</b><span>AUM generated, J.P. Morgan</span></div>
+      <div><b>35%</b><span>increase in SEC bookings</span></div>
+      <div><b>90%</b><span>interaction rate, Thrive dashboard</span></div>
+    </div>
+
+    <div class="sec-head"><h2>Work, 2016 to 2026.</h2><span>8 case studies</span></div>
+    <div class="grid">
+      <a class="card card--wide">
+        <div class="thumb hatch"><span class="idx">01</span></div>
+        <div class="info">
+          <span class="tag">Start here</span>
+          <h3>66% Automated: Enterprise Migration</h3>
+          <p>How I enabled engineers to migrate 31 of 47 product surfaces autonomously, with zero production regressions.</p>
+        </div>
+      </a>
+      <a class="card">
+        <div class="thumb hatch"><span class="idx">02</span></div>
+        <div class="info"><h3>Historical Data Roll Forward</h3><p>A full day of manual work, cut to minutes.</p></div>
+      </a>
+      <a class="card">
+        <div class="thumb hatch"><span class="idx">03</span></div>
+        <div class="info"><h3>Chase Advisor Video Platform</h3><p>First video suite for 5,000+ wealth advisors.</p></div>
+      </a>
+      <a class="card">
+        <div class="thumb hatch"><span class="idx">04</span></div>
+        <div class="info"><h3>J.P. Morgan Automated Investing</h3><p>$472M in assets under management.</p></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- LAYOUT 3: Index -->
+<div class="page active L3" id="l3">
+  <div class="wrap">
+    <div class="eyebrow">Staff Product Designer</div>
+    <h1>Eric Wagner</h1>
+    <p class="lede">I design products customers love, then build AI systems so the team can ship more of them.</p>
+
+    <div class="statline">
+      <div><b>66%</b><span>surfaces migrated autonomously</span></div>
+      <div><b>$472M</b><span>AUM, J.P. Morgan</span></div>
+      <div><b>35%</b><span>increase in SEC bookings</span></div>
+      <div><b>90%</b><span>interaction rate, Thrive</span></div>
+    </div>
+
+    <div class="sec-head"><h2>Work, 2016 to 2026.</h2><span>8 case studies</span></div>
+    <div class="index-list">
+      <a class="row row--feat">
+        <span class="num">01</span>
+        <img class="row-thumb" src="https://picsum.photos/seed/network-grid/340/230" alt="" />
+        <div class="body">
+          <h3>66% Automated: Enterprise Migration</h3>
+          <p>How I enabled engineers to migrate 31 of 47 product surfaces autonomously using a structured AI workflow, with zero production regressions.</p>
+        </div>
+        <span class="cat">Start here</span>
+      </a>
+      <a class="row">
+        <span class="num">02</span>
+        <img class="row-thumb" src="https://picsum.photos/seed/archive-shelves/340/230" alt="" />
+        <div class="body"><h3>Historical Data Roll Forward</h3><p>Automated a quarterly financial reporting task that took 75% of users a full day, cutting it to minutes.</p></div>
+        <span class="cat">Fintech</span>
+      </a>
+      <a class="row">
+        <span class="num">03</span>
+        <img class="row-thumb" src="https://picsum.photos/seed/glass-office/340/230" alt="" />
+        <div class="body"><h3>Chase Advisor Video Platform</h3><p>Built Chase's first video collaboration suite from scratch for 5,000+ wealth advisors.</p></div>
+        <span class="cat">Fintech</span>
+      </a>
+      <a class="row">
+        <span class="num">04</span>
+        <img class="row-thumb" src="https://picsum.photos/seed/ticker-tape/340/230" alt="" />
+        <div class="body"><h3>J.P. Morgan Automated Investing</h3><p>Redesigned a robo-advisor used by millions, generating $472M in assets under management.</p></div>
+        <span class="cat">Fintech</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const pages = document.querySelectorAll('.page');
+  const btns = document.querySelectorAll('#switcher button');
+  btns.forEach(b => b.addEventListener('click', () => {
+    btns.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    pages.forEach(p => p.classList.remove('active'));
+    document.getElementById(b.dataset.page).classList.add('active');
+  }));
+</script>
+
+</body>
+</html>

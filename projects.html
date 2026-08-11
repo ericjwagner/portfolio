@@ -45,15 +45,17 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: var(--text-sm);
-      font-weight: 600;
-      color: var(--color-muted);
+      font-weight: 400;
+      color: var(--color-ink);
       text-decoration: none;
-      margin-bottom: var(--space-xl);
-      transition: color var(--dur-short) var(--ease-out);
+      margin-bottom: var(--space-2xl);
+      border-bottom: 1.5px solid var(--color-rule);
+      padding-bottom: 1px;
+      transition: border-color var(--dur-short) var(--ease-out);
     }
-    .back-link:hover { color: var(--accent2); }
-    .back-link svg { width: 12px; height: 12px; transform: scaleX(-1); }
+    .back-link:hover { border-color: var(--accent2); }
+    .back-link svg { width: 12px; height: 12px; transition: transform var(--dur-short) var(--ease-out); }
+    .back-link:hover svg { transform: translate(-3px, -3px); }
 
     .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-md); margin-bottom: var(--space-lg); }
     .sec-head span { font-size: var(--text-xs); color: var(--color-neutral); white-space: nowrap; }
@@ -86,7 +88,7 @@
     .index-row:hover .index-row__thumb { filter: none; }
 
     .index-row__body { flex: 1; min-width: 0; }
-    .index-row__desc { margin-top: var(--space-3xs); font-size: var(--text-base); color: var(--color-muted); transition: color var(--dur-short) var(--ease-out); }
+    .index-row__desc { margin-top: var(--space-3xs); font-size: var(--text-sm); color: var(--color-muted); transition: color var(--dur-short) var(--ease-out); }
     .index-row__cat { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-neutral); white-space: nowrap; flex-shrink: 0; transition: color var(--dur-short) var(--ease-out); }
 
     .index-row:hover .index-row__desc,
@@ -109,8 +111,8 @@
   <div class="wrap">
 
     <a class="back-link" href="index.html">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 19L19 5M19 5H8M19 5V16"/></svg>
-      Back home
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 19L5 5M5 5H16M5 5V16"/></svg>
+      Back
     </a>
 
     <div class="sec-head">

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Flashy: 3 directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+  }
+
+  /* ============ Switcher ============ */
+  #switcher {
+    position: fixed;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    gap: 3px;
+    background: rgba(20,18,14,0.92);
+    backdrop-filter: blur(12px);
+    padding: 4px;
+    border-radius: 999px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  #switcher button {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: rgba(255,255,255,0.62);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  #switcher button:hover { color: #fff; }
+  #switcher button.active { background: #fff; color: #111; }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .wrap {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 6.5rem var(--space-lg) var(--space-3xl);
+  }
+
+  .label-tag {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-neutral);
+    margin-bottom: var(--space-lg);
+  }
+
+  /* shared: Direction B bio block */
+  .who { display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-xl); }
+  .avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--color-paper-2); border: 1px solid var(--color-rule); flex-shrink: 0; }
+  .who-text .name { font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); }
+  .who-text .role { font-size: var(--text-sm); color: var(--color-muted); margin-top: 2px; }
+  .bio p { font-size: var(--text-md); color: var(--color-muted); line-height: 1.65; margin-bottom: var(--space-md); max-width: 54ch; }
+  .bio strong { color: var(--color-ink); font-weight: 600; }
+  .bio a { text-decoration: underline; text-decoration-color: var(--color-rule); text-underline-offset: 2px; color: var(--color-ink); font-weight: 600; }
+  .bio a:hover { text-decoration-color: var(--color-ink); }
+
+  .rule-list { border-top: 1px solid var(--color-ink); margin-top: var(--space-2xl); }
+  .rule-row { display: flex; gap: var(--space-md); align-items: center; padding: var(--space-md) 0; border-bottom: 1px solid var(--color-rule); }
+  .rule-row .n { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-neutral); width: 2.5ch; flex-shrink: 0; }
+  .rule-row .t { font-family: var(--font-display); font-weight: 700; font-size: var(--text-md); }
+  .rule-row .d { margin-top: 2px; font-size: var(--text-sm); color: var(--color-muted); }
+
+  .sec-label { font-family: var(--font-display); font-style: italic; font-size: var(--text-md); color: var(--color-muted); margin: var(--space-2xl) 0 var(--space-lg); }
+
+  /* ======================================================
+     DIRECTION 1 — "Flagship Thumbnail"
+     One oversized featured case-study card: real screenshot,
+     gradient scrim, glowing "Start here" badge, subtle
+     cursor-tilt on hover. Everything else stays plain so
+     this card is the one thing that visually pops.
+  ====================================================== */
+  .feat-card {
+    position: relative;
+    display: block;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    text-decoration: none;
+    color: #fff;
+    aspect-ratio: 16/9;
+    background: #111;
+    transform-style: preserve-3d;
+    transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    will-change: transform;
+  }
+  .feat-card:hover { box-shadow: 0 24px 48px -12px rgba(0,0,0,0.35); }
+  .feat-card img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    transition: transform 400ms var(--ease-out), filter 400ms var(--ease-out);
+    filter: grayscale(0.35) contrast(1.05);
+  }
+  .feat-card:hover img { transform: scale(1.045); filter: grayscale(0) contrast(1.08); }
+  .feat-card::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0) 70%);
+  }
+  .feat-badge {
+    position: absolute; top: var(--space-md); left: var(--space-md); z-index: 2;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+    color: #111; background: #fff;
+    padding: 5px 10px; border-radius: 999px;
+    box-shadow: 0 0 0 0 rgba(255,255,255,0.5);
+    animation: badge-pulse 2.6s ease-in-out infinite;
+  }
+  .feat-badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #1db954; }
+  @keyframes badge-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(17,17,17,0.14); }
+    50% { box-shadow: 0 0 0 6px rgba(17,17,17,0); }
+  }
+  .feat-body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: var(--space-lg); }
+  .feat-eyebrow { display: block; font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.75; margin-bottom: 6px; }
+  .feat-title { display: block; font-family: var(--font-display); font-weight: 700; font-size: var(--text-xl); line-height: 1.15; }
+  .feat-desc { display: block; margin-top: 8px; font-size: var(--text-sm); opacity: 0.85; max-width: 46ch; }
+  .feat-arrow {
+    position: absolute; top: var(--space-md); right: var(--space-md); z-index: 2;
+    width: 34px; height: 34px; border-radius: 50%;
+    background: rgba(255,255,255,0.14); backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 220ms var(--ease-out), background 220ms var(--ease-out);
+  }
+  .feat-card:hover .feat-arrow { transform: rotate(45deg); background: rgba(255,255,255,0.24); }
+
+  /* ======================================================
+     DIRECTION 2 — "Signal Chips"
+     Company/impact chips, each with its own accent color and
+     a soft glow ring. They pop in staggered on load and lift
+     on hover. Reads instantly, even skimmed in 2 seconds.
+  ====================================================== */
+  .chip-row { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+  .signal-chip {
+    --c: var(--color-ink);
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: var(--text-sm); font-weight: 600;
+    color: var(--color-ink);
+    background: var(--color-paper);
+    border: 1px solid var(--color-rule);
+    border-radius: 999px;
+    padding: 7px 14px 7px 10px;
+    opacity: 0;
+    transform: translateY(6px);
+    animation: chip-in 420ms var(--ease-out) forwards;
+    animation-delay: calc(var(--i, 0) * 70ms);
+    transition: border-color 180ms var(--ease-out), box-shadow 180ms var(--ease-out), transform 180ms var(--ease-out);
+  }
+  .signal-chip:hover {
+    border-color: var(--c);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 16%, transparent);
+    transform: translateY(-1px);
+  }
+  .signal-chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c); flex-shrink: 0; }
+  .signal-chip .val { color: var(--c); }
+  @keyframes chip-in { to { opacity: 1; transform: none; } }
+
+  /* ======================================================
+     DIRECTION 3 — "Aurora Frame"
+     A slow, animated gradient hairline traces the page edge
+     and a soft shifting glow sits behind the name. Everything
+     else in the system stays monochrome — the frame is the
+     one flourish, always present but never loud.
+  ====================================================== */
+  .C-page {
+    position: relative;
+    min-height: 100vh;
+  }
+  .C-page::before {
+    content: "";
+    position: fixed; inset: 0;
+    z-index: 0;
+    padding: 2px;
+    pointer-events: none;
+    background: conic-gradient(from var(--angle, 0deg),
+      #a78bfa, #f472b6, #fb923c, #34d399, #60a5fa, #a78bfa);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: rotate-frame 10s linear infinite;
+    opacity: 0.55;
+  }
+  @keyframes rotate-frame { to { --angle: 360deg; } }
+  @property --angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+
+  .aurora-glow {
+    position: absolute;
+    top: -140px; left: 50%; transform: translateX(-50%);
+    width: 620px; height: 340px;
+    background: conic-gradient(from 0deg, #a78bfa, #f472b6, #fb923c, #34d399, #60a5fa, #a78bfa);
+    filter: blur(90px);
+    opacity: 0.22;
+    z-index: 0;
+    animation: rotate-frame 14s linear infinite;
+    pointer-events: none;
+  }
+
+  .C-page .wrap { position: relative; z-index: 1; }
+
+  .C-page .who-text .name {
+    background: linear-gradient(90deg, var(--color-ink), var(--color-ink) 60%, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  @media (max-width: 40rem) {
+    .wrap { padding: 5.5rem var(--space-md) var(--space-2xl); }
+    .feat-title { font-size: var(--text-lg); }
+  }
+</style>
+</head>
+<body>
+
+  <div id="switcher">
+    <button class="active" data-page="1">1 &middot; Flagship Thumbnail</button>
+    <button data-page="2">2 &middot; Signal Chips</button>
+    <button data-page="3">3 &middot; Aurora Frame</button>
+  </div>
+
+  <!-- ============ 1 — Flagship Thumbnail ============ -->
+  <div class="page active" data-id="1">
+    <div class="wrap">
+      <div class="label-tag">Flashy 1 &middot; cool thumbnail, cursor-reactive</div>
+
+      <div class="who">
+        <div class="avatar"></div>
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer, Workiva</div>
+        </div>
+      </div>
+
+      <div class="bio">
+        <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading <strong>enterprise migration</strong> work at <a href="#">Workiva</a>, where a structured AI workflow got engineers moving 66% of surfaces on their own.</p>
+      </div>
+
+      <div class="sec-label">Start here.</div>
+
+      <a class="feat-card" id="tiltCard" href="projects/ai-design-enablement.html">
+        <img src="https://picsum.photos/seed/network-grid/900/506" alt="" />
+        <span class="feat-badge">Featured</span>
+        <span class="feat-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M5 19L19 5M19 5H8M19 5V16"/></svg>
+        </span>
+        <span class="feat-body">
+          <span class="feat-eyebrow">Case study &middot; 01</span>
+          <span class="feat-title">66% Automated: Enterprise Migration</span>
+          <span class="feat-desc">31 of 47 product surfaces migrated autonomously by engineers, zero production regressions.</span>
+        </span>
+      </a>
+
+      <div class="rule-list">
+        <div class="rule-row"><span class="n">02</span><div><div class="t">Historical Data Roll Forward</div><div class="d">A full-day task cut to minutes, 35% increase in SEC bookings.</div></div></div>
+        <div class="rule-row"><span class="n">03</span><div><div class="t">Chase Advisor Video Platform</div><div class="d">Video collaboration suite for 5,000+ wealth advisors.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2 — Signal Chips ============ -->
+  <div class="page" data-id="2">
+    <div class="wrap">
+      <div class="label-tag">Flashy 2 &middot; colored impact chips, staggered pop-in</div>
+
+      <div class="who">
+        <div class="avatar"></div>
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer, Workiva</div>
+        </div>
+      </div>
+
+      <div class="bio">
+        <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading <strong>enterprise migration</strong> work at <a href="#">Workiva</a>, where a structured AI workflow got engineers moving 66% of surfaces on their own.</p>
+        <p>Before that I led design at <a href="#">Thrive Global</a> and <a href="#">J.P. Morgan Chase</a>.</p>
+      </div>
+
+      <div class="chip-row" style="margin-top: var(--space-lg);">
+        <span class="signal-chip" style="--c:#7c3aed; --i:0"><span class="dot"></span>66<span class="val">%</span> surfaces migrated autonomously</span>
+        <span class="signal-chip" style="--c:#2563eb; --i:1"><span class="val">$472M</span> AUM, J.P. Morgan</span>
+        <span class="signal-chip" style="--c:#059669; --i:2"><span class="val">35%</span> increase in SEC bookings</span>
+        <span class="signal-chip" style="--c:#d97706; --i:3"><span class="val">90%</span> interaction rate, Thrive</span>
+      </div>
+
+      <div class="sec-label">Case studies.</div>
+      <div class="rule-list">
+        <div class="rule-row"><span class="n">01</span><div><div class="t">66% Automated: Enterprise Migration</div><div class="d">Structured AI workflow, zero production regressions.</div></div></div>
+        <div class="rule-row"><span class="n">02</span><div><div class="t">Historical Data Roll Forward</div><div class="d">A full-day task cut to minutes, 35% increase in SEC bookings.</div></div></div>
+        <div class="rule-row"><span class="n">03</span><div><div class="t">Chase Advisor Video Platform</div><div class="d">Video collaboration suite for 5,000+ wealth advisors.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 3 — Aurora Frame ============ -->
+  <div class="page C-page" data-id="3">
+    <div class="aurora-glow"></div>
+    <div class="wrap">
+      <div class="label-tag">Flashy 3 &middot; animated gradient frame + glow</div>
+
+      <div class="who">
+        <div class="avatar"></div>
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer, Workiva</div>
+        </div>
+      </div>
+
+      <div class="bio">
+        <p>I design products customers love, then build the <strong>AI systems</strong> so the team can ship more of them. Right now that means leading <strong>enterprise migration</strong> work at <a href="#">Workiva</a>, where a structured AI workflow got engineers moving 66% of surfaces on their own.</p>
+        <p>Before that I led design at <a href="#">Thrive Global</a> and <a href="#">J.P. Morgan Chase</a>, where I redesigned a robo-advisor used by millions and helped generate $472M in AUM.</p>
+      </div>
+
+      <div class="sec-label">Case studies.</div>
+      <div class="rule-list">
+        <div class="rule-row"><span class="n">01</span><div><div class="t">66% Automated: Enterprise Migration</div><div class="d">Structured AI workflow, zero production regressions.</div></div></div>
+        <div class="rule-row"><span class="n">02</span><div><div class="t">Historical Data Roll Forward</div><div class="d">A full-day task cut to minutes, 35% increase in SEC bookings.</div></div></div>
+        <div class="rule-row"><span class="n">03</span><div><div class="t">Chase Advisor Video Platform</div><div class="d">Video collaboration suite for 5,000+ wealth advisors.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const btns = document.querySelectorAll('#switcher button');
+  const pages = document.querySelectorAll('.page');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      pages.forEach(p => p.classList.toggle('active', p.dataset.id === btn.dataset.page));
+    });
+  });
+
+  // subtle cursor-tilt on the flagship thumbnail
+  const tiltCard = document.getElementById('tiltCard');
+  if (tiltCard && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    tiltCard.addEventListener('mousemove', (e) => {
+      const r = tiltCard.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      tiltCard.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) scale(1.01)`;
+    });
+    tiltCard.addEventListener('mouseleave', () => { tiltCard.style.transform = ''; });
+  }
+</script>
+
+</body>
+</html>
