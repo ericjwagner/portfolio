@@ -162,37 +162,6 @@
       white-space: nowrap;
     }
 
-    /* ── Flagship card (hero) ── */
-    .feat-card {
-      position: relative;
-      display: block;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      text-decoration: none;
-      color: #fff;
-      aspect-ratio: 16/9;
-      background: #111;
-      transition: box-shadow var(--dur-short) var(--ease-out);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
-    }
-    .feat-card:hover { box-shadow: 0 24px 48px -12px rgba(0,0,0,0.35); }
-    .feat-card img {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-      transition: transform var(--dur-long) var(--ease-out), filter var(--dur-long) var(--ease-out);
-      filter: grayscale(0.35) contrast(1.05);
-    }
-    .feat-card:hover img { transform: scale(1.045); filter: grayscale(0) contrast(1.08); }
-    .feat-card::after {
-      content: "";
-      position: absolute; inset: 0;
-      background: linear-gradient(0deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0) 70%);
-    }
-    .feat-body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: var(--space-lg); }
-    .feat-title {
-      display: block;
-      color: #fff;
-    }
-
     /* ── Case study grid (horizontal, 2.5 visible) ── */
     .grid-row {
       display: flex;
@@ -223,12 +192,12 @@
       aspect-ratio: 4/3;
       object-fit: cover;
       border-radius: var(--radius-sm);
-      filter: grayscale(1) contrast(1.05);
       background: var(--color-paper-2);
-      transition: filter var(--dur-short) var(--ease-out);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+      transition: box-shadow var(--dur-short) var(--ease-out);
     }
 
-    .grid-card:hover .grid-card__thumb { filter: grayscale(0) contrast(1.08); }
+    .grid-card:hover .grid-card__thumb { box-shadow: 0 16px 32px -10px rgba(0,0,0,0.3); }
 
     .grid-card__title {
       margin-top: var(--space-sm);
@@ -435,6 +404,99 @@
 
     footer.foot-dense a:hover { text-decoration-color: var(--color-ink); }
 
+    /* ── Password gate ── */
+    .pw-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(20, 18, 14, 0.45);
+      padding: var(--space-lg);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+    .pw-overlay.is-open { opacity: 1; pointer-events: auto; }
+
+    .pw-dialog {
+      position: relative;
+      width: 100%; max-width: 22rem;
+      background: var(--color-paper);
+      border: 1px solid var(--color-rule);
+      border-radius: var(--radius-md);
+      padding: var(--space-xl);
+      box-shadow: 0 24px 48px -12px rgba(0,0,0,0.35);
+      transform: translateY(8px) scale(0.98);
+      transition: transform var(--dur-short) var(--ease-out);
+    }
+
+    .pw-close {
+      position: absolute;
+      top: var(--space-md);
+      right: var(--space-md);
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      color: var(--color-neutral);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: color var(--dur-short) var(--ease-out), background var(--dur-short) var(--ease-out);
+    }
+    .pw-close:hover { color: var(--color-ink); background: var(--color-paper-2); }
+    .pw-close svg { width: 16px; height: 16px; }
+    .pw-overlay.is-open .pw-dialog { transform: none; }
+
+    .pw-dialog.is-shaking { animation: pw-shake 380ms var(--ease-out); }
+    @keyframes pw-shake {
+      10%, 90% { transform: translateX(-1px); }
+      20%, 80% { transform: translateX(2px); }
+      30%, 50%, 70% { transform: translateX(-5px); }
+      40%, 60% { transform: translateX(5px); }
+    }
+
+    .pw-dialog h2 { margin-bottom: var(--space-2xs); }
+    .pw-dialog p { font-size: var(--text-sm); color: var(--color-muted); margin-bottom: var(--space-md); }
+
+    .pw-otp { display: flex; gap: var(--space-sm); }
+
+    .pw-otp-digit {
+      width: 100%;
+      aspect-ratio: 1;
+      font-family: var(--font-mono);
+      font-size: var(--text-lg);
+      text-align: center;
+      color: var(--color-ink);
+      background: var(--color-paper-2);
+      border: 1px solid var(--color-rule);
+      border-radius: var(--radius-sm);
+      transition: border-color var(--dur-short) var(--ease-out);
+    }
+    .pw-otp-digit:focus { border-color: var(--color-ink); }
+    .pw-otp-digit.is-error { border-color: #b3492f; }
+
+    .pw-error {
+      font-size: var(--text-xs);
+      color: #b3492f;
+      margin-top: var(--space-2xs);
+      min-height: 1em;
+    }
+
+    .pw-actions { margin-top: var(--space-md); }
+
+    .pw-btn {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      border-radius: var(--radius-sm);
+      padding: var(--space-sm) var(--space-md);
+      cursor: pointer;
+      transition: opacity var(--dur-short) var(--ease-out), background var(--dur-short) var(--ease-out);
+    }
+    .pw-btn-submit { background: var(--color-paper-2); border: 1px solid var(--color-rule); color: var(--color-ink); }
+    .pw-btn-submit:hover { border-color: var(--color-ink); }
+
     /* ══════════════════ Responsive ══════════════════ */
 
     @media (max-width: 40rem) {
@@ -463,7 +525,7 @@
       </div>
 
       <div class="bio">
-        <p>I design complex enterprise products and AI workflows that scale design quality across teams.</p><p>Currently, I lead AI initiatives for Financial Reporting at&nbsp;<a class="ilink" href="https://www.workiva.com" target="_blank" rel="noopener" data-brand="workiva"><span class="ico"><img src="assets/logo-workiva.png" alt=""></span><span class="ilabel">Workiva</span></a>. Along the way, I developed AI workflows that enabled engineering teams to ship UI updates independently, and designed core reporting tools that drove a 35% increase in YoY bookings.</p><p>At&nbsp;<a class="ilink" href="https://www.chase.com" target="_blank" rel="noopener" data-brand="jpm"><span class="ico"><img src="assets/chase-bank.png" alt=""></span><span class="ilabel">Chase</span></a>, I built a virtual meeting platform connecting clients nationwide with thousands of wealth advisors, earning a 9.5/10 client rating at launch.</p>
+        <p>I design complex enterprise products and AI workflows that scale design quality across teams.</p><p>Currently, I lead AI projects on the Financial Reporting team at&nbsp;<a class="ilink" href="https://www.workiva.com" target="_blank" rel="noopener" data-brand="workiva"><span class="ico"><img src="assets/logo-workiva.png" alt=""></span><span class="ilabel">Workiva</span></a>. Along the way, I developed AI workflows that enabled engineering teams to ship UI updates independently, and designed core reporting tools that drove a 35% increase in YoY bookings.</p><p>At&nbsp;<a class="ilink" href="https://www.chase.com" target="_blank" rel="noopener" data-brand="jpm"><span class="ico"><img src="assets/chase-bank.png" alt=""></span><span class="ilabel">Chase</span></a>, I built a virtual meeting platform connecting clients nationwide with thousands of wealth advisors, earning a 9.5/10 client rating at launch.</p>
       </div>
     </div>
 
@@ -474,24 +536,17 @@
         
       </div>
 
-      <a class="feat-card" href="projects/ai-design-enablement.html">
-        <img src="https://picsum.photos/seed/network-grid/900/506" alt="">
-        <span class="feat-body">
-          <span class="feat-title">66% Automated: Enterprise Migration</span>
-        </span>
-      </a>
-
       <div class="grid-row">
-        <a class="grid-card" href="projects/historical-data-roll-forward.html">
-          <img class="grid-card__thumb" src="https://picsum.photos/seed/archive-shelves/480/360" alt="">
+        <a class="grid-card" href="projects/historical-data-roll-forward.html" data-protected="2424">
+          <img class="grid-card__thumb" src="assets/images/placeholder-lock.svg" alt="">
           <div class="grid-card__title">Historical Data Roll Forward</div>
         </a>
         <a class="grid-card" href="projects/chase-video-platform.html">
-          <img class="grid-card__thumb" src="https://picsum.photos/seed/glass-office/480/360" alt="">
+          <img class="grid-card__thumb" src="assets/images/chase-video-platform/virtual-meeting-collab-1.webp" alt="">
           <div class="grid-card__title">Chase Advisor Video Platform</div>
         </a>
         <a class="grid-card" href="projects/jpmorgan-automated-investing.html">
-          <img class="grid-card__thumb" src="https://picsum.photos/seed/ticker-tape/480/360" alt="">
+          <img class="grid-card__thumb" src="assets/images/jpmorgan-automated-investing/automated-investing-pulse-dashboard-19.webp" alt="">
           <div class="grid-card__title">J.P. Morgan Automated Investing</div>
         </a>
       </div>
@@ -643,7 +698,110 @@
     </footer>
   </div>
 
+  <div class="pw-overlay" id="pwOverlay">
+    <form class="pw-dialog" id="pwDialog">
+      <button type="button" class="pw-close" id="pwCancel" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <h2>Password required</h2>
+      <p>Enter password to view.</p>
+      <div class="pw-otp" id="pwOtp">
+        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pw-otp-digit" autocomplete="off" />
+        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pw-otp-digit" autocomplete="off" />
+        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pw-otp-digit" autocomplete="off" />
+        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pw-otp-digit" autocomplete="off" />
+      </div>
+      <div class="pw-error" id="pwError"></div>
+      <div class="pw-actions">
+        <button type="submit" class="pw-btn pw-btn-submit">Unlock</button>
+      </div>
+    </form>
+  </div>
 
+  <script>
+    (function () {
+      var overlay = document.getElementById('pwOverlay');
+      var dialog = document.getElementById('pwDialog');
+      var digits = Array.prototype.slice.call(document.querySelectorAll('.pw-otp-digit'));
+      var error = document.getElementById('pwError');
+      var cancelBtn = document.getElementById('pwCancel');
+      var pendingHref = null;
 
+      function currentValue() {
+        return digits.map(function (d) { return d.value; }).join('');
+      }
+
+      function clearError() {
+        digits.forEach(function (d) { d.classList.remove('is-error'); });
+        error.textContent = '';
+      }
+
+      function openDialog(href) {
+        pendingHref = href;
+        digits.forEach(function (d) { d.value = ''; });
+        clearError();
+        overlay.classList.add('is-open');
+        setTimeout(function () { digits[0].focus(); }, 0);
+      }
+
+      function closeDialog() {
+        overlay.classList.remove('is-open');
+        pendingHref = null;
+      }
+
+      document.querySelectorAll('[data-protected]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          openDialog({ url: link.getAttribute('href'), password: link.getAttribute('data-protected') });
+        });
+      });
+
+      digits.forEach(function (d, i) {
+        d.addEventListener('input', function () {
+          d.value = d.value.replace(/[^0-9]/g, '');
+          clearError();
+          if (d.value && i < digits.length - 1) digits[i + 1].focus();
+          if (d.value && i === digits.length - 1) dialog.requestSubmit();
+        });
+        d.addEventListener('keydown', function (e) {
+          if (e.key === 'Backspace' && !d.value && i > 0) digits[i - 1].focus();
+          if (e.key === 'ArrowLeft' && i > 0) digits[i - 1].focus();
+          if (e.key === 'ArrowRight' && i < digits.length - 1) digits[i + 1].focus();
+        });
+        d.addEventListener('paste', function (e) {
+          e.preventDefault();
+          var chars = (e.clipboardData.getData('text') || '').replace(/[^0-9]/g, '').split('');
+          digits.forEach(function (dg, j) { dg.value = chars[j] || ''; });
+          clearError();
+          var next = Math.min(chars.length, digits.length - 1);
+          digits[next].focus();
+        });
+      });
+
+      dialog.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!pendingHref) return;
+        if (currentValue() === pendingHref.password) {
+          window.location.href = pendingHref.url;
+        } else {
+          digits.forEach(function (d) { d.classList.add('is-error'); });
+          error.textContent = 'Incorrect password.';
+          dialog.classList.remove('is-shaking');
+          void dialog.offsetWidth;
+          dialog.classList.add('is-shaking');
+          digits.forEach(function (d) { d.value = ''; });
+          digits[0].focus();
+        }
+      });
+
+      cancelBtn.addEventListener('click', closeDialog);
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeDialog();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeDialog();
+      });
+    })();
+  </script>
 
 </body></html>

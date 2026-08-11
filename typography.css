@@ -25,7 +25,7 @@ a { color: inherit; }
   font-size: 1.75rem; /* 28px — between --text-lg (22px) and --text-xl (32px) */
 }
 
-:where(.sec-head h2, .case-study h2, .stat-number, .fav-group-label, .feat-title, .exp-label) {
+:where(.sec-head h2, .case-study h2, .pw-dialog h2, .stat-number, .fav-group-label, .feat-title, .exp-label) {
   font-family: "Familjen Grotesk", var(--font-body), sans-serif;
   font-weight: 400;
   font-size: var(--text-lg);
@@ -68,7 +68,7 @@ a { color: inherit; }
 :where(.fav-link-list .link-domain, table.exp-table td.exp-dates) {
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: var(--text-base);
+  font-size: var(--text-sm);
   color: var(--color-neutral);
   line-height: 1.4;
 }

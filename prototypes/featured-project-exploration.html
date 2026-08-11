@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exploration &middot; Featured Project + Carousel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Familjen+Grotesk:wght@400;600;700&family=Geist:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../tokens.css">
+  <link rel="stylesheet" href="../typography.css">
+  <style>
+    /* LOCKED VISUAL REFERENCE — do not wire into live site until the
+       "66% Automated: Enterprise Migration" case study has real images
+       and is ready to deploy. Saved 2026-08-10. */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { overflow-x: clip; scroll-behavior: smooth; }
+    body { overflow-x: clip; }
+
+    body {
+      background: var(--color-paper);
+      color: var(--color-ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { background: var(--color-accent-soft); color: var(--color-ink); }
+    :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+
+    .wrap { max-width: 46rem; margin: 0 auto; padding: var(--space-3xl) var(--space-lg) var(--space-3xl); }
+
+    .note {
+      border: 1px dashed var(--color-rule);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-bottom: var(--space-2xl);
+      font-size: var(--text-sm);
+      color: var(--color-muted);
+      line-height: 1.5;
+    }
+    .note strong { color: var(--color-ink); }
+
+    /* ── Section head ── */
+    .sec-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .sec-head span { font-size: var(--text-xs); color: var(--color-neutral); white-space: nowrap; }
+
+    /* ── Flagship card (hero) ── */
+    .feat-card {
+      position: relative;
+      display: block;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      text-decoration: none;
+      color: #fff;
+      aspect-ratio: 16/9;
+      background: #111;
+      transition: box-shadow var(--dur-short) var(--ease-out);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+    .feat-card:hover { box-shadow: 0 24px 48px -12px rgba(0,0,0,0.35); }
+    .feat-card img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      transition: transform var(--dur-long) var(--ease-out), filter var(--dur-long) var(--ease-out);
+      filter: grayscale(0.35) contrast(1.05);
+    }
+    .feat-card:hover img { transform: scale(1.045); filter: grayscale(0) contrast(1.08); }
+    .feat-card::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0) 70%);
+    }
+    .feat-body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: var(--space-lg); }
+    .feat-title { display: block; color: #fff; }
+
+    /* ── Case study grid (horizontal, 2.5 visible) ── */
+    .grid-row {
+      display: flex;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      margin-left: calc(var(--space-lg) * -1);
+      margin-right: calc(var(--space-lg) * -1);
+      padding-left: var(--space-lg);
+      padding-right: var(--space-lg);
+      scroll-padding-left: var(--space-lg);
+    }
+    .grid-row::-webkit-scrollbar { display: none; }
+
+    .grid-card { flex: 0 0 40%; scroll-snap-align: start; text-decoration: none; color: inherit; }
+
+    .grid-card__thumb {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      background: var(--color-paper-2);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+      transition: box-shadow var(--dur-short) var(--ease-out);
+    }
+    .grid-card:hover .grid-card__thumb { box-shadow: 0 16px 32px -10px rgba(0,0,0,0.3); }
+
+    .grid-card__title { margin-top: var(--space-sm); }
+
+    @media (max-width: 40rem) {
+      .grid-card { flex-basis: 72%; }
+      .grid-row {
+        margin-left: calc(var(--space-md) * -1);
+        margin-right: calc(var(--space-md) * -1);
+        padding-left: var(--space-md);
+        padding-right: var(--space-md);
+        scroll-padding-left: var(--space-md);
+      }
+    }
+
+    .view-all-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: var(--space-lg);
+      font-size: var(--text-base);
+      font-weight: 400;
+      color: var(--color-ink);
+      text-decoration: none;
+      border-bottom: 1.5px solid var(--color-rule);
+      padding-bottom: 1px;
+      transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+
+    <p class="note"><strong>Reference only.</strong> This is the featured-project + carousel treatment from the homepage, saved as-is. The hero slot is reserved for "66% Automated: Enterprise Migration" &mdash; it's hidden from the live site until that case study has real images and is ready to deploy. Swap the hero <code>href</code>/image/title back in when it's ready.</p>
+
+    <section>
+      <div class="sec-head">
+        <h2>Projects</h2>
+      </div>
+
+      <a class="feat-card" href="../projects/ai-design-enablement.html">
+        <img src="../assets/images/placeholder-lock.svg" alt="">
+        <span class="feat-body">
+          <span class="feat-title">66% Automated: Enterprise Migration</span>
+        </span>
+      </a>
+
+      <div class="grid-row">
+        <a class="grid-card" href="../projects/historical-data-roll-forward.html">
+          <img class="grid-card__thumb" src="../assets/images/placeholder-lock.svg" alt="">
+          <div class="grid-card__title">Historical Data Roll Forward</div>
+        </a>
+        <a class="grid-card" href="../projects/chase-video-platform.html">
+          <img class="grid-card__thumb" src="../assets/images/chase-video-platform/virtual-meeting-collab-1.webp" alt="">
+          <div class="grid-card__title">Chase Advisor Video Platform</div>
+        </a>
+        <a class="grid-card" href="../projects/jpmorgan-automated-investing.html">
+          <img class="grid-card__thumb" src="../assets/images/jpmorgan-automated-investing/automated-investing-pulse-dashboard-19.webp" alt="">
+          <div class="grid-card__title">J.P. Morgan Automated Investing</div>
+        </a>
+      </div>
+
+      <a class="view-all-link" href="../projects.html">
+        View all projects
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 19L19 5M19 5H8M19 5V16"></path></svg>
+      </a>
+    </section>
+
+  </div>
+
+</body>
+</html>

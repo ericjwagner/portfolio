@@ -81,11 +81,12 @@
 
     .index-row__thumb {
       width: 84px; height: 62px; object-fit: cover; border-radius: var(--radius-sm);
-      filter: grayscale(1) contrast(1.05); flex-shrink: 0; background: var(--color-paper-2);
-      transition: filter var(--dur-short) var(--ease-out);
+      flex-shrink: 0; background: var(--color-paper-2);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+      transition: box-shadow var(--dur-short) var(--ease-out);
     }
 
-    .index-row:hover .index-row__thumb { filter: none; }
+    .index-row:hover .index-row__thumb { box-shadow: 0 10px 20px -8px rgba(0,0,0,0.3); }
 
     .index-row__body { flex: 1; min-width: 0; }
     .index-row__desc { margin-top: var(--space-3xs); font-size: var(--text-sm); color: var(--color-muted); transition: color var(--dur-short) var(--ease-out); }
@@ -122,7 +123,7 @@
     <div class="index-list">
 
       <a class="index-row" href="projects/ai-design-enablement.html">
-        <img class="index-row__thumb" src="https://picsum.photos/seed/network-grid/320/220" alt="" />
+        <img class="index-row__thumb" src="assets/images/placeholder-lock.svg" alt="" />
         <div class="index-row__body">
           <div class="index-row__title">66% Automated: Enterprise Migration</div>
           <p class="index-row__desc">How I enabled engineers to migrate 31 of 47 product surfaces autonomously using a structured AI workflow, with zero production regressions.</p>
@@ -130,7 +131,7 @@
       </a>
 
       <a class="index-row" href="projects/historical-data-roll-forward.html">
-        <img class="index-row__thumb" src="https://picsum.photos/seed/archive-shelves/320/220" alt="" />
+        <img class="index-row__thumb" src="assets/images/placeholder-lock.svg" alt="" />
         <div class="index-row__body">
           <div class="index-row__title">Historical Data Roll Forward</div>
           <p class="index-row__desc">Automated a quarterly financial reporting task that took 75% of users a full day, cutting it to minutes and driving a 35% increase in SEC bookings.</p>
@@ -138,7 +139,7 @@
       </a>
 
       <a class="index-row" href="projects/chase-video-platform.html">
-        <img class="index-row__thumb" src="https://picsum.photos/seed/glass-office/320/220" alt="" />
+        <img class="index-row__thumb" src="assets/images/chase-video-platform/virtual-meeting-collab-1.webp" alt="" />
         <div class="index-row__body">
           <div class="index-row__title">Chase Advisor Video Platform</div>
           <p class="index-row__desc">Built Chase's first video collaboration suite from scratch, enabling 5,000+ wealth advisors to meet clients remotely and launching a new investment product line.</p>
@@ -146,7 +147,7 @@
       </a>
 
       <a class="index-row" href="projects/jpmorgan-automated-investing.html">
-        <img class="index-row__thumb" src="https://picsum.photos/seed/ticker-tape/320/220" alt="" />
+        <img class="index-row__thumb" src="assets/images/jpmorgan-automated-investing/automated-investing-pulse-dashboard-19.webp" alt="" />
         <div class="index-row__body">
           <div class="index-row__title">J.P. Morgan Automated Investing</div>
           <p class="index-row__desc">Redesigned a robo-advisor used by millions, reducing drop-off and generating $472M in assets under management.</p>
@@ -154,7 +155,7 @@
       </a>
 
       <a class="index-row" href="projects/wellbeing-dashboard-redesign.html">
-        <img class="index-row__thumb" src="https://picsum.photos/seed/quiet-morning/320/220" alt="" />
+        <img class="index-row__thumb" src="assets/images/wellbeing-dashboard-redesign/home-6.webp" alt="" />
         <div class="index-row__body">
           <div class="index-row__title">Well-being Dashboard Redesign</div>
           <p class="index-row__desc">How I helped HR executives prove the ROI of employee well-being, saving Customer Success 600 hours a year in the process.</p>
@@ -162,7 +163,7 @@
       </a>
 
       <a class="index-row" href="projects/wellbeing-insights-dashboard.html">
-        <img class="index-row__thumb" src="https://picsum.photos/seed/soft-window/320/220" alt="" />
+        <img class="index-row__thumb" src="assets/images/wellbeing-insights-dashboard/well-being-dashboard-insights-desktop.webp" alt="" />
         <div class="index-row__body">
           <div class="index-row__title">Employee Well-being Insights Dashboard</div>
           <p class="index-row__desc">Designed the first user-level well-being dashboard at Thrive, driving a 31K increase in weekly check-in responses and a 90% interaction rate.</p>
@@ -170,7 +171,7 @@
       </a>
 
       <a class="index-row" href="projects/structured-data-north-star.html">
-        <img class="index-row__thumb" src="https://picsum.photos/seed/paper-grid/320/220" alt="" />
+        <img class="index-row__thumb" src="assets/images/placeholder-lock.svg" alt="" />
         <div class="index-row__body">
           <div class="index-row__title">Structured Data North Star</div>
           <p class="index-row__desc">A north star vision for Workiva's structured data tools, unifying a disconnected product suite with AI-driven tagging and guided workflows for compliance reporting.</p>
@@ -178,7 +179,7 @@
       </a>
 
       <a class="index-row" href="projects/internal-admin-tool.html">
-        <img class="index-row__thumb" src="https://picsum.photos/seed/control-panel/320/220" alt="" />
+        <img class="index-row__thumb" src="assets/images/internal-admin-tool/admin-tool-admin-dash.webp" alt="" />
         <div class="index-row__body">
           <div class="index-row__title">Internal Admin Tool Redesign</div>
           <p class="index-row__desc">Replaced a deprecated customer admin tool in 6 weeks, improving onboarding speed and reducing support tickets caused by confusing group codes.</p>
