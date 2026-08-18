@@ -186,7 +186,13 @@
       scroll-snap-align: start;
       text-decoration: none;
       color: inherit;
+      padding: var(--space-sm);
+      margin: calc(var(--space-sm) * -1);
+      border-radius: var(--radius-md);
+      transition: background var(--dur-short) var(--ease-out);
     }
+
+    .grid-card:hover { background: var(--color-paper-2); }
 
     .grid-card__thumb {
       display: block;
@@ -196,12 +202,6 @@
       border-radius: var(--radius-sm);
       background: var(--color-paper-2);
       box-shadow: 0 1px 2px rgba(0,0,0,0.06);
-      transition: box-shadow var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
-    }
-
-    .grid-card:hover .grid-card__thumb {
-      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4);
-      transform: translateY(-5px);
     }
 
     .grid-card__title {
