@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="moody">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homepage &middot; Color Variations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Familjen+Grotesk:wght@400;600;700&family=Geist:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../tokens.css">
+  <link rel="stylesheet" href="../typography.css">
+  <style>
+    /* ══════════════════ Theme overrides ══════════════════
+       Each variation redefines the token set from tokens.css.
+       An attribute selector beats :root, so these win without !important. */
+
+    html[data-theme="moody"] {
+      --color-paper:       #121110;
+      --color-paper-2:     #1c1a17;
+      --color-rule:         #35322c;
+      --color-neutral:     #948a7c;
+      --color-muted:       #bcb1a3;
+      --color-ink:         #f2ede4;
+      --color-accent:      #f2ede4;
+      --color-accent-soft: #26211a;
+      --color-focus:       #d9a066;
+
+      --accent2:            #a97c4f;
+      --accent2-soft:       #2c2118;
+      --brand-workiva:      #7ed37e;
+      --brand-workiva-soft: #1c2b1c;
+      --brand-thrive:       #5cc9b8;
+      --brand-thrive-soft:  #16302c;
+      --brand-jpm:          #6fa8dc;
+      --brand-jpm-soft:     #1c2530;
+    }
+
+    html[data-theme="khaki"] {
+      --color-paper:       #f1ead9;
+      --color-paper-2:     #e7ddc4;
+      --color-rule:         #cebfa0;
+      --color-neutral:     #8c8163;
+      --color-muted:       #6e6448;
+      --color-ink:         #2b2718;
+      --color-accent:      #2b2718;
+      --color-accent-soft: #e7ddc4;
+      --color-focus:       #5c6b34;
+
+      --accent2:            #5c6b34;
+      --accent2-soft:       #dbdfc0;
+      --brand-workiva:      #3f8a3f;
+      --brand-workiva-soft: #dcecc8;
+      --brand-thrive:       #1f8a7a;
+      --brand-thrive-soft:  #cde9df;
+      --brand-jpm:          #1279cd;
+      --brand-jpm-soft:     #d6e6f2;
+    }
+
+    html[data-theme="technical"] {
+      --color-paper:       #f4f6f7;
+      --color-paper-2:     #e7ebee;
+      --color-rule:         #cbd3d9;
+      --color-neutral:     #74838d;
+      --color-muted:       #4d5b64;
+      --color-ink:         #0f171d;
+      --color-accent:      #0f171d;
+      --color-accent-soft: #dce7ee;
+      --color-focus:       #2563eb;
+
+      --accent2:            #2563eb;
+      --accent2-soft:       #dbe6fd;
+      --brand-workiva:      #16a34a;
+      --brand-workiva-soft: #dcf5e4;
+      --brand-thrive:       #0891b2;
+      --brand-thrive-soft:  #d7f0f5;
+      --brand-jpm:          #2563eb;
+      --brand-jpm-soft:     #dbe6fd;
+    }
+
+    /* Technical: swap headings/labels to mono, add a faint grid texture */
+    html[data-theme="technical"] :where(.sec-head h2, .case-study h2, .pw-dialog h2, .stat-number, .fav-group-label, .feat-title, .exp-label, .who-text .name) {
+      font-family: var(--font-mono);
+      letter-spacing: -0.02em;
+    }
+    html[data-theme="technical"] body {
+      background-image:
+        linear-gradient(color-mix(in srgb, var(--color-ink) 4%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in srgb, var(--color-ink) 4%, transparent) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    html[data-theme="technical"] .role {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+    }
+
+    /* Moody: subtle vignette for cinematic depth */
+    html[data-theme="moody"] body {
+      background-image: radial-gradient(ellipse 60% 40% at 50% 0%, color-mix(in srgb, var(--accent2) 10%, transparent), transparent 70%);
+    }
+
+    /* ══════════════════ Switcher ══════════════════ */
+    .theme-switcher {
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      display: flex;
+      justify-content: center;
+      gap: var(--space-2xs);
+      padding: var(--space-sm);
+      background: color-mix(in srgb, var(--color-paper) 88%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--color-rule);
+    }
+    .theme-switcher button {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: var(--color-muted);
+      background: none;
+      border: 1px solid var(--color-rule);
+      border-radius: 999px;
+      padding: var(--space-2xs) var(--space-md);
+      cursor: pointer;
+      transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), background var(--dur-short) var(--ease-out);
+    }
+    .theme-switcher button:hover { color: var(--color-ink); border-color: var(--color-ink); }
+    .theme-switcher button.is-active {
+      color: var(--color-paper);
+      background: var(--color-ink);
+      border-color: var(--color-ink);
+    }
+
+    /* genre: editorial single-scroll · theme: Ink & Rule (monochrome + olive accent, dual-mode) · nav: none · footer: dense typographic */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { overflow-x: clip; }
+    body { overflow-x: clip; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--color-paper);
+      color: var(--color-ink);
+      -webkit-font-smoothing: antialiased;
+      transition: background-color var(--dur-long) var(--ease-out), color var(--dur-long) var(--ease-out);
+    }
+
+    ::selection { background: var(--color-accent-soft); color: var(--color-ink); }
+
+    :focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: 3px;
+    }
+
+    /* ── Reveal ── */
+    .reveal { opacity: 1; }
+
+    /* ══════════════════ Main ══════════════════ */
+
+    .wrap {
+      max-width: 46rem;
+      margin: 0 auto;
+      padding: var(--space-3xl) var(--space-lg) var(--space-3xl);
+    }
+
+    /* ── Intro ── */
+    .intro { margin-bottom: var(--space-2xl); }
+
+    .who {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--color-paper-2);
+      border: 1px solid var(--color-rule);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 55%;
+      transform: scale(1.22) translate(1px, 4px);
+    }
+
+    .ico {
+      width: 19px;
+      height: 19px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      background: var(--color-paper-2);
+      color: var(--color-muted);
+      transition: background var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+      overflow: hidden;
+    }
+
+    .ico:has(img) { background: none; }
+
+    .ico img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 2px;
+      filter: grayscale(1) brightness(0);
+      transition: filter var(--dur-short) var(--ease-out);
+    }
+
+    html[data-theme="moody"] .ico img { filter: grayscale(1) brightness(0) invert(1); }
+
+    .ilink:hover .ico img { filter: none; }
+
+    .ilink {
+      color: var(--color-ink);
+      font-weight: inherit;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 3px;
+      transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+
+    .ilink .ico { align-self: center; }
+
+    .ilink .ilabel {
+      text-decoration: underline;
+      text-decoration-color: var(--color-rule);
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 3.5px;
+      transition: text-decoration-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+    }
+
+    .ilink[data-brand="workiva"]:hover { color: var(--brand-workiva); }
+    .ilink[data-brand="thrive"]:hover { color: var(--brand-thrive); }
+    .ilink[data-brand="jpm"]:hover { color: var(--brand-jpm); }
+
+    /* ── Section head ── */
+    .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-md); margin-bottom: var(--space-lg); }
+    .sec-head span { font-size: var(--text-xs); color: var(--color-neutral); white-space: nowrap; }
+
+    /* ── Case study grid ── */
+    .grid-row {
+      display: flex;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      margin-left: calc(var(--space-lg) * -1);
+      margin-right: calc(var(--space-lg) * -1);
+      padding-left: var(--space-lg);
+      padding-right: var(--space-lg);
+      scroll-padding-left: var(--space-lg);
+    }
+    .grid-row::-webkit-scrollbar { display: none; }
+
+    .grid-card { flex: 0 0 40%; scroll-snap-align: start; text-decoration: none; color: inherit; }
+
+    .grid-card__thumb {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      background: var(--color-paper-2);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+      transition: box-shadow var(--dur-short) var(--ease-out);
+    }
+
+    .grid-card:hover .grid-card__thumb { box-shadow: 0 16px 32px -10px rgba(0,0,0,0.3); }
+    .grid-card__title { margin-top: var(--space-sm); }
+
+    @media (max-width: 40rem) {
+      .grid-card { flex-basis: 72%; }
+      .grid-row {
+        margin-left: calc(var(--space-md) * -1);
+        margin-right: calc(var(--space-md) * -1);
+        padding-left: var(--space-md);
+        padding-right: var(--space-md);
+        scroll-padding-left: var(--space-md);
+      }
+    }
+
+    .view-all-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: var(--space-lg);
+      font-size: var(--text-base);
+      font-weight: 400;
+      color: var(--color-ink);
+      text-decoration: none;
+      border-bottom: 1.5px solid var(--color-rule);
+      padding-bottom: 1px;
+      transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .view-all-link:hover { border-color: var(--accent2); }
+    .view-all-link svg { width: 12px; height: 12px; transition: transform var(--dur-short) var(--ease-out); }
+    .view-all-link:hover svg { transform: translate(3px, -3px); }
+
+    /* ── Page-corner frame ── */
+    .page-corner { position: fixed; width: 14px; height: 14px; z-index: 500; pointer-events: none; }
+    .page-corner::before, .page-corner::after { content: ""; position: absolute; background: color-mix(in srgb, var(--accent2) 45%, var(--color-rule)); }
+    .page-corner::before { width: 100%; height: 1.5px; }
+    .page-corner::after { width: 1.5px; height: 100%; }
+    .page-corner-tl { top: 52px; left: 16px; }
+    .page-corner-tl::before, .page-corner-tl::after { top: 0; left: 0; }
+    .page-corner-tr { top: 52px; right: 16px; }
+    .page-corner-tr::before, .page-corner-tr::after { top: 0; right: 0; }
+    .page-corner-bl { bottom: 16px; left: 16px; }
+    .page-corner-bl::before { bottom: 0; left: 0; }
+    .page-corner-bl::after { top: 0; left: 0; }
+    .page-corner-br { bottom: 16px; right: 16px; }
+    .page-corner-br::before { bottom: 0; right: 0; }
+    .page-corner-br::after { top: 0; right: 0; }
+    @media (max-width: 40rem) { .page-corner { display: none; } }
+
+    /* ── Favorites ── */
+    .fav-group { margin-bottom: var(--space-2xl); }
+    .fav-group:last-child { margin-bottom: 0; }
+    .fav-group-label { margin-bottom: var(--space-md); }
+
+    .fav-link-list { list-style: none; padding: 0 var(--space-sm); margin: 0 calc(var(--space-sm) * -1); }
+    .fav-link-list li { border-bottom: 1px solid var(--color-rule); }
+    .fav-link-list li:first-child { border-top: 1px solid var(--color-rule); }
+
+    .fav-link-list a {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md) var(--space-2xs);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      color: var(--color-ink);
+      transition: background var(--dur-short) var(--ease-out);
+    }
+    .fav-link-list a:hover { background: var(--color-paper-2); }
+
+    .fav-link-list .link-thumb {
+      width: 48px; height: 48px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      flex-shrink: 0;
+      background: var(--color-paper-2);
+      filter: grayscale(1);
+      transition: filter var(--dur-short) var(--ease-out);
+    }
+    .fav-link-list a:hover .link-thumb { filter: none; }
+    .fav-link-list a:hover .link-desc, .fav-link-list a:hover .link-domain { color: var(--color-ink); }
+
+    .spotify-embed iframe { filter: grayscale(1); transition: filter var(--dur-short) var(--ease-out); }
+    .spotify-embed:hover iframe { filter: none; }
+
+    .fav-link-list .link-content { display: flex; flex-direction: column; gap: var(--space-3xs); flex: 1; min-width: 0; }
+    .fav-link-list .link-title-row { display: flex; align-items: center; gap: var(--space-xs); }
+    .fav-link-list .link-domain { white-space: nowrap; flex-shrink: 0; margin-left: auto; }
+
+    /* ── About (reversed) ── */
+    .about-reverse {
+      background: var(--color-ink);
+      color: var(--color-paper);
+      margin-top: var(--space-3xl);
+      padding: var(--space-3xl) 0;
+      transition: background-color var(--dur-long) var(--ease-out), color var(--dur-long) var(--ease-out);
+    }
+    .about-reverse .sec-head h2 { color: var(--color-paper); }
+    .about-reverse .sec-head span { color: color-mix(in srgb, var(--color-paper) 45%, transparent); }
+
+    .about-cols { display: grid; grid-template-columns: 1fr; gap: var(--space-md); }
+    .about-cols p {
+      font-size: var(--text-md);
+      line-height: 1.7;
+      max-width: 56ch;
+      color: color-mix(in srgb, var(--color-paper) 88%, transparent);
+    }
+
+    .exp-label { margin-bottom: var(--space-md); }
+
+    table.exp-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+    table.exp-table tr { border-bottom: 1px solid var(--color-rule); }
+    table.exp-table tr:first-child { border-top: 1px solid var(--color-rule); }
+    table.exp-table td { padding: var(--space-sm) var(--space-xs) var(--space-sm) 0; vertical-align: baseline; }
+    table.exp-table td.exp-company { width: 32%; }
+    table.exp-table td.exp-dates { text-align: right; white-space: nowrap; width: 14ch; }
+
+    @media (max-width: 40rem) {
+      .about-cols { grid-template-columns: 1fr; gap: var(--space-lg); }
+    }
+
+    /* ══════════════════ Footer ══════════════════ */
+    footer.foot-dense { margin-top: var(--space-3xl); padding-top: var(--space-lg); border-top: 1px solid var(--color-rule); }
+    footer.foot-dense p { font-size: var(--text-base); color: var(--color-muted); line-height: 1.7; max-width: 60ch; }
+    footer.foot-dense a {
+      color: var(--color-ink);
+      text-decoration: underline;
+      text-decoration-color: var(--color-rule);
+      text-underline-offset: 2px;
+      transition: text-decoration-color var(--dur-short) var(--ease-out);
+    }
+    footer.foot-dense a:hover { text-decoration-color: var(--color-ink); }
+
+    @media (max-width: 40rem) {
+      .wrap { padding: var(--space-2xl) var(--space-md) var(--space-2xl); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="theme-switcher" role="tablist" aria-label="Color variation">
+    <button type="button" data-theme-btn="moody" class="is-active">Moody</button>
+    <button type="button" data-theme-btn="khaki">Khaki &amp; Olive</button>
+    <button type="button" data-theme-btn="technical">Technical</button>
+  </div>
+
+  <span class="page-corner page-corner-tl"></span>
+  <span class="page-corner page-corner-tr"></span>
+  <span class="page-corner page-corner-bl"></span>
+  <span class="page-corner page-corner-br"></span>
+
+  <div class="wrap" style="padding-bottom: 0;">
+
+    <!-- Intro -->
+    <div class="intro reveal">
+      <div class="who">
+        <div class="avatar"><img src="../assets/eric-headshot-2.png" alt="Eric Wagner"></div>
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer at Workiva</div>
+        </div>
+      </div>
+
+      <div class="bio">
+        <p>I design complex enterprise products and AI workflows that scale design quality across teams.</p><p>Currently, I lead AI projects on the Financial Reporting team at&nbsp;<a class="ilink" href="https://www.workiva.com" target="_blank" rel="noopener" data-brand="workiva"><span class="ico"><img src="../assets/logo-workiva.png" alt=""></span><span class="ilabel">Workiva</span></a>. Along the way, I developed AI workflows that enabled engineering teams to ship UI updates independently, and designed core reporting tools that drove a 35% increase in YoY bookings.</p><p>At&nbsp;<a class="ilink" href="https://www.chase.com" target="_blank" rel="noopener" data-brand="jpm"><span class="ico"><img src="../assets/chase-bank.png" alt=""></span><span class="ilabel">Chase</span></a>, I built a virtual meeting platform connecting clients nationwide with thousands of wealth advisors, earning a 9.5/10 client rating at launch.</p>
+      </div>
+    </div>
+
+    <!-- Case study grid -->
+    <section class="reveal">
+      <div class="sec-head">
+        <h2>Projects</h2>
+      </div>
+
+      <div class="grid-row">
+        <a class="grid-card" href="../projects/historical-data-roll-forward.html">
+          <img class="grid-card__thumb" src="../assets/images/placeholder-lock.svg" alt="">
+          <div class="grid-card__title">Historical Data Roll Forward</div>
+        </a>
+        <a class="grid-card" href="../projects/chase-video-platform.html">
+          <img class="grid-card__thumb" src="../assets/images/chase-video-platform/virtual-meeting-collab-1.webp" alt="">
+          <div class="grid-card__title">Chase Advisor Video Platform</div>
+        </a>
+        <a class="grid-card" href="../projects/jpmorgan-automated-investing.html">
+          <img class="grid-card__thumb" src="../assets/images/jpmorgan-automated-investing/automated-investing-pulse-dashboard-19.webp" alt="">
+          <div class="grid-card__title">J.P. Morgan Automated Investing</div>
+        </a>
+      </div>
+
+      <a class="view-all-link" href="../projects.html">
+        View all projects
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 19L19 5M19 5H8M19 5V16"></path></svg>
+      </a>
+    </section>
+  </div>
+
+  <!-- About (reversed background) -->
+  <section id="about" class="about-reverse">
+    <div class="wrap" style="padding-top: 0; padding-bottom: 0;">
+      <div class="sec-head">
+        <h2>My main goal: simplify complexity</h2>
+      </div>
+
+      <div class="about-cols">
+        <p>I took a side door into product design. Early on, I started sitting in on design standups, taking on extra projects after hours, and enrolling in General Assembly to bridge the gap. I&rsquo;ve been pulling up a chair ever since. Today, I&rsquo;m a Staff Product Designer working at the intersection of complex B2B systems and AI tooling, balancing business outcomes with thoughtful craft.</p>
+        <p>My main goal is to turn complexity into simplicity. When things get messy, I resort to first principles: who we&rsquo;re building for, the job to be done, and why it matters.</p>
+        <p>Outside of work, I'm a dad, a drummer, and a perpetual learner. Lately, that's meant AI coding tools, growing a garden for the first time, and trying to make shelves actually level.</p>
+        <p>There's always something to figure out. That part hasn't changed.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap" style="padding-top: 0; padding-bottom: 0;">
+    <!-- Favorites -->
+    <section class="reveal" style="margin-top: var(--space-3xl);">
+      <div class="fav-group">
+        <h2 class="fav-group-label">Inspo</h2>
+        <ul class="fav-link-list">
+          <li>
+            <a href="https://x.com/i/lists/1764931648397988203?s=20" target="_blank" rel="noopener">
+              <img class="link-thumb" src="../assets/logo-x.png" alt="X" style="background:transparent; padding:8px;">
+              <div class="link-content">
+                <div class="link-title-row"><span class="link-name">Designers to follow</span></div>
+                <span class="link-desc">My curated list of designers for news and inspiration</span>
+              </div>
+              <span class="link-domain">List</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.producthunt.com/" target="_blank" rel="noopener">
+              <img class="link-thumb" src="../assets/logo-producthunt.png" alt="Product Hunt" style="background:transparent;">
+              <div class="link-content">
+                <div class="link-title-row"><span class="link-name">Product Hunt</span></div>
+                <span class="link-desc">How I stay on top of what's shipping</span>
+              </div>
+              <span class="link-domain">Website</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://open.spotify.com/show/4aRP2XSavdtrLG5FZoonOK?si=c27b0db1e3834107" target="_blank" rel="noopener">
+              <img class="link-thumb" src="../assets/podcast-how-i-ai.jpg" alt="How I AI">
+              <div class="link-content">
+                <div class="link-title-row"><span class="link-name">How I AI</span></div>
+                <span class="link-desc">Practical AI workflows for product leaders</span>
+              </div>
+              <span class="link-domain">Podcast</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://open.spotify.com/show/6BuKkGfVR7FDaB3VPrN5fo?si=10bd23b49c3d4f68" target="_blank" rel="noopener">
+              <img class="link-thumb" src="../assets/podcast-dive-club.jpg" alt="Dive Club">
+              <div class="link-content">
+                <div class="link-title-row"><span class="link-name">Dive Club</span></div>
+                <span class="link-desc">Deep dives on design, product, and creative work</span>
+              </div>
+              <span class="link-domain">Podcast</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://open.spotify.com/show/5qSUyCrk9KR69lEiXbjwXM?si=19fe7e433bd14316" target="_blank" rel="noopener">
+              <img class="link-thumb" src="../assets/podcast-tim-ferriss.jpg" alt="The Tim Ferriss Show">
+              <div class="link-content">
+                <div class="link-title-row"><span class="link-name">The Tim Ferriss Show</span></div>
+                <span class="link-desc">Long-form interviews with world-class performers</span>
+              </div>
+              <span class="link-domain">Podcast</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="fav-group">
+        <h2 class="fav-group-label">On repeat</h2>
+        <div style="margin-top: var(--space-md);">
+          <div class="spotify-embed">
+            <iframe data-testid="embed-iframe" style="border-radius:var(--radius-md);" src="https://open.spotify.com/embed/playlist/37i9dQZF1CKPJY0UjNTCYl?utm_source=generator&theme=0&si=40ee177c51dd442a" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap" style="padding-top: 0; padding-bottom: 0;">
+    <section class="reveal" style="margin-top: var(--space-3xl);">
+      <h2 class="exp-label">Experience</h2>
+      <table class="exp-table">
+        <tbody>
+          <tr><td class="exp-company">Workiva</td><td class="exp-title">Staff Product Designer</td><td class="exp-dates">2024-Present</td></tr>
+          <tr><td class="exp-company">Thrive Global</td><td class="exp-title">Senior Product Designer</td><td class="exp-dates">2022-2024</td></tr>
+          <tr><td class="exp-company">JPMorgan Chase</td><td class="exp-title">Lead Product Designer, VP</td><td class="exp-dates">2018-2022</td></tr>
+          <tr><td class="exp-company">DOOR3</td><td class="exp-title">UX Designer</td><td class="exp-dates">2017-2018</td></tr>
+          <tr><td class="exp-company">Sermo</td><td class="exp-title">Product Designer</td><td class="exp-dates">2016-2017</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <div class="wrap" style="padding-top: 0;">
+    <footer class="foot-dense">
+      <p>Eric Wagner &middot; <a href="mailto:ericjwag@gmail.com">ericjwag@gmail.com</a><br>
+      <a href="https://www.linkedin.com/in/ericjwagner/" target="_blank" rel="noopener">linkedin.com/in/ericjwagner</a> &middot; Built by me &#129309; AI &middot; 2026</p>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var buttons = Array.prototype.slice.call(document.querySelectorAll('[data-theme-btn]'));
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.documentElement.setAttribute('data-theme', btn.getAttribute('data-theme-btn'));
+          buttons.forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="current">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Olive Green &middot; Variations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Familjen+Grotesk:wght@400;600;700&family=Geist:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../tokens.css">
+  <link rel="stylesheet" href="../typography.css">
+  <style>
+    /* ══════════════════ Theme overrides ══════════════════
+       Four intensities of the olive-green direction, from the current
+       deployed baseline up to a bold, olive-forward treatment. */
+
+    html[data-theme="current"] {
+      /* matches the live site's tokens.css, for side-by-side reference */
+      --color-paper:       #fbfaf8;
+      --color-paper-2:     #f2efe8;
+      --color-rule:         #dedad0;
+      --color-neutral:     #8a8578;
+      --color-muted:       #6b6558;
+      --color-ink:         #17150f;
+      --color-accent:      #17150f;
+      --color-accent-soft: #f2efe8;
+      --color-focus:       #17150f;
+      --accent2:            #5f6b3f;
+      --accent2-soft:       #e7e4d3;
+    }
+
+    html[data-theme="subtle"] {
+      /* small nudge: warmer paper, slightly more present accent */
+      --color-paper:       #f7f2e6;
+      --color-paper-2:     #efe7d2;
+      --color-rule:         #ddd2b3;
+      --color-neutral:     #8c8163;
+      --color-muted:       #6e6448;
+      --color-ink:         #221f14;
+      --color-accent:      #221f14;
+      --color-accent-soft: #efe7d2;
+      --color-focus:       #6b7a3f;
+      --accent2:            #6b7a3f;
+      --accent2-soft:       #e2e6c4;
+    }
+
+    html[data-theme="white-olive"] {
+      /* paper stays clean white; olive lives only in the accent */
+      --color-paper:       #ffffff;
+      --color-paper-2:     #f4f4f2;
+      --color-rule:         #e0e0da;
+      --color-neutral:     #8a8a80;
+      --color-muted:       #64645a;
+      --color-ink:         #16160f;
+      --color-accent:      #16160f;
+      --color-accent-soft: #f4f4f2;
+      --color-focus:       #4a5c2a;
+      --accent2:            #4a5c2a;
+      --accent2-soft:       #e3e8d5;
+    }
+
+    html[data-theme="gray"] {
+      /* neutral gray paper, no green cast at all — olive lives only in the accent */
+      --color-paper:       #f2f2f0;
+      --color-paper-2:     #e4e4e1;
+      --color-rule:         #cbcbc6;
+      --color-neutral:     #85857e;
+      --color-muted:       #5f5f58;
+      --color-ink:         #181816;
+      --color-accent:      #181816;
+      --color-accent-soft: #e4e4e1;
+      --color-focus:       #55692f;
+      --accent2:            #55692f;
+      --accent2-soft:       #dde2cf;
+    }
+
+    html[data-theme="dark-gray"] {
+      /* deeper neutral gray, still no green cast — same step up as Deep Gray-Green */
+      --color-paper:       #d6d6d1;
+      --color-paper-2:     #c5c5bf;
+      --color-rule:         #a8a89f;
+      --color-neutral:     #6e6e63;
+      --color-muted:       #4a4a3f;
+      --color-ink:         #15150f;
+      --color-accent:      #15150f;
+      --color-accent-soft: #c5c5bf;
+      --color-focus:       #445220;
+      --accent2:            #445220;
+      --accent2-soft:       #b9bfa0;
+    }
+
+    html[data-theme="dg-accent"] {
+      /* same neutral dark-gray base — olive shows up only as a bolder, more saturated accent */
+      --color-paper:       #d6d6d1;
+      --color-paper-2:     #c5c5bf;
+      --color-rule:         #a8a89f;
+      --color-neutral:     #6e6e63;
+      --color-muted:       #4a4a3f;
+      --color-ink:         #15150f;
+      --color-accent:      #15150f;
+      --color-accent-soft: #c5c5bf;
+      --color-focus:       #3d5c12;
+      --accent2:            #3d5c12;
+      --accent2-soft:       #a7b878;
+      --heading-olive:      #1f2e10;
+    }
+    /* headings get their own darker olive — keeps them heavier than the lighter link accent,
+       so hierarchy still reads clearly against the gray paper */
+    html[data-theme="dg-accent"] :where(.sec-head h2, .who-text .name, .fav-group-label, .exp-label) { color: var(--heading-olive); }
+
+    html[data-theme="dg-tint"] {
+      /* the gray itself carries a faint olive tint, at the same depth as Dark Gray */
+      --color-paper:       #d3d5c7;
+      --color-paper-2:     #c2c5b3;
+      --color-rule:         #a5a892;
+      --color-neutral:     #6c6f5c;
+      --color-muted:       #48493a;
+      --color-ink:         #14150d;
+      --color-accent:      #14150d;
+      --color-accent-soft: #c2c5b3;
+      --color-focus:       #445220;
+      --accent2:            #445220;
+      --accent2-soft:       #b6bc95;
+    }
+
+    html[data-theme="dg-ink"] {
+      /* background stays pure neutral gray; the text color itself leans dark olive */
+      --color-paper:       #d6d6d1;
+      --color-paper-2:     #c5c5bf;
+      --color-rule:         #a8a89f;
+      --color-neutral:     #6e6e63;
+      --color-muted:       #454f34;
+      --color-ink:         #1c220f;
+      --color-accent:      #1c220f;
+      --color-accent-soft: #c5c5bf;
+      --color-focus:       #445220;
+      --accent2:            #445220;
+      --accent2-soft:       #b9bfa0;
+    }
+
+    html[data-theme="gray-green"] {
+      /* desaturated gray with a faint green cast, not a bright sage */
+      --color-paper:       #e9ebe0;
+      --color-paper-2:     #dadecb;
+      --color-rule:         #bcc0a8;
+      --color-neutral:     #767a68;
+      --color-muted:       #4f5344;
+      --color-ink:         #171911;
+      --color-accent:      #171911;
+      --color-accent-soft: #dadecb;
+      --color-focus:       #55692f;
+      --accent2:            #55692f;
+      --accent2-soft:       #d0d5bd;
+    }
+
+    html[data-theme="deep"] {
+      /* boldest: deeper muted gray-green paper, richer olive accent */
+      --color-paper:       #e4e6da;
+      --color-paper-2:     #d3d6c4;
+      --color-rule:         #aeb29c;
+      --color-neutral:     #666a56;
+      --color-muted:       #44483a;
+      --color-ink:         #14160e;
+      --color-accent:      #14160e;
+      --color-accent-soft: #d3d6c4;
+      --color-focus:       #445220;
+      --accent2:            #445220;
+      --accent2-soft:       #c5cba8;
+    }
+
+    /* brand colors + shared type stay constant across all four so only
+       the paper/ink/accent relationship is being compared */
+    html { --brand-workiva: #4fb84f; --brand-workiva-soft: #e4ecfd; --brand-thrive: #1f9c8a; --brand-thrive-soft: #dcf2ee; --brand-jpm: #1279cd; --brand-jpm-soft: #e2e7ed; }
+
+    /* ══════════════════ Switcher ══════════════════ */
+    .theme-switcher {
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--space-2xs);
+      padding: var(--space-sm);
+      background: color-mix(in srgb, var(--color-paper) 88%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--color-rule);
+    }
+    .theme-switcher button {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: var(--color-muted);
+      background: none;
+      border: 1px solid var(--color-rule);
+      border-radius: 999px;
+      padding: var(--space-2xs) var(--space-md);
+      cursor: pointer;
+      transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), background var(--dur-short) var(--ease-out);
+    }
+    .theme-switcher button:hover { color: var(--color-ink); border-color: var(--color-ink); }
+    .theme-switcher button.is-active {
+      color: var(--color-paper);
+      background: var(--color-ink);
+      border-color: var(--color-ink);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { overflow-x: clip; scroll-behavior: smooth; }
+    body { overflow-x: clip; }
+
+    body {
+      background-color: var(--color-paper);
+      color: var(--color-ink);
+      -webkit-font-smoothing: antialiased;
+      transition: background-color var(--dur-long) var(--ease-out), color var(--dur-long) var(--ease-out);
+    }
+
+    ::selection { background: var(--color-accent-soft); color: var(--color-ink); }
+    :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+
+    .reveal { opacity: 1; }
+
+    .wrap { max-width: 46rem; margin: 0 auto; padding: var(--space-3xl) var(--space-lg) var(--space-3xl); }
+
+    .intro { margin-bottom: var(--space-2xl); }
+
+    .who { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-lg); margin-bottom: var(--space-lg); }
+
+    .avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--color-paper-2);
+      border: 1px solid var(--color-rule);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .avatar img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 55%;
+      transform: scale(1.22) translate(1px, 4px);
+    }
+
+    .ico {
+      width: 19px; height: 19px;
+      border-radius: 4px;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+      flex-shrink: 0;
+      background: var(--color-paper-2);
+      color: var(--color-muted);
+      transition: background var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+      overflow: hidden;
+    }
+    .ico:has(img) { background: none; }
+    .ico img { width: 100%; height: 100%; object-fit: contain; padding: 2px; filter: grayscale(1) brightness(0); transition: filter var(--dur-short) var(--ease-out); }
+    .ilink:hover .ico img { filter: none; }
+
+    .ilink {
+      color: var(--color-ink);
+      font-weight: inherit;
+      text-decoration: none;
+      display: inline-flex; align-items: baseline; gap: 3px;
+      transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .ilink .ico { align-self: center; }
+    .ilink .ilabel {
+      text-decoration: underline;
+      text-decoration-color: var(--color-rule);
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 3.5px;
+      transition: text-decoration-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+    }
+    .ilink[data-brand="workiva"]:hover { color: var(--brand-workiva); }
+    .ilink[data-brand="jpm"]:hover { color: var(--brand-jpm); }
+
+    .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-md); margin-bottom: var(--space-lg); }
+    .sec-head span { font-size: var(--text-xs); color: var(--color-neutral); white-space: nowrap; }
+
+    .grid-row {
+      display: flex; gap: var(--space-md); margin-top: var(--space-lg);
+      overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+      margin-left: calc(var(--space-lg) * -1); margin-right: calc(var(--space-lg) * -1);
+      padding-left: var(--space-lg); padding-right: var(--space-lg);
+      scroll-padding-left: var(--space-lg);
+    }
+    .grid-row::-webkit-scrollbar { display: none; }
+    .grid-card { flex: 0 0 40%; scroll-snap-align: start; text-decoration: none; color: inherit; }
+    .grid-card__thumb {
+      display: block; width: 100%; aspect-ratio: 4/3;
+      object-fit: cover; border-radius: var(--radius-sm);
+      background: var(--color-paper-2);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+      transition: box-shadow var(--dur-short) var(--ease-out);
+    }
+    .grid-card:hover .grid-card__thumb { box-shadow: 0 16px 32px -10px rgba(0,0,0,0.3); }
+    .grid-card__title { margin-top: var(--space-sm); }
+
+    @media (max-width: 40rem) {
+      .grid-card { flex-basis: 72%; }
+      .grid-row { margin-left: calc(var(--space-md) * -1); margin-right: calc(var(--space-md) * -1); padding-left: var(--space-md); padding-right: var(--space-md); scroll-padding-left: var(--space-md); }
+    }
+
+    .view-all-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: var(--space-lg);
+      font-size: var(--text-base); font-weight: 400;
+      color: var(--color-ink);
+      text-decoration: none;
+      border-bottom: 1.5px solid var(--color-rule);
+      padding-bottom: 1px;
+      transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+    }
+    .view-all-link:hover { border-color: var(--accent2); }
+    .view-all-link svg { width: 12px; height: 12px; transition: transform var(--dur-short) var(--ease-out); }
+    .view-all-link:hover svg { transform: translate(3px, -3px); }
+
+    .page-corner { position: fixed; width: 14px; height: 14px; z-index: 500; pointer-events: none; }
+    .page-corner::before, .page-corner::after { content: ""; position: absolute; background: color-mix(in srgb, var(--accent2) 45%, var(--color-rule)); }
+    .page-corner::before { width: 100%; height: 1.5px; }
+    .page-corner::after { width: 1.5px; height: 100%; }
+    .page-corner-tl { top: 52px; left: 16px; }
+    .page-corner-tl::before, .page-corner-tl::after { top: 0; left: 0; }
+    .page-corner-tr { top: 52px; right: 16px; }
+    .page-corner-tr::before, .page-corner-tr::after { top: 0; right: 0; }
+    .page-corner-bl { bottom: 16px; left: 16px; }
+    .page-corner-bl::before { bottom: 0; left: 0; }
+    .page-corner-bl::after { top: 0; left: 0; }
+    .page-corner-br { bottom: 16px; right: 16px; }
+    .page-corner-br::before { bottom: 0; right: 0; }
+    .page-corner-br::after { top: 0; right: 0; }
+    @media (max-width: 40rem) { .page-corner { display: none; } }
+
+    .fav-group { margin-bottom: var(--space-2xl); }
+    .fav-group:last-child { margin-bottom: 0; }
+    .fav-group-label { margin-bottom: var(--space-md); }
+    .fav-link-list { list-style: none; padding: 0 var(--space-sm); margin: 0 calc(var(--space-sm) * -1); }
+    .fav-link-list li { border-bottom: 1px solid var(--color-rule); }
+    .fav-link-list li:first-child { border-top: 1px solid var(--color-rule); }
+    .fav-link-list a {
+      display: flex; align-items: center; gap: var(--space-md);
+      padding: var(--space-md) var(--space-2xs);
+      border-radius: var(--radius-md);
+      text-decoration: none; color: var(--color-ink);
+      transition: background var(--dur-short) var(--ease-out);
+    }
+    .fav-link-list a:hover { background: var(--color-paper-2); }
+    .fav-link-list .link-thumb {
+      width: 48px; height: 48px; border-radius: var(--radius-sm);
+      object-fit: cover; flex-shrink: 0; background: var(--color-paper-2);
+      filter: grayscale(1); transition: filter var(--dur-short) var(--ease-out);
+    }
+    .fav-link-list a:hover .link-thumb { filter: none; }
+    .fav-link-list a:hover .link-desc, .fav-link-list a:hover .link-domain { color: var(--color-ink); }
+    .fav-link-list .link-content { display: flex; flex-direction: column; gap: var(--space-3xs); flex: 1; min-width: 0; }
+    .fav-link-list .link-title-row { display: flex; align-items: center; gap: var(--space-xs); }
+    .fav-link-list .link-domain { white-space: nowrap; flex-shrink: 0; margin-left: auto; }
+
+    .about-reverse {
+      background: var(--color-ink); color: var(--color-paper);
+      margin-top: var(--space-3xl); padding: var(--space-3xl) 0;
+      transition: background-color var(--dur-long) var(--ease-out), color var(--dur-long) var(--ease-out);
+    }
+    .about-reverse .sec-head h2 { color: var(--color-paper); }
+    .about-reverse .sec-head span { color: color-mix(in srgb, var(--color-paper) 45%, transparent); }
+    .about-cols { display: grid; grid-template-columns: 1fr; gap: var(--space-md); }
+    .about-cols p { font-size: var(--text-md); line-height: 1.7; max-width: 56ch; color: color-mix(in srgb, var(--color-paper) 88%, transparent); }
+
+    .exp-label { margin-bottom: var(--space-md); }
+    table.exp-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+    table.exp-table tr { border-bottom: 1px solid var(--color-rule); }
+    table.exp-table tr:first-child { border-top: 1px solid var(--color-rule); }
+    table.exp-table td { padding: var(--space-sm) var(--space-xs) var(--space-sm) 0; vertical-align: baseline; }
+    table.exp-table td.exp-company { width: 32%; }
+    table.exp-table td.exp-dates { text-align: right; white-space: nowrap; width: 14ch; }
+
+    @media (max-width: 40rem) { .about-cols { grid-template-columns: 1fr; gap: var(--space-lg); } }
+
+    footer.foot-dense { margin-top: var(--space-3xl); padding-top: var(--space-lg); border-top: 1px solid var(--color-rule); }
+    footer.foot-dense p { font-size: var(--text-base); color: var(--color-muted); line-height: 1.7; max-width: 60ch; }
+    footer.foot-dense a {
+      color: var(--color-ink); text-decoration: underline; text-decoration-color: var(--color-rule);
+      text-underline-offset: 2px; transition: text-decoration-color var(--dur-short) var(--ease-out);
+    }
+    footer.foot-dense a:hover { text-decoration-color: var(--color-ink); }
+
+    @media (max-width: 40rem) { .wrap { padding: var(--space-2xl) var(--space-md) var(--space-2xl); } }
+  </style>
+</head>
+<body>
+
+  <div class="theme-switcher" role="tablist" aria-label="Olive green intensity">
+    <button type="button" data-theme-btn="current" class="is-active">Current (live site)</button>
+    <button type="button" data-theme-btn="white-olive">White + Olive</button>
+    <button type="button" data-theme-btn="gray">Pure Gray</button>
+    <button type="button" data-theme-btn="dark-gray">Dark Gray</button>
+    <button type="button" data-theme-btn="dg-accent">Dark Gray + Olive Accent</button>
+    <button type="button" data-theme-btn="dg-tint">Dark Gray + Olive Tint</button>
+    <button type="button" data-theme-btn="dg-ink">Dark Gray + Olive Ink</button>
+    <button type="button" data-theme-btn="gray-green">Gray-Green</button>
+    <button type="button" data-theme-btn="deep">Deep Gray-Green</button>
+  </div>
+
+  <span class="page-corner page-corner-tl"></span>
+  <span class="page-corner page-corner-tr"></span>
+  <span class="page-corner page-corner-bl"></span>
+  <span class="page-corner page-corner-br"></span>
+
+  <div class="wrap" style="padding-bottom: 0;">
+
+    <div class="intro reveal">
+      <div class="who">
+        <div class="avatar"><img src="../assets/eric-headshot-2.png" alt="Eric Wagner"></div>
+        <div class="who-text">
+          <div class="name">Eric Wagner</div>
+          <div class="role">Staff Product Designer at Workiva</div>
+        </div>
+      </div>
+
+      <div class="bio">
+        <p>I design complex enterprise products and AI workflows that scale design quality across teams.</p><p>Currently, I lead AI projects on the Financial Reporting team at&nbsp;<a class="ilink" href="https://www.workiva.com" target="_blank" rel="noopener" data-brand="workiva"><span class="ico"><img src="../assets/logo-workiva.png" alt=""></span><span class="ilabel">Workiva</span></a>. Along the way, I developed AI workflows that enabled engineering teams to ship UI updates independently, and designed core reporting tools that drove a 35% increase in YoY bookings.</p><p>At&nbsp;<a class="ilink" href="https://www.chase.com" target="_blank" rel="noopener" data-brand="jpm"><span class="ico"><img src="../assets/chase-bank.png" alt=""></span><span class="ilabel">Chase</span></a>, I built a virtual meeting platform connecting clients nationwide with thousands of wealth advisors, earning a 9.5/10 client rating at launch.</p>
+      </div>
+    </div>
+
+    <section class="reveal">
+      <div class="sec-head"><h2>Projects</h2></div>
+
+      <div class="grid-row">
+        <a class="grid-card" href="../projects/historical-data-roll-forward.html">
+          <img class="grid-card__thumb" src="../assets/images/placeholder-lock.svg" alt="">
+          <div class="grid-card__title">Historical Data Roll Forward</div>
+        </a>
+        <a class="grid-card" href="../projects/chase-video-platform.html">
+          <img class="grid-card__thumb" src="../assets/images/chase-video-platform/virtual-meeting-collab-1.webp" alt="">
+          <div class="grid-card__title">Chase Advisor Video Platform</div>
+        </a>
+        <a class="grid-card" href="../projects/jpmorgan-automated-investing.html">
+          <img class="grid-card__thumb" src="../assets/images/jpmorgan-automated-investing/automated-investing-pulse-dashboard-19.webp" alt="">
+          <div class="grid-card__title">J.P. Morgan Automated Investing</div>
+        </a>
+      </div>
+
+      <a class="view-all-link" href="../projects.html">
+        View all projects
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 19L19 5M19 5H8M19 5V16"></path></svg>
+      </a>
+    </section>
+  </div>
+
+  <section id="about" class="about-reverse">
+    <div class="wrap" style="padding-top: 0; padding-bottom: 0;">
+      <div class="sec-head"><h2>My main goal: simplify complexity</h2></div>
+      <div class="about-cols">
+        <p>I took a side door into product design. Early on, I started sitting in on design standups, taking on extra projects after hours, and enrolling in General Assembly to bridge the gap. I&rsquo;ve been pulling up a chair ever since. Today, I&rsquo;m a Staff Product Designer working at the intersection of complex B2B systems and AI tooling, balancing business outcomes with thoughtful craft.</p>
+        <p>My main goal is to turn complexity into simplicity. When things get messy, I resort to first principles: who we&rsquo;re building for, the job to be done, and why it matters.</p>
+        <p>Outside of work, I'm a dad, a drummer, and a perpetual learner. Lately, that's meant AI coding tools, growing a garden for the first time, and trying to make shelves actually level.</p>
+        <p>There's always something to figure out. That part hasn't changed.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap" style="padding-top: 0; padding-bottom: 0;">
+    <section class="reveal" style="margin-top: var(--space-3xl);">
+      <div class="fav-group">
+        <h2 class="fav-group-label">Inspo</h2>
+        <ul class="fav-link-list">
+          <li>
+            <a href="https://x.com/i/lists/1764931648397988203?s=20" target="_blank" rel="noopener">
+              <img class="link-thumb" src="../assets/logo-x.png" alt="X" style="background:transparent; padding:8px;">
+              <div class="link-content">
+                <div class="link-title-row"><span class="link-name">Designers to follow</span></div>
+                <span class="link-desc">My curated list of designers for news and inspiration</span>
+              </div>
+              <span class="link-domain">List</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.producthunt.com/" target="_blank" rel="noopener">
+              <img class="link-thumb" src="../assets/logo-producthunt.png" alt="Product Hunt" style="background:transparent;">
+              <div class="link-content">
+                <div class="link-title-row"><span class="link-name">Product Hunt</span></div>
+                <span class="link-desc">How I stay on top of what's shipping</span>
+              </div>
+              <span class="link-domain">Website</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://open.spotify.com/show/4aRP2XSavdtrLG5FZoonOK?si=c27b0db1e3834107" target="_blank" rel="noopener">
+              <img class="link-thumb" src="../assets/podcast-how-i-ai.jpg" alt="How I AI">
+              <div class="link-content">
+                <div class="link-title-row"><span class="link-name">How I AI</span></div>
+                <span class="link-desc">Practical AI workflows for product leaders</span>
+              </div>
+              <span class="link-domain">Podcast</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap" style="padding-top: 0; padding-bottom: 0;">
+    <section class="reveal" style="margin-top: var(--space-3xl);">
+      <h2 class="exp-label">Experience</h2>
+      <table class="exp-table">
+        <tbody>
+          <tr><td class="exp-company">Workiva</td><td class="exp-title">Staff Product Designer</td><td class="exp-dates">2024-Present</td></tr>
+          <tr><td class="exp-company">Thrive Global</td><td class="exp-title">Senior Product Designer</td><td class="exp-dates">2022-2024</td></tr>
+          <tr><td class="exp-company">JPMorgan Chase</td><td class="exp-title">Lead Product Designer, VP</td><td class="exp-dates">2018-2022</td></tr>
+          <tr><td class="exp-company">DOOR3</td><td class="exp-title">UX Designer</td><td class="exp-dates">2017-2018</td></tr>
+          <tr><td class="exp-company">Sermo</td><td class="exp-title">Product Designer</td><td class="exp-dates">2016-2017</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <div class="wrap" style="padding-top: 0;">
+    <footer class="foot-dense">
+      <p>Eric Wagner &middot; <a href="mailto:ericjwag@gmail.com">ericjwag@gmail.com</a><br>
+      <a href="https://www.linkedin.com/in/ericjwagner/" target="_blank" rel="noopener">linkedin.com/in/ericjwagner</a> &middot; Built by me &#129309; AI &middot; 2026</p>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var buttons = Array.prototype.slice.call(document.querySelectorAll('[data-theme-btn]'));
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.documentElement.setAttribute('data-theme', btn.getAttribute('data-theme-btn'));
+          buttons.forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,20 +1,21 @@
 /* Design tokens · theme: Ink & Rule · monochrome editorial, dual-mode */
 
 :root {
-  /* ── Color — achromatic. "accent" maps to ink; no color hue in this system ── */
-  --color-paper:       #fbfaf8;
-  --color-paper-2:     #f2efe8;
-  --color-rule:         #dedad0;
-  --color-neutral:     #8a8578;
-  --color-muted:       #6b6558;
-  --color-ink:         #17150f;
-  --color-accent:      #17150f;
-  --color-accent-soft: #f2efe8;
-  --color-focus:       #17150f;
+  /* ── Color — neutral dark-gray base, olive accent ── */
+  --color-paper:       #d6d6d1;
+  --color-paper-2:     #c5c5bf;
+  --color-rule:         #a8a89f;
+  --color-neutral:     #6e6e63;
+  --color-muted:       #4a4a3f;
+  --color-ink:         #15150f;
+  --color-accent:      #15150f;
+  --color-accent-soft: #c5c5bf;
+  --color-focus:       #3d5c12;
 
   /* ── Color — accent & brand (page-local usage, e.g. hover states, brand marks) ── */
-  --accent2:            #5f6b3f;
-  --accent2-soft:       #e7e4d3;
+  --accent2:            #3d5c12;
+  --accent2-soft:       #a7b878;
+  --heading-olive:      #1f2e10;
   --brand-workiva:      #4fb84f;
   --brand-workiva-soft: #e4ecfd;
   --brand-thrive:       #1f9c8a;
@@ -81,6 +82,7 @@
 
     --accent2:            #a3ad7c;
     --accent2-soft:       #2c2f1f;
+    --heading-olive:      #b8c48e;
     --brand-workiva:      #7ed37e;
     --brand-workiva-soft: #1c2740;
     --brand-thrive:       #5cc9b8;

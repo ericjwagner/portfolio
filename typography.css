@@ -21,6 +21,8 @@ a { color: inherit; }
   line-height: 1.2;
 }
 
+:where(.who-text .name) { color: var(--heading-olive); }
+
 :where(header h1) {
   font-size: 1.75rem; /* 28px — between --text-lg (22px) and --text-xl (32px) */
 }
@@ -29,7 +31,7 @@ a { color: inherit; }
   font-family: "Familjen Grotesk", var(--font-body), sans-serif;
   font-weight: 400;
   font-size: var(--text-lg);
-  color: var(--color-ink);
+  color: var(--heading-olive);
   line-height: 1.3;
 }
 
