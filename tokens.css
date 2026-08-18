@@ -1,21 +1,21 @@
 /* Design tokens · theme: Ink & Rule · monochrome editorial, dual-mode */
 
 :root {
-  /* ── Color — neutral dark-gray base, olive accent ── */
-  --color-paper:       #d6d6d1;
-  --color-paper-2:     #c5c5bf;
-  --color-rule:         #a8a89f;
-  --color-neutral:     #6e6e63;
-  --color-muted:       #4a4a3f;
-  --color-ink:         #15150f;
-  --color-accent:      #15150f;
-  --color-accent-soft: #c5c5bf;
-  --color-focus:       #3d5c12;
+  /* ── Color — clean paper base, confident olive accent ── */
+  --color-paper:       #fbfaf8;
+  --color-paper-2:     #f2efe8;
+  --color-rule:         #dedad0;
+  --color-neutral:     #8a8578;
+  --color-muted:       #6b6558;
+  --color-ink:         #17150f;
+  --color-accent:      #17150f;
+  --color-accent-soft: #f2efe8;
+  --color-focus:       #47661f;
 
   /* ── Color — accent & brand (page-local usage, e.g. hover states, brand marks) ── */
-  --accent2:            #3d5c12;
-  --accent2-soft:       #a7b878;
-  --heading-olive:      #1f2e10;
+  --accent2:            #47661f;
+  --accent2-soft:       #dde6c4;
+  --heading-olive:      #263a10;
   --brand-workiva:      #4fb84f;
   --brand-workiva-soft: #e4ecfd;
   --brand-thrive:       #1f9c8a;
