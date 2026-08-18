@@ -196,14 +196,20 @@
       border-radius: var(--radius-sm);
       background: var(--color-paper-2);
       box-shadow: 0 1px 2px rgba(0,0,0,0.06);
-      transition: box-shadow var(--dur-short) var(--ease-out);
+      transition: box-shadow var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
     }
 
-    .grid-card:hover .grid-card__thumb { box-shadow: 0 16px 32px -10px rgba(0,0,0,0.3); }
+    .grid-card:hover .grid-card__thumb {
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4);
+      transform: translateY(-5px);
+    }
 
     .grid-card__title {
+      transition: color var(--dur-short) var(--ease-out);
       margin-top: var(--space-sm);
     }
+
+    .grid-card:hover .grid-card__title { color: var(--heading-olive); }
 
     @media (max-width: 40rem) {
       .grid-card { flex-basis: 72%; }
