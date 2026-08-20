@@ -1,1 +1,4 @@
 .DS_Store
+
+# Source PNGs for case study images — ship the .webp versions instead
+assets/images/**/*.png
