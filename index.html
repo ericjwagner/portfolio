@@ -188,13 +188,26 @@
       scroll-snap-align: start;
       text-decoration: none;
       color: inherit;
-      padding: var(--space-md);
+      /* padding is 1px short of --space-md so padding + border matches the
+         old 16px box exactly, keeping adjacent cards kissing without overlap */
+      padding: calc(var(--space-md) - 1px);
       margin: calc(var(--space-md) * -1);
+      border: 1px solid transparent;
       border-radius: var(--radius-md);
-      transition: background var(--dur-short) var(--ease-out);
+      transition: background var(--dur-short) var(--ease-out),
+                  border-color var(--dur-short) var(--ease-out);
     }
 
-    .grid-card:hover { background: var(--color-paper-2); }
+    .grid-card:hover {
+      background: var(--color-paper-2);
+      border-color: color-mix(in srgb, var(--accent2) 35%, transparent);
+    }
+
+    /* fixed frame so the thumbnail can scale inside without shifting layout */
+    .grid-card__frame {
+      overflow: hidden;
+      border-radius: var(--radius-sm);
+    }
 
     .grid-card__thumb {
       display: block;
@@ -204,7 +217,10 @@
       border-radius: var(--radius-sm);
       background: var(--color-paper-2);
       box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+      transition: transform var(--dur-long) var(--ease-out);
     }
+
+    .grid-card:hover .grid-card__thumb { transform: scale(1.05); }
 
     .grid-card__title {
       transition: color var(--dur-short) var(--ease-out);
@@ -548,15 +564,15 @@
 
       <div class="grid-row">
         <a class="grid-card" href="projects/historical-data-roll-forward.html" data-protected="2424">
-          <img class="grid-card__thumb" src="assets/images/placeholder-lock.svg" alt="">
+          <div class="grid-card__frame"><img class="grid-card__thumb" src="assets/images/placeholder-lock.svg" alt=""></div>
           <div class="grid-card__title">Historical Data Roll Forward</div>
         </a>
         <a class="grid-card" href="projects/chase-video-platform.html">
-          <img class="grid-card__thumb" src="assets/images/chase-video-platform/virtual-meeting-collab-1.webp" alt="">
+          <div class="grid-card__frame"><img class="grid-card__thumb" src="assets/images/chase-video-platform/virtual-meeting-collab-1.webp" alt=""></div>
           <div class="grid-card__title">Chase Advisor Video Platform</div>
         </a>
         <a class="grid-card" href="projects/jpmorgan-automated-investing.html">
-          <img class="grid-card__thumb" src="assets/images/jpmorgan-automated-investing/automated-investing-pulse-dashboard-19.webp" alt="">
+          <div class="grid-card__frame"><img class="grid-card__thumb" src="assets/images/jpmorgan-automated-investing/automated-investing-pulse-dashboard-19.webp" alt=""></div>
           <div class="grid-card__title">J.P. Morgan Automated Investing</div>
         </a>
       </div>

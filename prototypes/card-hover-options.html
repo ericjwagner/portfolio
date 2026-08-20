@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Card Hover &middot; Flair Options</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Familjen+Grotesk:wght@400;600;700&family=Geist:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../tokens.css">
+  <link rel="stylesheet" href="../typography.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { overflow-x: clip; }
+    body {
+      background: var(--color-paper);
+      color: var(--color-ink);
+      -webkit-font-smoothing: antialiased;
+      padding: var(--space-2xl) 0 var(--space-3xl);
+    }
+
+    .wrap { max-width: 46rem; margin: 0 auto; padding: 0 var(--space-lg); }
+
+    .opt-head {
+      margin-top: var(--space-2xl);
+      margin-bottom: var(--space-2xs);
+      padding-bottom: var(--space-xs);
+      border-bottom: 1px solid var(--color-rule);
+    }
+    .opt-head:first-of-type { margin-top: 0; }
+    .opt-note {
+      font-size: var(--text-sm);
+      color: var(--color-muted);
+      margin-bottom: var(--space-lg);
+      max-width: 56ch;
+    }
+
+    /* ── Shared row / card structure (matches the live site) ── */
+    .grid-row {
+      display: flex;
+      gap: calc(var(--space-md) * 2);
+      overflow-x: auto;
+      scrollbar-width: none;
+      margin-left: calc(var(--space-lg) * -1);
+      margin-right: calc(var(--space-lg) * -1);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .grid-row::-webkit-scrollbar { display: none; }
+
+    .grid-card {
+      flex: 0 0 40%;
+      text-decoration: none;
+      color: inherit;
+      padding: var(--space-md);
+      margin: calc(var(--space-md) * -1);
+      border-radius: var(--radius-md);
+    }
+
+    .grid-card__thumb {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      background: var(--color-paper-2);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+
+    .grid-card__title { margin-top: var(--space-sm); }
+
+    /* ══════════════════════════════════════════════════════
+       OPTION A — Framed & Lifted
+       Container gains a hairline olive border + the thumbnail
+       scales gently inside a fixed frame. Reads crisp/editorial.
+       ══════════════════════════════════════════════════════ */
+    .opt-a .grid-card {
+      border: 1px solid transparent;
+      transition: background var(--dur-short) var(--ease-out),
+                  border-color var(--dur-short) var(--ease-out);
+    }
+    .opt-a .thumb-frame {
+      overflow: hidden;
+      border-radius: var(--radius-sm);
+    }
+    .opt-a .grid-card__thumb {
+      transition: transform var(--dur-long) var(--ease-out);
+    }
+    .opt-a .grid-card__title {
+      transition: color var(--dur-short) var(--ease-out);
+    }
+    .opt-a .grid-card:hover {
+      background: var(--color-paper-2);
+      border-color: color-mix(in srgb, var(--accent2) 35%, transparent);
+    }
+    .opt-a .grid-card:hover .grid-card__thumb { transform: scale(1.05); }
+    .opt-a .grid-card:hover .grid-card__title { color: var(--heading-olive); }
+
+    /* ══════════════════════════════════════════════════════
+       OPTION B — Olive Wash + Arrow
+       Container fills with a soft olive tint and an arrow
+       slides in beside the title. Most "designed" / playful.
+       ══════════════════════════════════════════════════════ */
+    .opt-b .grid-card {
+      transition: background var(--dur-short) var(--ease-out);
+    }
+    .opt-b .grid-card__title {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color var(--dur-short) var(--ease-out);
+    }
+    .opt-b .grid-card__title svg {
+      width: 12px; height: 12px;
+      flex-shrink: 0;
+      opacity: 0;
+      transform: translate(-4px, 4px);
+      transition: opacity var(--dur-short) var(--ease-out),
+                  transform var(--dur-short) var(--ease-out);
+    }
+    .opt-b .grid-card:hover {
+      background: color-mix(in srgb, var(--accent2) 12%, var(--color-paper));
+    }
+    .opt-b .grid-card:hover .grid-card__title { color: var(--heading-olive); }
+    .opt-b .grid-card:hover .grid-card__title svg {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+
+    /* ══════════════════════════════════════════════════════
+       OPTION C — Underline Reveal
+       Neutral fill, but an olive rule wipes in under the title
+       left-to-right. Quietest / most typographic.
+       ══════════════════════════════════════════════════════ */
+    .opt-c .grid-card {
+      transition: background var(--dur-short) var(--ease-out);
+    }
+    .opt-c .grid-card__title {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 3px;
+      transition: color var(--dur-short) var(--ease-out);
+    }
+    .opt-c .grid-card__title::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 100%; height: 1.5px;
+      background: var(--accent2);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--dur-long) var(--ease-out);
+    }
+    .opt-c .grid-card:hover { background: var(--color-paper-2); }
+    .opt-c .grid-card:hover .grid-card__title { color: var(--heading-olive); }
+    .opt-c .grid-card:hover .grid-card__title::after { transform: scaleX(1); }
+
+    @media (max-width: 40rem) {
+      .grid-card { flex-basis: 72%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <h2 class="opt-head">Option A &middot; Framed &amp; Lifted</h2>
+    <p class="opt-note">Container picks up a hairline olive border, and the image scales gently inside a fixed frame so nothing shifts. Crisp and editorial &mdash; the motion is felt more than seen.</p>
+  </div>
+  <div class="wrap opt-a">
+    <div class="grid-row">
+      <a class="grid-card" href="#">
+        <div class="thumb-frame"><img class="grid-card__thumb" src="../assets/images/placeholder-lock.svg" alt=""></div>
+        <div class="grid-card__title">Historical Data Roll Forward</div>
+      </a>
+      <a class="grid-card" href="#">
+        <div class="thumb-frame"><img class="grid-card__thumb" src="../assets/images/chase-video-platform/virtual-meeting-collab-1.webp" alt=""></div>
+        <div class="grid-card__title">Chase Advisor Video Platform</div>
+      </a>
+      <a class="grid-card" href="#">
+        <div class="thumb-frame"><img class="grid-card__thumb" src="../assets/images/jpmorgan-automated-investing/automated-investing-pulse-dashboard-19.webp" alt=""></div>
+        <div class="grid-card__title">J.P. Morgan Automated Investing</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <h2 class="opt-head">Option B &middot; Olive Wash + Arrow</h2>
+    <p class="opt-note">The container fills with a soft olive tint instead of neutral gray, and a small arrow slides in next to the title. The most overtly &ldquo;designed&rdquo; of the three, and the clearest signal that the card is clickable.</p>
+  </div>
+  <div class="wrap opt-b">
+    <div class="grid-row">
+      <a class="grid-card" href="#">
+        <img class="grid-card__thumb" src="../assets/images/placeholder-lock.svg" alt="">
+        <div class="grid-card__title">Historical Data Roll Forward
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 19L19 5M19 5H8M19 5V16"></path></svg>
+        </div>
+      </a>
+      <a class="grid-card" href="#">
+        <img class="grid-card__thumb" src="../assets/images/chase-video-platform/virtual-meeting-collab-1.webp" alt="">
+        <div class="grid-card__title">Chase Advisor Video Platform
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 19L19 5M19 5H8M19 5V16"></path></svg>
+        </div>
+      </a>
+      <a class="grid-card" href="#">
+        <img class="grid-card__thumb" src="../assets/images/jpmorgan-automated-investing/automated-investing-pulse-dashboard-19.webp" alt="">
+        <div class="grid-card__title">J.P. Morgan Automated Investing
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 19L19 5M19 5H8M19 5V16"></path></svg>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <h2 class="opt-head">Option C &middot; Underline Reveal</h2>
+    <p class="opt-note">Same neutral fill you have now, but an olive rule wipes in left-to-right beneath the title. Quietest and most typographic &mdash; it echoes the underline treatment already used on your inline links.</p>
+  </div>
+  <div class="wrap opt-c">
+    <div class="grid-row">
+      <a class="grid-card" href="#">
+        <img class="grid-card__thumb" src="../assets/images/placeholder-lock.svg" alt="">
+        <div class="grid-card__title">Historical Data Roll Forward</div>
+      </a>
+      <a class="grid-card" href="#">
+        <img class="grid-card__thumb" src="../assets/images/chase-video-platform/virtual-meeting-collab-1.webp" alt="">
+        <div class="grid-card__title">Chase Advisor Video Platform</div>
+      </a>
+      <a class="grid-card" href="#">
+        <img class="grid-card__thumb" src="../assets/images/jpmorgan-automated-investing/automated-investing-pulse-dashboard-19.webp" alt="">
+        <div class="grid-card__title">J.P. Morgan Automated Investing</div>
+      </a>
+    </div>
+  </div>
+
+</body>
+</html>
