@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I automated saving my kid's daycare photos — Eric Wagner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Familjen+Grotesk:wght@400;600;700&family=Geist:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../tokens.css">
+  <link rel="stylesheet" href="../typography.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-paper);
+      color: var(--color-ink);
+      font-size: var(--text-base);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 var(--space-lg);
+    }
+
+    header { padding: var(--space-2xl) 0 var(--space-lg); }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 400;
+      color: var(--color-ink);
+      text-decoration: none;
+      margin-bottom: var(--space-xl);
+      border-bottom: 1.5px solid var(--color-rule);
+      padding-bottom: 1px;
+      transition: border-color var(--dur-short) var(--ease-out);
+    }
+
+    .back-link:hover { border-color: var(--accent2); }
+    .back-link svg { width: 12px; height: 12px; transition: transform var(--dur-short) var(--ease-out); }
+    .back-link:hover svg { transform: translate(-3px, -3px); }
+
+    header h1 { margin-bottom: var(--space-md); }
+
+    .intro-line { margin-bottom: var(--space-xl); }
+
+    .thumbnail {
+      width: 100%;
+      aspect-ratio: 2 / 1;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin: 0 0 var(--space-xl);
+    }
+
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .case-study { max-width: 640px; padding-bottom: var(--space-3xl); }
+    .case-study section { margin-bottom: var(--space-xl); }
+    .case-study section:last-child { margin-bottom: 0; }
+
+    .case-study h3 { margin-bottom: var(--space-xs); }
+
+    .case-study p { margin-bottom: var(--space-sm); }
+    .case-study p:last-child { margin-bottom: 0; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <a class="back-link" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 19L5 5M5 5H16M5 5V16"></path></svg> Eric Wagner</a>
+    <h1>I automated saving my kid's daycare photos</h1>
+    <p class="meta">Side project / September 2026</p>
+  </header>
+
+  <p class="intro-line">I went from being constantly annoyed by bad software design to solving it myself, shipping a working, tested, automated tool in one evening.</p>
+
+  <div class="thumbnail">
+    <img src="../assets/images/tadpoles-sync/social-preview.webp" alt="Tadpoles Sync project preview" />
+  </div>
+
+  <div class="case-study">
+
+    <section>
+      <h3>I can't unsee bad UX</h3>
+      <p>As a product designer, bad UX pains me to my core. I can't unsee or un-experience the sea of mediocre apps and sites I have used. But until recently, I didn't have the time or skill to ship these improvements myself.</p>
+    </section>
+
+    <section>
+      <h3>No bulk download and dozens of precious photos per week</h3>
+      <p>My son's daycare posts photos to an app called <a href="https://www.tadpoles.com/" target="_blank" rel="noopener">Tadpoles</a>. Each week I get dozens of photos dumped into a single feed. Tadpoles only lets you download one photo at a time, so I wanted his photos pulled out and saved to my Google Photos automatically, without manual downloading.</p>
+      <p>Six months ago, this idea would have been a nonstarter. I wouldn't have known where to even begin.</p>
+    </section>
+
+    <section>
+      <h3>I shipped an automation pipeline</h3>
+      <p>This time I built it. I just started, and the requirements revealed themselves one at a time: an undocumented API, OAuth tokens to manage, a face-detection model to filter out group photos, a weekly cron job, tests to prove the filter worked.</p>
+      <p>Claude Code wrote the code. I directed it and checked the results against what I actually needed. The final version logs into Tadpoles through an <a href="https://github.com/tylerhall/tadpoles-api" target="_blank" rel="noopener">unofficial reverse-engineered API</a>, runs an OpenCV face detector tuned against real test photos, and uploads matches to Google Photos every Sunday with no manual step.</p>
+      <p>Check it here: <a href="https://github.com/ericjwagner/tadpoles" target="_blank" rel="noopener">github.com/ericjwagner/tadpoles</a>.</p>
+      <p>I'm not a software engineer (but wish I was). I used to be limited by how much Python I knew (aka none at all). Now, instead of venting to my wife about bad software, I can just fix it myself in a few hours.</p>
+    </section>
+
+  </div>
+
+</div>
+
+</body>
+</html>

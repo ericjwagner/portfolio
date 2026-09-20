@@ -155,7 +155,7 @@
       align-items: baseline;
       justify-content: space-between;
       gap: var(--space-md);
-      margin-bottom: var(--space-lg);
+      margin-bottom: var(--space-md);
     }
 
     .sec-head span {
@@ -221,6 +221,9 @@
     }
 
     .grid-card:hover .grid-card__thumb { transform: scale(1.05); }
+
+    /* matches the social-preview image's native 2:1 ratio so it shows uncropped */
+    .grid-card__thumb--wide { aspect-ratio: 2/1; }
 
     .grid-card__title {
       transition: color var(--dur-short) var(--ease-out);
@@ -601,6 +604,22 @@
   </section>
 
   <div class="wrap" style="padding-top: 0; padding-bottom: 0;">
+    <!-- Side projects -->
+    <section class="reveal" style="--i: 1; margin-top: var(--space-3xl);">
+      <div class="sec-head">
+        <h2>Side projects</h2>
+      </div>
+
+      <div class="grid-row">
+        <a class="grid-card" href="projects/tadpoles-sync.html" style="flex-basis: 60%;">
+          <div class="grid-card__frame"><img class="grid-card__thumb grid-card__thumb--wide" src="assets/images/tadpoles-sync/social-preview.webp" alt=""></div>
+          <div class="grid-card__title">I automated saving my kid's daycare photos</div>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap" style="padding-top: 0; padding-bottom: 0;">
     <!-- Favorites -->
     <section class="reveal" style="--i: 2; margin-top: var(--space-3xl);">
       <div class="fav-group">
@@ -673,7 +692,7 @@
         <h2 class="fav-group-label">On repeat</h2>
         <div style="margin-top: var(--space-md);">
           <div class="spotify-embed">
-            <iframe data-testid="embed-iframe" style="border-radius:var(--radius-md);" src="https://open.spotify.com/embed/playlist/37i9dQZF1CKPJY0UjNTCYl?utm_source=generator&amp;theme=0&amp;si=40ee177c51dd442a" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <iframe data-testid="embed-iframe" style="border-radius:var(--radius-md);" src="https://open.spotify.com/embed/playlist/40PFPU9FavES4sS0GZaFHY?utm_source=generator&amp;theme=0&amp;si=45a99213db7348bd" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
           </div>
         </div>
       </div>
