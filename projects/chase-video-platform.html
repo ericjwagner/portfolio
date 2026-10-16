@@ -146,14 +146,12 @@
       padding: var(--space-2xs) var(--space-xs);
       border-radius: var(--radius-sm);
       pointer-events: none;
-      opacity: 0;
+      opacity: 1;
       transition: opacity var(--dur-short) var(--ease-out);
     }
 
-    .ba-slider .ba-tag.is-visible { opacity: 1; }
-
-    .ba-slider .ba-tag-after { left: var(--space-sm); }
-    .ba-slider .ba-tag-before { right: var(--space-sm); }
+    .ba-slider .ba-tag-after { right: var(--space-sm); }
+    .ba-slider .ba-tag-before { left: var(--space-sm); }
 
     .ba-handle {
       position: absolute;
@@ -404,8 +402,8 @@
       </div>
 
       <div class="ba-slider" id="screenShareSlider">
-        <img class="ba-layer-clip" src="../assets/images/chase-video-platform/virtual-meeting-after.webp" alt="After: screen sharing with the green border and clearer messaging" />
-        <img class="ba-layer-base" src="../assets/images/chase-video-platform/virtual-meeting-cobrowse.webp" alt="Before: screen sharing in the original blue-bordered design" />
+        <img class="ba-layer-base" src="../assets/images/chase-video-platform/virtual-meeting-after.webp" alt="After: screen sharing with the green border and clearer messaging" />
+        <img class="ba-layer-clip" src="../assets/images/chase-video-platform/virtual-meeting-cobrowse.webp" alt="Before: screen sharing in the original blue-bordered design" />
         <span class="ba-tag ba-tag-before">Before</span>
         <span class="ba-tag ba-tag-after">After</span>
         <div class="ba-handle"></div>
@@ -466,14 +464,10 @@
     var range = slider.querySelector('.ba-range');
     var clipLayer = slider.querySelector('.ba-layer-clip');
     var handle = slider.querySelector('.ba-handle');
-    var beforeTag = slider.querySelector('.ba-tag-before');
-    var afterTag = slider.querySelector('.ba-tag-after');
 
     function update(value) {
       clipLayer.style.clipPath = 'inset(0 calc(100% - ' + value + '%) 0 0)';
       handle.style.left = value + '%';
-      afterTag.classList.toggle('is-visible', value >= 50);
-      beforeTag.classList.toggle('is-visible', value < 50);
     }
 
     range.addEventListener('input', function () {

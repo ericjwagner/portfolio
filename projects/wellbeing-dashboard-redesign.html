@@ -210,14 +210,12 @@
       padding: var(--space-2xs) var(--space-xs);
       border-radius: var(--radius-sm);
       pointer-events: none;
-      opacity: 0;
+      opacity: 1;
       transition: opacity var(--dur-short) var(--ease-out);
     }
 
-    .ba-slider .ba-tag.is-visible { opacity: 1; }
-
-    .ba-slider .ba-tag-after { left: var(--space-sm); }
-    .ba-slider .ba-tag-before { right: var(--space-sm); }
+    .ba-slider .ba-tag-after { right: var(--space-sm); }
+    .ba-slider .ba-tag-before { left: var(--space-sm); }
 
     .ba-handle {
       position: absolute;
@@ -431,8 +429,8 @@
         The redesigned dashboard became a self-service tool for HR leaders — removing the need to rely on CSMs for data requests, helping users justify cost and prove ROI, and directly supporting contract renewals. The anticipated 600 hours/year in CSM savings came from reduced data requests and the elimination of quarterly-call explanations.
       </p>
       <div class="ba-slider" id="dashboardSlider">
-        <img class="ba-layer-clip" src="../assets/images/wellbeing-dashboard-redesign/pulse-22.webp" alt="After: redesigned dashboard with a clear engagement overview, monthly active user trend, and benchmarked energy and retention scores" />
-        <img class="ba-layer-base" src="../assets/images/wellbeing-dashboard-redesign/group-774.webp" alt="Before: legacy dashboard with an ambiguous burnout risk chart and generic placeholder recommendations" />
+        <img class="ba-layer-base" src="../assets/images/wellbeing-dashboard-redesign/pulse-22.webp" alt="After: redesigned dashboard with a clear engagement overview, monthly active user trend, and benchmarked energy and retention scores" />
+        <img class="ba-layer-clip" src="../assets/images/wellbeing-dashboard-redesign/group-774.webp" alt="Before: legacy dashboard with an ambiguous burnout risk chart and generic placeholder recommendations" />
         <span class="ba-tag ba-tag-before">Before</span>
         <span class="ba-tag ba-tag-after">After</span>
         <div class="ba-handle"></div>
@@ -463,14 +461,10 @@
     var range = slider.querySelector('.ba-range');
     var clipLayer = slider.querySelector('.ba-layer-clip');
     var handle = slider.querySelector('.ba-handle');
-    var beforeTag = slider.querySelector('.ba-tag-before');
-    var afterTag = slider.querySelector('.ba-tag-after');
 
     function update(value) {
       clipLayer.style.clipPath = 'inset(0 calc(100% - ' + value + '%) 0 0)';
       handle.style.left = value + '%';
-      afterTag.classList.toggle('is-visible', value >= 50);
-      beforeTag.classList.toggle('is-visible', value < 50);
     }
 
     range.addEventListener('input', function () {
