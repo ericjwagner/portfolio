@@ -57,6 +57,14 @@
       margin: 0 0 var(--space-xl);
     }
 
+    .case-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-md);
+      margin: var(--space-lg) 0;
+    }
+
     .img-placeholder {
       width: 100%;
       aspect-ratio: 16 / 9;
@@ -333,20 +341,13 @@
         </tbody>
       </table>
 
-      <div class="img-placeholder">
-        <div class="img-label">Image 2 &mdash; Dual-Track Framework</div>
-        <div class="img-desc">47 surfaces splitting into Path A (66%, autonomous AI loop) and Path B (34%, manual design specs)</div>
-      </div>
     </section>
 
     <section>
       <h2>Path A: No Mockup Needed</h2>
       <p>I defined and wrote our design guidelines in an .md file using Google&rsquo;s new <code>design.md</code> specs and put it right into their GitHub repository. It worked as a reference for their AI tools, giving agents the layout rules needed to swap components without breaking the interface.</p>
 
-      <div class="img-placeholder">
-        <div class="img-label">Image 3 &mdash; The design.md System Prompt</div>
-        <div class="img-desc">Split screen: design.md documentation on the left, Cursor or Claude Code generating compliant component code on the right</div>
-      </div>
+      <img class="case-image" src="../assets/images/workiva-tsmigration/design-md-spec.webp" alt="Excerpt of the design.md guidelines file, with tables mapping UI patterns to layout, typography and icon tokens for Workiva's design system" />
 
       <h3>Quality Standard Through Design Principles</h3>
       <p>I introduced a design principle to hold the team to a quality standard. Our company had four core UX modernization principles, but they were built for traditional, design-led workflows. Now, engineers and AI agents were making layout decisions.</p>
@@ -368,10 +369,7 @@
       <p>Colleagues worked here for 10, 12, 14+ years, so they had a LOT of product knowledge and context. I conducted XBRL Knowledge Sessions to preserve a decade of tribal knowledge. I interviewed veteran PMs, engineers, and services teams, and recorded the technical nuances of our XBRL products.</p>
       <p>I fed transcripts into Google NotebookLM to create a searchable Knowledge Bot. When I brought in two supporting designers later, they used this bot to self-serve answers instantly and start executing immediately. This enabled the supporting designers to onboard with zero downtime.</p>
 
-      <div class="img-placeholder">
-        <div class="img-label">Image 5 &mdash; NotebookLM Knowledge Bot</div>
-        <div class="img-desc">Interface mockup showing XBRL session transcripts as sources, a designer asking a compliance question, and the bot generating a precise answer with citations</div>
-      </div>
+      <img class="case-image" src="../assets/images/workiva-tsmigration/notebooklm-knowledge-bot.webp" alt="The XBRL Knowledgebase notebook in Google NotebookLM, with XBRL support articles listed as sources, a summary in the chat panel, and suggested questions about date roll forwards, footnotes and chain linking" />
     </section>
 
     <section>
