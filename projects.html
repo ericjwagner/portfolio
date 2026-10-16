@@ -63,15 +63,26 @@
     .index-list { border-top: 1px solid var(--color-rule); padding: 0 var(--space-sm); margin: 0 calc(var(--space-sm) * -1); }
 
     .index-row {
+      position: relative;
       display: flex;
       gap: var(--space-md);
       align-items: flex-start;
       padding: var(--space-md) var(--space-2xs);
       border-radius: var(--radius-md);
-      border-bottom: 1px solid var(--color-rule);
       text-decoration: none;
       color: inherit;
       transition: background var(--dur-short) var(--ease-out);
+    }
+
+    /* divider drawn separately so the rounded hover corners don't curl the line */
+    .index-row::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: var(--color-rule);
     }
 
     .index-row:hover { background: var(--color-paper-2); }
