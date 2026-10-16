@@ -51,7 +51,7 @@ a { color: inherit; }
   line-height: 1.4;
 }
 
-:where(.case-study p, .case-study ul, .stat-card p, .stat-callout p, .fav-link-list .link-desc, table.exp-table td.exp-title) {
+:where(.case-study p, .case-study ul, .case-study ol, .stat-card p, .stat-callout p, .fav-link-list .link-desc, table.exp-table td.exp-title) {
   font-family: var(--font-body);
   font-weight: 400;
   font-size: var(--text-base);

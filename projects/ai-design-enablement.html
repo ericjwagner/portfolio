@@ -136,11 +136,11 @@
 
     .case-study p:last-child { margin-bottom: 0; }
 
-    .case-study ul {
+    .case-study ul, .case-study ol {
       margin: 0 0 var(--space-sm) var(--space-md);
     }
 
-    .case-study ul li { margin-bottom: var(--space-2xs); }
+    .case-study ul li, .case-study ol li { margin-bottom: var(--space-2xs); }
 
     code {
       font-family: var(--font-mono);
@@ -272,21 +272,22 @@
     </section>
 
     <section>
-      <h2>A High-Stakes Tech Migration with Zero Designer Bandwidth</h2>
-      <p>Our core Financial Reporting system was built on a massive complex legacy codebase. It managed intricate XBRL compliance data where a single broken link could invalidate a client's official SEC filing. Because the stakes were so high, engineering spun up a dedicated Enablement Team of Staff and Principal Engineers. Their mission was to establish the foundational architectural patterns and build the migration blueprint for the rest of the Financial Reporting organization.</p>
-      <p>The migration required a massive, simultaneous architectural shift:</p>
+      <h2>A Tech Migration with Zero Designer Bandwidth</h2>
+      <p>Our core Financial Reporting platform was built on a massive legacy codebase. It managed critical XBRL (Extensible Business Reporting Language) data where a broken link could invalidate a customer&rsquo;s official SEC filing. Because the stakes were so high, Engineering leadership spun up a dedicated Enablement Team of Staff and Principal Engineers. Our mission was to set up the foundational architectural patterns and define the blueprint for the rest of the Financial Reporting organization.</p>
+      <p>The migration required a big shift:</p>
       <ul>
-        <li>Changing the programming language (Dart to TypeScript)</li>
-        <li>Rewriting the API layer (Frugal to OpenAPI)</li>
+        <li>Changing the front-end language</li>
+        <li>Rewriting the API layer</li>
         <li>Migrating legacy UI components to our new design system</li>
       </ul>
-      <p>However, the project lacked a dedicated Product Manager, and design resources were redirected due to an aggressive leadership pivot toward new generative AI features. The two supporting designers and I were already 100% allocated to our existing core roadmaps. Because our design bandwidth was severely strapped, I had to build a system that automated standard tasks, protected data integrity, and allowed engineering to scale without design becoming a bottleneck.</p>
+      <p>However, the project lacked a Product Manager, and design resources were redirected to support a strategic pivot toward generative AI features. The two supporting designers and I were already 100% allocated to our existing team roadmaps. Because our bandwidth was strapped, I had to build a system that allowed engineering to run without design becoming a bottleneck.</p>
 
-      <h3>The Breakdown of Core Challenges</h3>
-      <p><strong>The Org-Wide Mission:</strong> The Enablement Team had to build a scalable, repeatable framework so the rest of the Financial Reporting organization could migrate their respective features without breaking the broader system.</p>
-      <p><strong>The "Triple Threat" Setup:</strong> Three simultaneous migrations (Dart to TypeScript, Frugal to OpenAPI, Legacy to New Design System) running in parallel, each capable of causing layout regressions independently.</p>
-      <p><strong>Strapped Design Allocation:</strong> Myself and the two execution designers were completely locked into other high-priority roadmaps. With design bandwidth near zero, we couldn't rely on traditional, time-heavy design pipelines to support the engineers.</p>
-      <p><strong>The Tribal Knowledge Bottleneck:</strong> Deeply complex XBRL compliance logic lived entirely in the heads of a few veterans (one of whom just went on leave), threatening to stall design and engineering audits.</p>
+      <h3>Core Challenges</h3>
+      <ol>
+        <li>The Enablement Team had to build a scalable, repeatable framework so the rest of the Financial Reporting organization could seamlessly migrate their features.</li>
+        <li>Design bandwidth was near zero, so we couldn&rsquo;t rely on traditional design process and time allocation to support engineering.</li>
+        <li>Deep XBRL product knowledge logic lived in the heads of a few Workiva veterans (with 1 on leave).</li>
+      </ol>
 
       <div class="img-placeholder">
         <div class="img-label">Image 1 &mdash; The Triple Threat</div>
@@ -295,21 +296,21 @@
     </section>
 
     <section>
-      <h2>The Strategy: Separating UX Redesigns from Tech Debt to Accelerate Migration Velocity</h2>
-      <p>To protect engineering momentum with zero design bandwidth, I decided to decouple the technical migration from strategic UX redesigns.</p>
+      <h2>Separate UX Effort from Tech Debt to Accelerate Migration</h2>
+      <p>I decided to decouple the technical migration from strategic UX redesigns.</p>
       <div class="split-cards">
         <div class="split-card">
-          <div class="split-card-label">Our Enablement Team</div>
+          <div class="split-card-label">The Enablement Team</div>
           <p>Focused strictly on tech infrastructure and design system alignment.</p>
         </div>
         <div class="split-card">
           <div class="split-card-label">Core Product Squads</div>
-          <p>Took ownership of future workflow enhancements down the road.</p>
+          <p>Would own future workflow enhancements.</p>
         </div>
       </div>
-      <p>I audited our 47 feature surfaces and built a binary framework based on layout risk. Because swapping in new components causes elements to shift and reflow, I mapped out exactly which layouts could handle an automated swap safely and which ones required manual design guardrails.</p>
+      <p>I audited our 47 feature surfaces and built a binary framework based on layout risk. Because swapping in new components causes elements to shift and reflow, I mapped out exactly which layouts could handle an automated swap safely and which ones required design guardrails.</p>
 
-      <h3>Dual-Track Migration Framework</h3>
+      <h3>Design Strategy</h3>
       <table class="track-table">
         <thead>
           <tr>
@@ -320,20 +321,17 @@
         </thead>
         <tbody>
           <tr>
-            <td><div class="track-label">No mockup needed</div></td>
+            <td><div class="track-label">Path A: No mockup needed</div></td>
             <td><div class="track-pct">66% of backlog (31 out of 47 surfaces)</div></td>
-            <td><strong>Autonomous AI execution:</strong> Low-risk, clean component swaps. Engineers fed my structured <code>design.md</code> file directly into AI agents like Cursor and Claude to execute autonomously. We bypassed wireframing and mockups, limiting design consult to final QA, and accessibility checks.</td>
+            <td>Low-risk, clean component swaps. Engineers fed my structured <code>design.md</code> file into AI coding tools to execute autonomously. Bypassed wireframing and mockups, limiting design consult to final QA.</td>
           </tr>
           <tr>
-            <td><div class="track-label">Mockup required</div></td>
+            <td><div class="track-label">Path B: Mockup required</div></td>
             <td><div class="track-pct">34% of backlog (16 out of 47 surfaces)</div></td>
-            <td><strong>Upfront design specs:</strong> High-complexity compliance layouts vulnerable to cascading layout and reflow errors. We created mockups upfront for engineers to build manually.</td>
+            <td>High-complexity compliance layouts vulnerable to cascading layout and reflow errors. We created mockups upfront for engineers to build manually.</td>
           </tr>
         </tbody>
       </table>
-      <div class="callout-note">
-        <p>Note on scale: While surfaces varied in size and cross-dependencies, this binary approach ensured that 66% of the backlog could bypass traditional design workflow without sacrificing quality.</p>
-      </div>
 
       <div class="img-placeholder">
         <div class="img-label">Image 2 &mdash; Dual-Track Framework</div>
@@ -342,17 +340,17 @@
     </section>
 
     <section>
-      <h2>Path A (66% of Project): Scaling the Design System via GitHub for Autonomous AI Coding</h2>
-      <p>To make the automated track fully self-serve, I wrote our design guidelines in plain Markdown text using Google's <code>design.md</code> specs and put it right into their GitHub repository. Engineers dropped this file straight into Claude and Cursor. It effectively worked as a system prompt for their AI tools, giving AI agents the layout rules needed to swap components autonomously without breaking the interface.</p>
+      <h2>Path A: No Mockup Needed</h2>
+      <p>I defined and wrote our design guidelines in an .md file using Google&rsquo;s new <code>design.md</code> specs and put it right into their GitHub repository. It worked as a reference for their AI tools, giving agents the layout rules needed to swap components without breaking the interface.</p>
 
       <div class="img-placeholder">
         <div class="img-label">Image 3 &mdash; The design.md System Prompt</div>
         <div class="img-desc">Split screen: design.md documentation on the left, Cursor or Claude Code generating compliant component code on the right</div>
       </div>
 
-      <h3>Establishing the 5th Principle: Universal Resilience</h3>
-      <p>While our company had previously established four core UX modernization principles, they were built for traditional, design-led workflows. Because engineers and AI agents were now making layout decisions on the fly, I authored and introduced a fifth core principle: Universal Resilience.</p>
-      <p>This rule mandated that any component upgrade&mdash;whether automated via AI or crafted manually by a designer&mdash;had to dynamically handle extreme data states and edge-case scaling without fracturing the UI. This gave engineers a clear, shared standard to correct layout issues before code hit production.</p>
+      <h3>Quality Standard Through Design Principles</h3>
+      <p>I introduced a design principle to hold the team to a quality standard. Our company had four core UX modernization principles, but they were built for traditional, design-led workflows. Now, engineers and AI agents were making layout decisions.</p>
+      <p><strong>Universal Resilience</strong> - Any component upgrade must dynamically handle extreme data states and edge-case scaling without breaking the UI.</p>
 
       <div class="img-placeholder">
         <div class="img-label">Image 4 &mdash; Universal Resilience</div>
@@ -361,14 +359,14 @@
     </section>
 
     <section>
-      <h2>Path B (34% of Project): Designing High-Risk Surfaces Upfront to Prevent UI Regressions</h2>
-      <p>For the remaining 16 high-risk surfaces, the threat of breaking the UI was simply too high. Changing the underlying code caused layouts to collapse, so design mapped out cross-dependencies and provided full mockups upfront. This visual guardrail kept the front-end stable and fully compliant.</p>
+      <h2>Path B: Mockup Required</h2>
+      <p>For the remaining high-risk surfaces, if we changed underlying code, layouts would collapse. So we mapped dependencies and provided full mockups to keep the interface stable.</p>
     </section>
 
     <section>
-      <h2>Scaling Knowledge: Using NotebookLM to Prevent Tribal Knowledge Bottlenecks</h2>
-      <p>I launched XBRL Knowledge Sessions to preserve a decade of tribal knowledge before key veterans went on leave. This kept the project on track and allowed the supporting designers to onboard with zero downtime.</p>
-      <p>I interviewed veteran PMs, engineers, and services teams, recording the complex technical nuances of our XBRL products. I fed these transcripts into Google NotebookLM to create a searchable Knowledge Bot. When I brought in two supporting designers later, they used this bot to self-serve answers instantly and start executing immediately.</p>
+      <h2>Preserving Tribal Knowledge</h2>
+      <p>Colleagues worked here for 10, 12, 14+ years, so they had a LOT of product knowledge and context. I conducted XBRL Knowledge Sessions to preserve a decade of tribal knowledge. I interviewed veteran PMs, engineers, and services teams, and recorded the technical nuances of our XBRL products.</p>
+      <p>I fed transcripts into Google NotebookLM to create a searchable Knowledge Bot. When I brought in two supporting designers later, they used this bot to self-serve answers instantly and start executing immediately. This enabled the supporting designers to onboard with zero downtime.</p>
 
       <div class="img-placeholder">
         <div class="img-label">Image 5 &mdash; NotebookLM Knowledge Bot</div>
@@ -377,13 +375,14 @@
     </section>
 
     <section>
-      <h2>Results</h2>
-      <ul>
-        <li><strong>66% of Backlog Safely Automated:</strong> Eradicated the traditional design bottleneck by enabling engineers to migrate 31 out of 47 surfaces autonomously using AI tools like Cursor and Claude Code</li>
-        <li><strong>Maximized Design Efficiency:</strong> Concentrated our limited design bandwidth exclusively on the 16 high-risk, complex surfaces rather than stretching the team thin across dozens of straightforward layouts.</li>
-        <li><strong>Company-Wide Recognition:</strong> Selected to present this methodology at our annual tech offsite (LINK 2026). I delivered a virtual Lightning Talk focused on new AI-powered workflows, titled &#8220;Scaling Design Expertise Without a Designer in the Room.&#8221;</li>
-        <li><strong>The Ultimate Validation:</strong> Following the operational success of scaling this project with AI, I was formally transitioned to drive central AI workstreams inside the company's core, high priority AI Team.</li>
-      </ul>
+      <h2>Then I Got Promoted!</h2>
+      <p>Applauded by colleagues, I achieved the following:</p>
+      <ol>
+        <li>Eliminated the traditional design bottleneck by enabling engineers to migrate 31 out of 47 surfaces autonomously using AI tools.</li>
+        <li>Concentrated our limited design bandwidth exclusively on the high-risk, complex surfaces rather than stretching the team across dozens of structured layouts.</li>
+        <li>Presented this strategy to the company focused on new AI-powered workflows, titled <em>&ldquo;Scaling Design Expertise Without a Designer in the Room.&rdquo;</em></li>
+      </ol>
+      <p>Following the success of scaling this project with AI, I was moved to lead AI workstreams on the newly created AI Team.</p>
     </section>
 
   </div>
