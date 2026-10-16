@@ -39,7 +39,7 @@
     .page-corner-br::after { top: 0; right: 0; }
     @media (max-width: 40rem) { .page-corner { display: none; } }
 
-    .wrap { max-width: 46rem; margin: 0 auto; padding: var(--space-3xl) var(--space-lg) var(--space-3xl); }
+    .wrap { max-width: 64rem; margin: 0 auto; padding: var(--space-3xl) var(--space-lg) var(--space-3xl); }
 
     .back-link {
       display: inline-flex;
@@ -60,61 +60,50 @@
     .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-md); margin-bottom: var(--space-lg); }
     .sec-head span { font-size: var(--text-xs); color: var(--color-neutral); white-space: nowrap; }
 
-    .index-list { border-top: 1px solid var(--color-rule); padding: 0 var(--space-sm); margin: 0 calc(var(--space-sm) * -1); }
+    .index-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-xl) var(--space-md);
+    }
 
     .index-row {
-      position: relative;
-      display: flex;
-      gap: var(--space-md);
-      align-items: flex-start;
-      padding: var(--space-md) var(--space-md);
+      display: block;
+      padding: var(--space-sm);
+      margin: calc(var(--space-sm) * -1);
       border-radius: var(--radius-md);
       text-decoration: none;
       color: inherit;
       transition: background var(--dur-short) var(--ease-out);
     }
 
-    /* divider drawn separately so the rounded hover corners don't curl the line */
-    .index-row::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 1px;
-      background: var(--color-rule);
-    }
-
     .index-row:hover { background: var(--color-paper-2); }
     .index-row:active { opacity: 0.7; }
 
-    .index-row__num { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-neutral); width: 2.5ch; flex-shrink: 0; }
-
     .index-row__thumb {
-      width: 84px; height: 62px; object-fit: cover; border-radius: var(--radius-sm);
-      flex-shrink: 0; background: var(--color-paper-2);
+      display: block;
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      background: var(--color-paper-2);
       box-shadow: 0 1px 2px rgba(0,0,0,0.06);
       transition: box-shadow var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
     }
 
     .index-row:hover .index-row__thumb {
       box-shadow: 0 14px 28px -8px rgba(0,0,0,0.35);
-      transform: translateY(-3px) scale(1.03);
+      transform: translateY(-3px) scale(1.02);
     }
 
-    .index-row__body { flex: 1; min-width: 0; }
-    .index-row__title { transition: color var(--dur-short) var(--ease-out); }
-    .index-row__desc { margin-top: var(--space-3xs); font-size: var(--text-sm); color: var(--color-muted); transition: color var(--dur-short) var(--ease-out); }
-    .index-row__cat { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-neutral); white-space: nowrap; flex-shrink: 0; transition: color var(--dur-short) var(--ease-out); }
+    .index-row__title { margin-top: var(--space-sm); transition: color var(--dur-short) var(--ease-out); }
+    .index-row__label { margin-top: var(--space-3xs); font-size: var(--text-sm); color: var(--color-muted); transition: color var(--dur-short) var(--ease-out); }
 
     .index-row:hover .index-row__title { color: var(--heading-olive); }
-    .index-row:hover .index-row__desc,
-    .index-row:hover .index-row__cat { color: var(--color-ink); }
+    .index-row:hover .index-row__label { color: var(--color-ink); }
 
     @media (max-width: 40rem) {
       .wrap { padding: var(--space-2xl) var(--space-md) var(--space-2xl); }
-      .index-row__thumb { width: 56px; height: 42px; }
-      .index-row__cat { display: none; }
+      .index-list { grid-template-columns: 1fr; }
     }
 
     /* ── Password gate ── */
@@ -234,16 +223,16 @@
       <a class="index-row" href="projects/ai-design-enablement.html" data-protected="2424">
         <img class="index-row__thumb" src="assets/images/workiva-tsmigration/migration-thumb.webp" alt="" />
         <div class="index-row__body">
-          <div class="index-row__title">66% Automated: Enterprise Migration</div>
-          <p class="index-row__desc">How I enabled engineers to migrate 31 of 47 product surfaces autonomously using a structured AI workflow, with zero production regressions.</p>
+          <div class="index-row__title">Automated Design System Migration</div>
+          <p class="index-row__label">Workiva • Financial Reporting • Design system migration</p>
         </div>
       </a>
 
       <a class="index-row" href="projects/historical-data-roll-forward.html" data-protected="2424">
         <img class="index-row__thumb" src="assets/images/placeholder-lock.svg" alt="" />
         <div class="index-row__body">
-          <div class="index-row__title">Historical Data Roll Forward</div>
-          <p class="index-row__desc">Designed core reporting tools that helped drive a 35% increase in YoY bookings.</p>
+          <div class="index-row__title">Updating Financial Data in Minutes</div>
+          <p class="index-row__label">Workiva • Financial Reporting • Workflow tool</p>
         </div>
       </a>
 
@@ -251,7 +240,7 @@
         <img class="index-row__thumb" src="assets/images/chase-video-platform/virtual-meeting-collab-1.webp" alt="" />
         <div class="index-row__body">
           <div class="index-row__title">Chase Advisor Video Platform</div>
-          <p class="index-row__desc">Built Chase's first video collaboration suite from scratch, enabling 5,000+ wealth advisors to meet clients remotely and launching a new investment product line.</p>
+          <p class="index-row__label">J.P. Morgan Chase • Video platform • 0-to-1</p>
         </div>
       </a>
 
@@ -259,7 +248,7 @@
         <img class="index-row__thumb" src="assets/images/jpmorgan-automated-investing/automated-investing-pulse-dashboard-19.webp" alt="" />
         <div class="index-row__body">
           <div class="index-row__title">J.P. Morgan Automated Investing</div>
-          <p class="index-row__desc">Redesigned a robo-advisor used by millions, reducing drop-off and generating $472M in assets under management.</p>
+          <p class="index-row__label">J.P. Morgan Chase • Investing tool</p>
         </div>
       </a>
 
@@ -267,7 +256,7 @@
         <img class="index-row__thumb" src="assets/images/wellbeing-dashboard-redesign/home-6.webp" alt="" />
         <div class="index-row__body">
           <div class="index-row__title">Well-being Dashboard Redesign</div>
-          <p class="index-row__desc">How I helped HR executives prove the ROI of employee well-being, saving Customer Success 600 hours a year in the process.</p>
+          <p class="index-row__label">Thrive Global • Wellness and productivity • Dashboard</p>
         </div>
       </a>
 
@@ -275,7 +264,7 @@
         <img class="index-row__thumb" src="assets/images/wellbeing-insights-dashboard/well-being-dashboard-insights-desktop.webp" alt="" />
         <div class="index-row__body">
           <div class="index-row__title">Employee Well-being Insights Dashboard</div>
-          <p class="index-row__desc">Designed the first user-level well-being dashboard at Thrive, driving a 31K increase in weekly check-in responses and a 90% interaction rate.</p>
+          <p class="index-row__label">Thrive Global • Wellness and productivity • Dashboard</p>
         </div>
       </a>
 
@@ -283,7 +272,7 @@
         <img class="index-row__thumb" src="assets/images/placeholder-lock.svg" alt="" />
         <div class="index-row__body">
           <div class="index-row__title">Structured Data North Star</div>
-          <p class="index-row__desc">A north star vision for Workiva's structured data tools, unifying a disconnected product suite with AI-driven tagging and guided workflows for compliance reporting.</p>
+          <p class="index-row__label">Workiva • Financial Reporting • North star vision</p>
         </div>
       </a>
 
@@ -291,7 +280,7 @@
         <img class="index-row__thumb" src="assets/images/internal-admin-tool/admin-tool-admin-dash.webp" alt="" />
         <div class="index-row__body">
           <div class="index-row__title">Internal Admin Tool Redesign</div>
-          <p class="index-row__desc">Replaced a deprecated customer admin tool in 6 weeks, improving onboarding speed and reducing support tickets caused by confusing group codes.</p>
+          <p class="index-row__label">Thrive Global • Wellness and productivity • Internal tool</p>
         </div>
       </a>
 
