@@ -16,14 +16,10 @@
   --accent2:            #47661f;
   --heading-olive:      #263a10;
   --brand-workiva:      #4fb84f;
-  --brand-workiva-soft: #e4ecfd;
   --brand-thrive:       #1f9c8a;
-  --brand-thrive-soft:  #dcf2ee;
   --brand-jpm:          #1279cd;
-  --brand-jpm-soft:     #e2e7ed;
 
   /* ── Type ── */
-  --font-display: "Cardo", "Iowan Old Style", Georgia, serif;
   --font-body:    "Geist", -apple-system, "Segoe UI", sans-serif;
   --font-mono:    "Geist Mono", ui-monospace, "SF Mono", monospace;
 
@@ -53,8 +49,6 @@
 
   /* ── Motion ── */
   --ease-out: ease-out;
-  --ease-in:  ease-in;
-  --ease-in-out: ease-in-out;
   --dur-short: 200ms;
   --dur-long:  300ms;
 }
@@ -74,10 +68,7 @@
     --accent2:            #a3ad7c;
     --heading-olive:      #b8c48e;
     --brand-workiva:      #7ed37e;
-    --brand-workiva-soft: #1c2740;
     --brand-thrive:       #5cc9b8;
-    --brand-thrive-soft:  #163330;
     --brand-jpm:          #4fa3e8;
-    --brand-jpm-soft:     #1c2530;
   }
 }
