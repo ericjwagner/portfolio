@@ -14,7 +14,6 @@
 
   /* ── Color — accent & brand (page-local usage, e.g. hover states, brand marks) ── */
   --accent2:            #47661f;
-  --accent2-soft:       #dde6c4;
   --heading-olive:      #263a10;
   --brand-workiva:      #4fb84f;
   --brand-workiva-soft: #e4ecfd;
@@ -47,7 +46,6 @@
   --space-xl:  2.5rem;
   --space-2xl: 4rem;
   --space-3xl: 6rem;
-  --space-4xl: 9rem;
 
   /* ── Radius ── */
   --radius-sm: 3px;
@@ -57,15 +55,8 @@
   --ease-out: ease-out;
   --ease-in:  ease-in;
   --ease-in-out: ease-in-out;
-  --dur-micro: 100ms;
   --dur-short: 200ms;
   --dur-long:  300ms;
-
-  /* ── Z ── */
-  --z-base: 1;
-  --z-raised: 10;
-  --z-sticky: 200;
-  --z-modal: 400;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -81,7 +72,6 @@
     --color-focus:       #f5f3ec;
 
     --accent2:            #a3ad7c;
-    --accent2-soft:       #2c2f1f;
     --heading-olive:      #b8c48e;
     --brand-workiva:      #7ed37e;
     --brand-workiva-soft: #1c2740;
