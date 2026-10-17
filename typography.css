@@ -43,7 +43,7 @@ a { color: inherit; }
   line-height: 1.4;
 }
 
-:where(.fav-link-list .link-name, .band-name, table.exp-table td.exp-company) {
+:where(.fav-link-list .link-name, table.exp-table td.exp-company) {
   font-family: var(--font-body);
   font-weight: 500;
   font-size: var(--text-base);

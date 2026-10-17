@@ -241,23 +241,6 @@
       }
     }
 
-    .view-all-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: var(--space-lg);
-      font-size: var(--text-base);
-      font-weight: 400;
-      color: var(--color-ink);
-      text-decoration: none;
-      border-bottom: 1.5px solid var(--color-rule);
-      padding-bottom: 1px;
-      transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
-    }
-    .view-all-link:hover { border-color: var(--accent2); }
-    .view-all-link svg { width: 12px; height: 12px; transition: transform var(--dur-short) var(--ease-out); }
-    .view-all-link:hover svg { transform: translate(3px, -3px); }
-
     /* ── Page-corner frame (ambient, static, site-wide) ── */
     .page-corner { position: fixed; width: 14px; height: 14px; z-index: 500; pointer-events: none; }
     .page-corner::before, .page-corner::after { content: ""; position: absolute; background: color-mix(in srgb, var(--accent2) 45%, var(--color-rule)); }
@@ -283,22 +266,12 @@
       margin-bottom: var(--space-md);
     }
 
-    .fav-subgroup-label {
-      font-size: var(--text-sm);
-      font-weight: 500;
-      color: var(--color-neutral);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-top: var(--space-lg);
-      margin-bottom: var(--space-2xs);
-    }
+    .fav-link-list { list-style: none; padding: 0 var(--space-sm); margin: 0 calc(var(--space-sm) * -1); }
 
-    .fav-link-list, .band-list { list-style: none; padding: 0 var(--space-sm); margin: 0 calc(var(--space-sm) * -1); }
+    .fav-link-list li { border-bottom: 1px solid var(--color-rule); }
+    .fav-link-list li:first-child { border-top: 1px solid var(--color-rule); }
 
-    .fav-link-list li, .band-list li { border-bottom: 1px solid var(--color-rule); }
-    .fav-link-list li:first-child, .band-list li:first-child { border-top: 1px solid var(--color-rule); }
-
-    .fav-link-list a, .band-list a {
+    .fav-link-list a {
       display: flex;
       align-items: center;
       gap: var(--space-md);
@@ -309,7 +282,7 @@
       transition: background var(--dur-short) var(--ease-out);
     }
 
-    .fav-link-list a:hover, .band-list a:hover { background: var(--color-paper-2); }
+    .fav-link-list a:hover { background: var(--color-paper-2); }
 
     .fav-link-list .link-thumb {
       width: 48px;
@@ -335,32 +308,11 @@
     .fav-link-list .link-content { display: flex; flex-direction: column; gap: var(--space-3xs); flex: 1; min-width: 0; }
     .fav-link-list .link-title-row { display: flex; align-items: center; gap: var(--space-xs); }
 
-    .fav-link-list .link-chip {
-      font-size: var(--text-xs);
-      color: var(--color-muted);
-      border: 1px solid var(--color-rule);
-      border-radius: var(--radius-sm);
-      padding: 1px var(--space-xs);
-      white-space: nowrap;
-    }
-
     .fav-link-list .link-domain {
       white-space: nowrap;
       flex-shrink: 0;
       margin-left: auto;
     }
-
-    .band-thumb {
-      width: 120px;
-      height: 120px;
-      border-radius: var(--radius-sm);
-      object-fit: cover;
-      flex-shrink: 0;
-      filter: grayscale(1);
-    }
-
-    .band-info { display: flex; flex-direction: column; gap: var(--space-3xs); }
-    .band-desc { font-size: var(--text-sm); color: var(--color-muted); }
 
     /* ── About (reversed) ── */
     .about-reverse {
@@ -431,106 +383,13 @@
 
     footer.foot-dense a:hover { text-decoration-color: var(--color-ink); }
 
-    /* ── Password gate ── */
-    .pw-overlay {
-      position: fixed; inset: 0; z-index: 1000;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(20, 18, 14, 0.45);
-      padding: var(--space-lg);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity var(--dur-short) var(--ease-out);
-    }
-    .pw-overlay.is-open { opacity: 1; pointer-events: auto; }
-
-    .pw-dialog {
-      position: relative;
-      width: 100%; max-width: 22rem;
-      background: var(--color-paper);
-      border: 1px solid var(--color-rule);
-      border-radius: var(--radius-md);
-      padding: var(--space-xl);
-      box-shadow: 0 24px 48px -12px rgba(0,0,0,0.35);
-      transform: translateY(8px) scale(0.98);
-      transition: transform var(--dur-short) var(--ease-out);
-    }
-
-    .pw-close {
-      position: absolute;
-      top: var(--space-md);
-      right: var(--space-md);
-      width: 28px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: none;
-      border: none;
-      color: var(--color-neutral);
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: color var(--dur-short) var(--ease-out), background var(--dur-short) var(--ease-out);
-    }
-    .pw-close:hover { color: var(--color-ink); background: var(--color-paper-2); }
-    .pw-close svg { width: 16px; height: 16px; }
-    .pw-overlay.is-open .pw-dialog { transform: none; }
-
-    .pw-dialog.is-shaking { animation: pw-shake 380ms var(--ease-out); }
-    @keyframes pw-shake {
-      10%, 90% { transform: translateX(-1px); }
-      20%, 80% { transform: translateX(2px); }
-      30%, 50%, 70% { transform: translateX(-5px); }
-      40%, 60% { transform: translateX(5px); }
-    }
-
-    .pw-dialog h2 { margin-bottom: var(--space-2xs); }
-    .pw-dialog p { font-size: var(--text-sm); color: var(--color-muted); margin-bottom: var(--space-md); }
-
-    .pw-otp { display: flex; gap: var(--space-sm); }
-
-    .pw-otp-digit {
-      width: 100%;
-      aspect-ratio: 1;
-      font-family: var(--font-mono);
-      font-size: var(--text-lg);
-      text-align: center;
-      color: var(--color-ink);
-      background: var(--color-paper-2);
-      border: 1px solid var(--color-rule);
-      border-radius: var(--radius-sm);
-      transition: border-color var(--dur-short) var(--ease-out);
-    }
-    .pw-otp-digit:focus { border-color: var(--color-ink); }
-    .pw-otp-digit.is-error { border-color: #b3492f; }
-
-    .pw-error {
-      font-size: var(--text-xs);
-      color: #b3492f;
-      margin-top: var(--space-2xs);
-      min-height: 1em;
-    }
-
-    .pw-actions { margin-top: var(--space-md); }
-
-    .pw-btn {
-      width: 100%;
-      font-family: var(--font-body);
-      font-size: var(--text-sm);
-      border-radius: var(--radius-sm);
-      padding: var(--space-sm) var(--space-md);
-      cursor: pointer;
-      transition: opacity var(--dur-short) var(--ease-out), background var(--dur-short) var(--ease-out);
-    }
-    .pw-btn-submit { background: var(--color-paper-2); border: 1px solid var(--color-rule); color: var(--color-ink); }
-    .pw-btn-submit:hover { border-color: var(--color-ink); }
-
     /* ══════════════════ Responsive ══════════════════ */
 
     @media (max-width: 40rem) {
       .wrap { padding: var(--space-2xl) var(--space-md) var(--space-2xl); }
-      .band-thumb { width: 84px; height: 84px; }
     }
   </style>
+  <link rel="stylesheet" href="gate.css">
 </head>
 <body>
 
@@ -755,90 +614,6 @@
     </form>
   </div>
 
-  <script>
-    (function () {
-      var overlay = document.getElementById('pwOverlay');
-      var dialog = document.getElementById('pwDialog');
-      var digits = Array.prototype.slice.call(document.querySelectorAll('.pw-otp-digit'));
-      var error = document.getElementById('pwError');
-      var cancelBtn = document.getElementById('pwCancel');
-      var pendingHref = null;
-
-      function currentValue() {
-        return digits.map(function (d) { return d.value; }).join('');
-      }
-
-      function clearError() {
-        digits.forEach(function (d) { d.classList.remove('is-error'); });
-        error.textContent = '';
-      }
-
-      function openDialog(href) {
-        pendingHref = href;
-        digits.forEach(function (d) { d.value = ''; });
-        clearError();
-        overlay.classList.add('is-open');
-        setTimeout(function () { digits[0].focus(); }, 0);
-      }
-
-      function closeDialog() {
-        overlay.classList.remove('is-open');
-        pendingHref = null;
-      }
-
-      document.querySelectorAll('[data-protected]').forEach(function (link) {
-        link.addEventListener('click', function (e) {
-          e.preventDefault();
-          openDialog({ url: link.getAttribute('href'), password: link.getAttribute('data-protected') });
-        });
-      });
-
-      digits.forEach(function (d, i) {
-        d.addEventListener('input', function () {
-          d.value = d.value.replace(/[^0-9]/g, '');
-          clearError();
-          if (d.value && i < digits.length - 1) digits[i + 1].focus();
-          if (d.value && i === digits.length - 1) dialog.requestSubmit();
-        });
-        d.addEventListener('keydown', function (e) {
-          if (e.key === 'Backspace' && !d.value && i > 0) digits[i - 1].focus();
-          if (e.key === 'ArrowLeft' && i > 0) digits[i - 1].focus();
-          if (e.key === 'ArrowRight' && i < digits.length - 1) digits[i + 1].focus();
-        });
-        d.addEventListener('paste', function (e) {
-          e.preventDefault();
-          var chars = (e.clipboardData.getData('text') || '').replace(/[^0-9]/g, '').split('');
-          digits.forEach(function (dg, j) { dg.value = chars[j] || ''; });
-          clearError();
-          var next = Math.min(chars.length, digits.length - 1);
-          digits[next].focus();
-        });
-      });
-
-      dialog.addEventListener('submit', function (e) {
-        e.preventDefault();
-        if (!pendingHref) return;
-        if (currentValue() === pendingHref.password) {
-          window.location.href = pendingHref.url;
-        } else {
-          digits.forEach(function (d) { d.classList.add('is-error'); });
-          error.textContent = 'Incorrect password.';
-          dialog.classList.remove('is-shaking');
-          void dialog.offsetWidth;
-          dialog.classList.add('is-shaking');
-          digits.forEach(function (d) { d.value = ''; });
-          digits[0].focus();
-        }
-      });
-
-      cancelBtn.addEventListener('click', closeDialog);
-      overlay.addEventListener('click', function (e) {
-        if (e.target === overlay) closeDialog();
-      });
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeDialog();
-      });
-    })();
-  </script>
+  <script src="gate.js"></script>
 
 </body></html>
