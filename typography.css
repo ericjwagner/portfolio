@@ -11,6 +11,10 @@
   line-height: 1.6;
 }
 
+/* Images carry width/height attributes to reserve space while they lazy-load;
+   this keeps the aspect ratio instead of treating height as a fixed size. */
+:where(img) { height: auto; }
+
 a { color: inherit; }
 
 :where(header h1, .who-text .name) {

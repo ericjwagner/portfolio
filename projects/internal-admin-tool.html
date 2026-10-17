@@ -322,7 +322,7 @@
   </header>
 
   <div class="thumbnail">
-    <img src="../assets/images/internal-admin-tool/admin-tool-admin-dash.webp" alt="Redesigned company detail page for VantagePoint Ventures, showing Identity Settings with sign-up codes, email domains, sign-up methods, and company select" />
+    <img src="../assets/images/internal-admin-tool/admin-tool-admin-dash.webp" alt="Redesigned company detail page for VantagePoint Ventures, showing Identity Settings with sign-up codes, email domains, sign-up methods, and company select" fetchpriority="high" width="2500" height="1667" />
   </div>
 
   <div class="case-study">
@@ -354,7 +354,7 @@
         The new identity provider changed relationships in the database schema. For example, Walmart Associates, Walmart Executives, and Walmart SSO shifted from a <em>company</em> value to a <em>group</em> value — a subtle but impactful change that affected how the UI needed to present data.
       </p>
       <figure>
-        <img src="../assets/images/internal-admin-tool/admin-tool-idp.webp" alt="Diagram comparing the old data model, where company mapped directly to sign-up code, to the new model, where a company has multiple groups that each map to a sign-up code" />
+        <img src="../assets/images/internal-admin-tool/admin-tool-idp.webp" alt="Diagram comparing the old data model, where company mapped directly to sign-up code, to the new model, where a company has multiple groups that each map to a sign-up code" loading="lazy" decoding="async" width="2132" height="664" />
       </figure>
       <h3>Understanding the users</h3>
       <p>
@@ -363,17 +363,17 @@
       <div class="shot-row">
         <div class="shot">
           <figure>
-            <img src="../assets/images/internal-admin-tool/admin-tool-personas.webp" alt="Roster of interview participants spanning Customer Support and Customer Success, including directors, product support, implementation managers, solutions architects, and customer success managers" />
+            <img src="../assets/images/internal-admin-tool/admin-tool-personas.webp" alt="Roster of interview participants spanning Customer Support and Customer Success, including directors, product support, implementation managers, solutions architects, and customer success managers" loading="lazy" decoding="async" width="2034" height="848" />
           </figure>
         </div>
         <div class="shot">
           <figure>
-            <img src="../assets/images/internal-admin-tool/admin-tool-quotes.webp" alt="Collage of support emails from customers asking for their group sign-up code" />
+            <img src="../assets/images/internal-admin-tool/admin-tool-quotes.webp" alt="Collage of support emails from customers asking for their group sign-up code" loading="lazy" decoding="async" width="2500" height="985" />
           </figure>
         </div>
       </div>
       <figure>
-        <img src="../assets/images/internal-admin-tool/admin-tool-affinity-2.webp" alt="Affinity map clustering research notes into groups: group codes, key metrics, email domains, learn modules, company selector, avoiding slips and mistakes, UX heuristics, and automation" />
+        <img src="../assets/images/internal-admin-tool/admin-tool-affinity-2.webp" alt="Affinity map clustering research notes into groups: group codes, key metrics, email domains, learn modules, company selector, avoiding slips and mistakes, UX heuristics, and automation" loading="lazy" decoding="async" width="1938" height="1534" />
       </figure>
       <p>
         An affinity map of research notes surfaced recurring pain points around group codes, key metrics, email domains, and the company selector — along with themes about avoiding slips and mistakes, UX heuristics violations, and opportunities for automation.
@@ -386,7 +386,7 @@
         I started with rough sketches to establish the new framework, looped in the team for feedback early, then moved to high-fidelity designs using real data.
       </p>
       <figure>
-        <img src="../assets/images/internal-admin-tool/admin-tool-lofi-1.webp" alt="Low-fidelity wireframe of the admin tool home screen, showing a search bar, recently viewed companies, and a full company list" />
+        <img src="../assets/images/internal-admin-tool/admin-tool-lofi-1.webp" alt="Low-fidelity wireframe of the admin tool home screen, showing a search bar, recently viewed companies, and a full company list" loading="lazy" decoding="async" width="1486" height="1238" />
       </figure>
       <p>
         I created prototypes and had users complete their three most common tasks, measuring success rates to validate the direction.
@@ -395,8 +395,8 @@
         Mid-project, new requirements arrived: new companies would now automatically receive default content via CMS, which changed what needed to live on the company detail page. I adapted the design — bringing Identity Settings forward and adding a dedicated Licenses tab — to keep the page useful without the removed content cards.
       </p>
       <div class="ba-slider" id="companyPageSlider">
-        <img class="ba-layer-base" src="../assets/images/internal-admin-tool/admin-tool-r3-2-2-1.webp" alt="After: redesigned company detail page showing only Identity Settings and Licenses, with the CMS-managed content removed" />
-        <img class="ba-layer-clip" src="../assets/images/internal-admin-tool/admin-tool-group-701.webp" alt="Before: company detail page with the Courses, Journeys, and Role models cards crossed out in red, marking the content that moved to CMS-managed defaults" />
+        <img class="ba-layer-base" src="../assets/images/internal-admin-tool/admin-tool-r3-2-2-1.webp" alt="After: redesigned company detail page showing only Identity Settings and Licenses, with the CMS-managed content removed" loading="lazy" decoding="async" width="1572" height="1456" />
+        <img class="ba-layer-clip" src="../assets/images/internal-admin-tool/admin-tool-group-701.webp" alt="Before: company detail page with the Courses, Journeys, and Role models cards crossed out in red, marking the content that moved to CMS-managed defaults" loading="lazy" decoding="async" width="1000" height="926" />
         <span class="ba-tag ba-tag-before">Before</span>
         <span class="ba-tag ba-tag-after">After</span>
         <div class="ba-handle"></div>
@@ -411,35 +411,35 @@
           <h3>Group code visibility</h3>
           <p>Users who forgot their group code accounted for 31%+ of support tickets. Added clear descriptions for group and sign-up codes so CS could identify and share them quickly.</p>
           <figure>
-            <img src="../assets/images/internal-admin-tool/admin-tool-card-1.webp" alt="Sign-up codes card showing group, description, code, start date, and end date columns" />
+            <img src="../assets/images/internal-admin-tool/admin-tool-card-1.webp" alt="Sign-up codes card showing group, description, code, start date, and end date columns" loading="lazy" decoding="async" width="660" height="373" />
           </figure>
         </div>
         <div class="feature-item">
           <h3>Improved company search</h3>
           <p>Users can now find "CliftonLarsonAllen" by typing "CLA." Cleaned, deduped data enables company relationships and new self-serve CRUD actions, eliminating requests to the identity team.</p>
           <figure>
-            <img src="../assets/images/internal-admin-tool/admin-tool-group-5-1.webp" alt="Company search dropdown showing matching results for the letter W, including Walmart and its subsidiaries" />
+            <img src="../assets/images/internal-admin-tool/admin-tool-group-5-1.webp" alt="Company search dropdown showing matching results for the letter W, including Walmart and its subsidiaries" loading="lazy" decoding="async" width="1047" height="932" />
           </figure>
         </div>
         <div class="feature-item">
           <h3>No more copy slips</h3>
           <p>Implementation managers had to copy a customerID from the URL — slips were common. Added a persistent, fool-proof copy control to eliminate the error.</p>
           <figure>
-            <img src="../assets/images/internal-admin-tool/admin-tool-group-6-1.webp" alt="Toast confirmation reading company ID copied to clipboard, triggered from the copy icon next to a company's ID" />
+            <img src="../assets/images/internal-admin-tool/admin-tool-group-6-1.webp" alt="Toast confirmation reading company ID copied to clipboard, triggered from the copy icon next to a company's ID" loading="lazy" decoding="async" width="1047" height="932" />
           </figure>
         </div>
         <div class="feature-item">
           <h3>Integrated usage metrics</h3>
           <p>Embedded Google Analytics adoption data directly into the tool so CSMs could respond to customer usage requests without a separate system.</p>
           <figure>
-            <img src="../assets/images/internal-admin-tool/admin-tool-r3-3-2-1.webp" alt="Licenses tab showing total unique users, license utilization rate, and active users by week and month charts" />
+            <img src="../assets/images/internal-admin-tool/admin-tool-r3-3-2-1.webp" alt="Licenses tab showing total unique users, license utilization rate, and active users by week and month charts" loading="lazy" decoding="async" width="1047" height="932" />
           </figure>
         </div>
         <div class="feature-item">
           <h3>Modular, extensible framework</h3>
           <p>Built new components, rules, and states from the design system so future teams could add features without starting from scratch.</p>
           <figure>
-            <img src="../assets/images/internal-admin-tool/admin-tool-frame-21-1.webp" alt="Component set built for the redesign: add/edit sign-up codes modal, manage groups modal, edit sign-up methods modal, company search, copy confirmation, and edit courses modal" />
+            <img src="../assets/images/internal-admin-tool/admin-tool-frame-21-1.webp" alt="Component set built for the redesign: add/edit sign-up codes modal, manage groups modal, edit sign-up methods modal, company search, copy confirmation, and edit courses modal" loading="lazy" decoding="async" width="1015" height="778" />
           </figure>
         </div>
       </div>
@@ -451,7 +451,7 @@
         The new tool became the one-stop shop for managing Thrive for Call Centers configurations — keeping all existing functionality, handling the new IdP data model, and leaving the codebase in a state the next team could build on.
       </p>
       <figure>
-        <img src="../assets/images/internal-admin-tool/admin-tool-r3-1.webp" alt="Final All Companies list view, showing active company cards with IDs, subscriptions, and sign-up code counts" />
+        <img src="../assets/images/internal-admin-tool/admin-tool-r3-1.webp" alt="Final All Companies list view, showing active company cards with IDs, subscriptions, and sign-up code counts" loading="lazy" decoding="async" width="1640" height="1509" />
       </figure>
       <div class="quotes">
         <blockquote>
