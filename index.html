@@ -317,14 +317,14 @@
 
     /* ── About (reversed) ── */
     .about-reverse {
-      background: var(--color-ink);
-      color: var(--color-paper);
-      margin-top: var(--space-3xl);
-      padding: var(--space-3xl) 0;
+      color: var(--color-ink);
+      width: calc(100% - 2 * var(--space-lg));
+      max-width: calc(46rem - 2 * var(--space-lg));
+      margin: var(--space-3xl) auto 0;
+      padding: var(--space-2xl) 0;
+      border-top: 1px solid var(--color-rule);
+      border-bottom: 1px solid var(--color-rule);
     }
-
-    .about-reverse .sec-head h2 { color: var(--color-paper); }
-    .about-reverse .sec-head span { color: color-mix(in srgb, var(--color-paper) 45%, transparent); }
 
     .about-cols {
       display: grid;
@@ -336,7 +336,7 @@
       font-size: var(--text-md);
       line-height: 1.7;
       max-width: 56ch;
-      color: color-mix(in srgb, var(--color-paper) 88%, transparent);
+      color: var(--color-muted);
     }
 
     .exp-label {
@@ -388,6 +388,7 @@
 
     @media (max-width: 40rem) {
       .wrap { padding: var(--space-2xl) var(--space-md) var(--space-2xl); }
+      .about-reverse { width: calc(100% - 2 * var(--space-md)); }
     }
   </style>
   <link rel="stylesheet" href="gate.css">
@@ -443,7 +444,7 @@
 
   <!-- About (reversed background) -->
   <section id="about" class="about-reverse">
-    <div class="wrap" style="padding-top: 0; padding-bottom: 0;">
+    <div class="wrap" style="padding: 0;">
       <div class="sec-head">
         <h2>About me</h2>
       </div>
