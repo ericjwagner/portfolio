@@ -95,31 +95,8 @@
 
     .case-study p:last-child { margin-bottom: 0; }
 
-    /* ── Impact cards ── */
-    .impact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: var(--space-md);
-      margin-bottom: var(--space-xl);
-    }
-
-    .impact-card {
-      border: 1px solid var(--color-rule);
-      border-radius: var(--radius-md);
-      padding: var(--space-md);
-    }
-
-    .impact-card h3 {
-      font-size: var(--text-sm);
-      font-weight: 600;
-      margin-bottom: var(--space-2xs);
-    }
-
-    .impact-card p {
-      font-size: var(--text-sm);
-      color: var(--color-muted);
-      line-height: 1.5;
-    }
+    .findings { padding-left: var(--space-md); }
+    .findings li { margin-bottom: var(--space-xs); }
 
     /* ── Solution images ── */
     .solution-image {
@@ -141,24 +118,25 @@
     .quotes {
       display: flex;
       flex-direction: column;
-      gap: var(--space-lg);
+      gap: var(--space-sm);
       margin-top: var(--space-xs);
     }
 
     blockquote {
-      border-left: 3px solid var(--color-rule);
-      padding-left: var(--space-md);
+      background: var(--color-paper-2);
+      border-left: 3px solid var(--accent2);
+      padding: var(--space-md);
     }
 
-    blockquote p {
-      font-size: var(--text-sm);
+    .case-study blockquote p {
+      font-size: var(--text-base);
       color: var(--color-muted);
       line-height: 1.65;
       margin-bottom: var(--space-2xs);
     }
 
     blockquote cite {
-      font-size: var(--text-xs);
+      font-size: var(--text-sm);
       color: var(--color-neutral);
       font-style: normal;
     }
@@ -183,7 +161,6 @@
 
     @media (max-width: 600px) {
       header { padding: var(--space-xl) 0 var(--space-lg); }
-      .impact-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -198,7 +175,7 @@
   </header>
 
   <div class="thumbnail">
-    <img src="https://images.unsplash.com/photo-1521489871110-81dc5a61dbda?ixlib=rb-4.1.0&w=1600&q=85&fm=jpg&crop=entropy&cs=srgb" alt="Structured Data North Star" />
+    <img src="../assets/images/workiva-north-star/north-star-hero.webp" alt="AI recommendations in the Select concept dialog and the XBRL Tagging panel" />
   </div>
 
   <div class="case-study">
@@ -209,83 +186,120 @@
         Workiva is a B2B platform that helps large organizations manage complex reporting and compliance workflows. This work centers on financial reporting, where structured data organizes financial numbers into standardized formats used for SEC filings.
       </p>
       <p>
-        My role: UX lead — user research, UX strategy, concept design, prototyping, and user testing.
+        XBRL (eXtensible Business Reporting Language) is a machine-readable format that tags financial data so regulators like the SEC and investors can read and analyze company filings.
       </p>
-    </section>
-
-    <section style="margin-bottom: 0;">
-      <h2>Impact</h2>
-    </section>
-
-  </div>
-
-  <div class="impact-grid">
-    <div class="impact-card">
-      <h3>Simplify tagging</h3>
-      <p>Streamline tagging to maintain compliance and accuracy, enabling users to work faster and with greater confidence.</p>
-    </div>
-    <div class="impact-card">
-      <h3>Clarify validation messages</h3>
-      <p>Provide clear, actionable error messages that help users resolve problems efficiently and independently.</p>
-    </div>
-    <div class="impact-card">
-      <h3>Empower users with guidance</h3>
-      <p>Provide training and guidance to support accurate tagging, efficient troubleshooting, and user confidence in a complex taxonomy.</p>
-    </div>
-  </div>
-
-  <div class="case-study">
-
-    <section>
-      <h2>Problem</h2>
       <p>
-        Our structured data tools are powerful but disconnected, making users navigate inconsistent workflows, increasing errors, and making it especially difficult for new users to succeed. Without a unified vision, these inefficiencies hold the platform back from scaling, modernizing, and delivering its full value.
+        My role: UX lead from start to finish
       </p>
     </section>
 
     <section>
-      <h2>Opportunity</h2>
-      <h3>Make structured data accessible</h3>
-      <p>Design intuitive, guided workflows that help first-time users navigate structured data reporting, especially as new ESG requirements expand the user base.</p>
-      <h3>Automate repetitive tasks</h3>
-      <p>Reduce manual work and simplify complex workflows with automation that saves time, minimizes errors, and improves confidence.</p>
-      <h3>Reinforce the industry standard</h3>
-      <p>Build on our position as the industry leader to create a unified, modern, user-centered platform that sets the standard for structured data reporting.</p>
+      <h2>Structured data tools are powerful, but their complexity creates friction, errors and reliance on professional services.</h2>
+      <p>
+        When I joined Workiva, my first mandate was to set a multi-year North Star vision for our XBRL product suite in six months, in a domain defined by dense data and complex regulatory nuance.
+      </p>
+      <p>
+        How complex? Workiva maintains a 50+ person Professional Services team dedicated to this domain, as most customers opt for our higher-cost services over our DIY option.
+      </p>
+      <div class="solution-image">
+        <img src="../assets/images/workiva-north-star/xbrl-product-overview.webp" alt="Annotated Workiva XBRL product showing the toolbar, validations, outline, tagged values and fact details" loading="lazy" decoding="async" />
+      </div>
+      <p>
+        To move fast, I ran workshops with product and domain stakeholders, interviewed our most tenured engineers (12+ years), and sat with our services team to understand pain points. This built trust, relationships and buy-in. This research informed the 3 pillars that I would use to guide my conceptual prototype designs.
+      </p>
     </section>
 
     <section>
-      <h2>Solution</h2>
+      <h2>3 Pillars of the North Star</h2>
+      <div class="solution-image" style="aspect-ratio: 2000 / 949;">
+        <img src="../assets/images/workiva-north-star/north-star-pillars.webp" alt="North Star Pillars: Tagging assistance, Validation clarity, Help and support" loading="lazy" decoding="async" />
+      </div>
+
+      <h3>1. Tagging is complex and XBRL expertise is crucial</h3>
+      <p>Customers struggle with XBRL tagging, facing validation errors and repetitive adjustments. The process is time-consuming and frustrating without expert guidance.</p>
+      <p>Users need more in-platform help to streamline tagging, often turning to external resources due to our platform's complexity. Meeting these needs will enhance their tagging experience.</p>
+
+      <h3>2. Validation messages are unclear and frustrating</h3>
+      <p>Users want to fix errors themselves before turning to Professional Services. Resolving issues often requires trial and error, consulting colleagues, or searching through support resources. For more complex errors, self-troubleshooting can take hours, impacting productivity.</p>
+      <div class="solution-image">
+        <img src="../assets/images/workiva-north-star/validation-pain-points.webp" alt="XBRL validations panel annotated with pain points: repetitive validations, no prioritization, too much effort to find what is wrong, convoluted compliance language" loading="lazy" decoding="async" />
+      </div>
+
+      <h3>3. Users seek guidance</h3>
+      <p>Users struggle with tagging accurately in a vast taxonomy. They seek automation to reduce effort and boost confidence, and they want to resolve issues independently but get stuck on error messages. More detailed, user-friendly error messages can help with troubleshooting.</p>
+      <div class="quotes">
+        <blockquote>
+          <p>It will save a lot of time Googling. Because we only do it once a year, and we always forget how to solve it.</p>
+          <cite>Senior Advisor, Financial Reporting Group, Zalando</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <section>
+      <h2>Users want a solution that's intuitive and requires minimal XBRL expertise.</h2>
+      <p>I created conceptual prototypes addressing the common pain points between customers and our PS team. After testing with these users I synthesized the feedback and made adjustments to the designs.</p>
+      <ol class="findings">
+        <li>Users want assistance with XBRL tagging and believe AI recommendations will save them time and clicks</li>
+        <li>Users preferred smart sorting as a more efficient way to address validations</li>
+        <li>Users demand clear visibility into AI-driven changes to cross-reference with their own domain expertise. They want full control to review and revert AI changes, and desire to preserve critical thinking skills</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>North Star Vision</h2>
 
       <h3>Highlight untagged values</h3>
       <p>Scan and highlight untagged values to reduce cognitive load, direct users' attention, and speed up the tagging workflow.</p>
-      <div class="solution-image">
-        <img src="https://images.unsplash.com/photo-1521489871110-81dc5a61dbda?ixlib=rb-4.1.0&w=1600&q=85&fm=jpg&crop=entropy&cs=srgb" alt="Highlight untagged values" loading="lazy" decoding="async" />
+      <div class="solution-image" style="aspect-ratio: 2000 / 1484;">
+        <img src="../assets/images/workiva-north-star/untagged-scan-tagging-panel.webp" alt="Scan for untagged facts dialog and the XBRL Tagging guide listing tagged and untagged facts" loading="lazy" decoding="async" />
+      </div>
+      <div class="solution-image" style="aspect-ratio: 2000 / 1164;">
+        <img src="../assets/images/workiva-north-star/untagged-highlighted-document.webp" alt="Document with untagged values highlighted beside the XBRL Tagging guide" loading="lazy" decoding="async" />
       </div>
 
       <h3>AI-driven recommendations</h3>
       <p>Leverage AI to help users select accurate tags and understand document context, increasing confidence, reducing validation issues, and improving overall tagging completeness.</p>
-      <div class="solution-image">
-        <img src="https://images.unsplash.com/photo-1521489871110-81dc5a61dbda?ixlib=rb-4.1.0&w=1600&q=85&fm=jpg&crop=entropy&cs=srgb" alt="AI-driven recommendations" loading="lazy" decoding="async" />
+      <div class="solution-image" style="aspect-ratio: 2000 / 1252;">
+        <img src="../assets/images/workiva-north-star/ai-recommendations-fact-details.webp" alt="Select concept dialog with AI recommendations beside the XBRL Tagging Fact Details panel with an AI-suggested date" loading="lazy" decoding="async" />
+      </div>
+      <div class="solution-image" style="aspect-ratio: 2000 / 1127;">
+        <img src="../assets/images/workiva-north-star/ai-recommendations-select-concept.webp" alt="Select concept dialog with AI recommendations for the concept Warrants and Rights Outstanding" loading="lazy" decoding="async" />
       </div>
 
       <h3>Categorized validation messages</h3>
       <p>By grouping validation messages into organized categories, users can quickly identify, prioritize, and resolve similar issues, instead of scrolling through repeated messages.</p>
-      <div class="solution-image">
-        <img src="https://images.unsplash.com/photo-1521489871110-81dc5a61dbda?ixlib=rb-4.1.0&w=1600&q=85&fm=jpg&crop=entropy&cs=srgb" alt="Categorized validation messages" loading="lazy" decoding="async" />
+      <div class="solution-image" style="aspect-ratio: 2000 / 1696;">
+        <img src="../assets/images/workiva-north-star/categorized-validation-messages.webp" alt="Validation messages now, a long repetitive list, compared with the North Star, grouped into categories with counts" loading="lazy" decoding="async" />
       </div>
 
       <h3>Smart sorting</h3>
       <p>By sorting and filtering validation messages by priority, users can focus on resolving key errors first and better manage large volumes of errors.</p>
-      <div class="solution-image">
-        <img src="https://images.unsplash.com/photo-1521489871110-81dc5a61dbda?ixlib=rb-4.1.0&w=1600&q=85&fm=jpg&crop=entropy&cs=srgb" alt="Smart sorting" loading="lazy" decoding="async" />
+      <div class="solution-image" style="aspect-ratio: 2000 / 1503;">
+        <img src="../assets/images/workiva-north-star/smart-sorting.webp" alt="Validations panel with Smart sort selected and a filter menu for errors, warnings and informationals" loading="lazy" decoding="async" />
       </div>
 
-      <h3>Guided error resolution</h3>
-      <p>Receive step-by-step instructions to resolve validation issues — without searching documentation or waiting for support — while retaining the ability to review changes for accuracy and compliance.</p>
+      <h3>Guided error resolution with human review</h3>
+      <p>Receive step-by-step instructions to resolve validation issues, without searching documentation or waiting for support, while retaining the ability to review changes for accuracy and compliance.</p>
+      <div class="solution-image" style="aspect-ratio: 2000 / 1527;">
+        <img src="../assets/images/workiva-north-star/guided-error-resolution.webp" alt="Concept not in outline error with step-by-step how to fix instructions and a Fix with AI button" loading="lazy" decoding="async" />
+      </div>
+      <div class="solution-image" style="aspect-ratio: 2000 / 1233;">
+        <img src="../assets/images/workiva-north-star/guided-error-resolution-in-context.webp" alt="Concept not in outline error panel beside the cash flow statement with the affected net loss value highlighted" loading="lazy" decoding="async" />
+      </div>
+
+      <h3>Trust, but verify AI-generated fixes</h3>
+      <p>Let the AI resolve errors, then review changes to ensure accuracy for peace of mind.</p>
+      <div class="solution-image" style="aspect-ratio: 2000 / 1500;">
+        <img src="../assets/images/workiva-north-star/trust-but-verify.webp" alt="Confirmation that an AI fix added Net Income (Loss) Attributable to Parent to the outline, with Undo and Open outline actions" loading="lazy" decoding="async" />
+      </div>
     </section>
 
     <section>
-      <h2>Reception</h2>
+      <h2>Customers and Professional Services can't wait</h2>
+      <div class="solution-image" style="aspect-ratio: 2000 / 813;">
+        <img src="../assets/images/workiva-north-star/customer-quote-gatx.webp" alt="I really like it because you don't need to have the entire knowledge of the taxonomy and XBRL. You just rely on the system, and I like it. Financial Reporting Manager, GATX Corporation" loading="lazy" decoding="async" />
+      </div>
+      <h3>Customers</h3>
       <div class="quotes">
         <blockquote>
           <p>"I'm positively impressed. I'd love to have this for this closing."</p>
@@ -295,10 +309,9 @@
           <p>"It will greatly improve time spent tagging."</p>
           <cite>Compliance Accountant, Aflac</cite>
         </blockquote>
-        <blockquote>
-          <p>"I really like it because you don't need to have the entire knowledge of the taxonomy. You just rely on the system, and I like it."</p>
-          <cite>Financial Reporting Manager, GATX Corporation</cite>
-        </blockquote>
+      </div>
+      <h3>Professional Services</h3>
+      <div class="quotes">
         <blockquote>
           <p>"This will definitely reduce the tagging time and review time. I can allocate myself to the quality of the tagging as opposed to getting the tagging done."</p>
           <cite>Senior Professional Services Manager, Workiva</cite>
@@ -311,9 +324,9 @@
     </section>
 
     <section>
-      <h2>Conclusion</h2>
+      <h2>I translated a complex, surface area into validated concepts</h2>
       <p>
-        The North Star guides our work, showcasing a bold vision and features that put users first. It helps focus on high-value features, accelerate discovery, and set a standard for high quality experiences. By keeping the North Star in view, the team stays aligned on the impact we want to deliver, even as details evolve.
+        By focusing on core user pain points rather than domain minutiae, I translated a high-friction product area into validated concepts, setting a clear multi-year North Star vision in five months and introducing AI features our teams are actively building today.
       </p>
     </section>
 

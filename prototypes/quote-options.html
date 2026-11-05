@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Quote: 6 alternatives</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Familjen+Grotesk:wght@400;600;700&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../typography.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); background: var(--color-paper); color: var(--color-ink); line-height: 1.6; }
+  .container { max-width: 860px; margin: 0 auto; padding: var(--space-xl) var(--space-lg); }
+  .case-study { max-width: 640px; }
+  .option { margin-bottom: var(--space-2xl); }
+  .label { font-size: var(--text-sm); color: var(--color-neutral); margin-bottom: var(--space-sm); font-family: var(--font-mono); }
+  .case-study p { margin-bottom: var(--space-sm); }
+  cite { font-style: normal; }
+
+  /* A: Oversized serif, hanging mark */
+  .qa { position: relative; padding-left: var(--space-xl); margin: var(--space-md) 0; }
+  .qa::before {
+    content: "\201C"; position: absolute; left: -4px; top: -18px;
+    font-family: var(--font-display); font-size: 5rem; line-height: 1; color: var(--accent2);
+  }
+  .qa p { font-family: var(--font-display); font-size: var(--text-lg); font-style: italic; line-height: 1.35; color: var(--heading-olive); margin-bottom: var(--space-sm); }
+  .qa cite { font-size: var(--text-sm); color: var(--color-muted); }
+
+  /* B: Soft card with person line */
+  .qb { background: var(--color-paper-2); border-radius: var(--radius-md); padding: var(--space-lg); margin: var(--space-md) 0; }
+  .qb p { font-family: "Familjen Grotesk", var(--font-body), sans-serif; font-size: var(--text-lg); line-height: 1.35; color: var(--heading-olive); margin-bottom: var(--space-md); }
+  .qb cite { display: flex; align-items: center; gap: var(--space-xs); font-size: var(--text-sm); color: var(--color-muted); }
+  .qb cite::before { content: ""; width: 24px; height: 1.5px; background: var(--accent2); }
+
+  /* C: Full-bleed olive statement */
+  .qc { background: var(--heading-olive); color: var(--color-paper); border-radius: var(--radius-md); padding: var(--space-xl) var(--space-lg); margin: var(--space-md) 0; }
+  .qc p { font-family: "Familjen Grotesk", var(--font-body), sans-serif; font-size: var(--text-lg); line-height: 1.35; color: var(--color-paper); margin-bottom: var(--space-md); }
+  .qc cite { font-size: var(--text-sm); color: var(--accent2-soft); letter-spacing: 0.01em; }
+
+  /* D: Two-column, attribution in the margin column */
+  .qd { display: grid; grid-template-columns: 150px 1fr; gap: var(--space-md); border-top: 1.5px solid var(--color-ink); padding-top: var(--space-sm); margin: var(--space-md) 0; }
+  .qd cite { order: -1; font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-muted); line-height: 1.5; text-transform: uppercase; letter-spacing: 0.04em; }
+  .qd p { font-family: "Familjen Grotesk", var(--font-body), sans-serif; font-size: var(--text-lg); line-height: 1.35; color: var(--heading-olive); margin: 0; }
+
+  /* E: Centered, serif, between short rules */
+  .qe { text-align: center; padding: var(--space-lg) var(--space-md); margin: var(--space-md) 0; }
+  .qe::before, .qe::after { content: ""; display: block; width: 48px; height: 1.5px; background: var(--accent2); margin: 0 auto; }
+  .qe p { font-family: var(--font-display); font-size: var(--text-lg); line-height: 1.4; color: var(--color-ink); margin: var(--space-md) 0 var(--space-sm); }
+  .qe cite { display: block; font-size: var(--text-sm); color: var(--color-muted); margin-bottom: var(--space-md); }
+
+  /* F: Pale olive tint, oversized quote glyph, no border */
+  .qf { position: relative; background: var(--accent2-soft); border-radius: var(--radius-md); padding: var(--space-lg) var(--space-lg) var(--space-md); margin: var(--space-md) 0; overflow: hidden; }
+  .qf::before { content: "\201C"; position: absolute; right: var(--space-sm); top: -28px; font-family: var(--font-display); font-size: 9rem; line-height: 1; color: var(--accent2); opacity: 0.2; }
+  .qf p { position: relative; padding-right: var(--space-xl); font-family: "Familjen Grotesk", var(--font-body), sans-serif; font-size: var(--text-lg); line-height: 1.35; color: var(--heading-olive); margin-bottom: var(--space-sm); }
+  .qf cite { position: relative; font-size: var(--text-sm); color: var(--heading-olive); opacity: 0.8; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="case-study">
+
+    <div class="option">
+      <div class="label">A · Serif italic with hanging quotation mark</div>
+      <p>Users struggle with tagging accurately in a vast taxonomy. They seek automation to reduce effort and boost confidence.</p>
+      <blockquote class="qa">
+        <p>It will save a lot of time Googling. Because we only do it once a year, and we always forget how to solve it.</p>
+        <cite>Senior Advisor, Financial Reporting Group, Zalando</cite>
+      </blockquote>
+      <p>Users want a solution that's intuitive and requires minimal XBRL expertise.</p>
+    </div>
+
+    <div class="option">
+      <div class="label">B · Soft card with short olive rule before the name</div>
+      <p>Users struggle with tagging accurately in a vast taxonomy. They seek automation to reduce effort and boost confidence.</p>
+      <blockquote class="qb">
+        <p>It will save a lot of time Googling. Because we only do it once a year, and we always forget how to solve it.</p>
+        <cite>Senior Advisor, Financial Reporting Group, Zalando</cite>
+      </blockquote>
+      <p>Users want a solution that's intuitive and requires minimal XBRL expertise.</p>
+    </div>
+
+    <div class="option">
+      <div class="label">C · Dark olive block, light text</div>
+      <p>Users struggle with tagging accurately in a vast taxonomy. They seek automation to reduce effort and boost confidence.</p>
+      <blockquote class="qc">
+        <p>It will save a lot of time Googling. Because we only do it once a year, and we always forget how to solve it.</p>
+        <cite>Senior Advisor, Financial Reporting Group, Zalando</cite>
+      </blockquote>
+      <p>Users want a solution that's intuitive and requires minimal XBRL expertise.</p>
+    </div>
+
+    <div class="option">
+      <div class="label">D · Attribution in a left margin column, heavy top rule</div>
+      <p>Users struggle with tagging accurately in a vast taxonomy. They seek automation to reduce effort and boost confidence.</p>
+      <blockquote class="qd">
+        <p>It will save a lot of time Googling. Because we only do it once a year, and we always forget how to solve it.</p>
+        <cite>Senior Advisor, Financial Reporting Group, Zalando</cite>
+      </blockquote>
+      <p>Users want a solution that's intuitive and requires minimal XBRL expertise.</p>
+    </div>
+
+    <div class="option">
+      <div class="label">E · Centered serif between short olive rules</div>
+      <p>Users struggle with tagging accurately in a vast taxonomy. They seek automation to reduce effort and boost confidence.</p>
+      <blockquote class="qe">
+        <p>It will save a lot of time Googling. Because we only do it once a year, and we always forget how to solve it.</p>
+        <cite>Senior Advisor, Financial Reporting Group, Zalando</cite>
+      </blockquote>
+      <p>Users want a solution that's intuitive and requires minimal XBRL expertise.</p>
+    </div>
+
+    <div class="option">
+      <div class="label">F · Pale olive tint with oversized ghost quote mark</div>
+      <p>Users struggle with tagging accurately in a vast taxonomy. They seek automation to reduce effort and boost confidence.</p>
+      <blockquote class="qf">
+        <p>It will save a lot of time Googling. Because we only do it once a year, and we always forget how to solve it.</p>
+        <cite>Senior Advisor, Financial Reporting Group, Zalando</cite>
+      </blockquote>
+      <p>Users want a solution that's intuitive and requires minimal XBRL expertise.</p>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
